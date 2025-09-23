@@ -1,5 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import ExerciseBloc from '#models/exercise_bloc'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import Exercise from '#models/exercise'
 
 export default class Set extends BaseModel {
   @column({ isPrimary: true })
@@ -25,4 +28,12 @@ export default class Set extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  // Relations
+
+  @belongsTo(() => ExerciseBloc)
+  declare exerciseBloc: BelongsTo<typeof ExerciseBloc>
+
+  @hasMany(() => Exercise)
+  declare exercises: HasMany<typeof Exercise>
 }
