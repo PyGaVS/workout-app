@@ -11,6 +11,9 @@ export default class ExerciseBloc extends BaseModel {
   @column()
   declare title: string
 
+  @column()
+  declare workoutId: number
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

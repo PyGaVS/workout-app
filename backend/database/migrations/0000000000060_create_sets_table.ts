@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.integer('reps')
       table.integer('weight')
       table.string('comment')
-      table.integer('restTime')
+      table.integer('rest_time')
       table.string('tempo')
       table.integer('exercise_id').unsigned().references('id').inTable('exercises').notNullable()
       table

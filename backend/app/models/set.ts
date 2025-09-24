@@ -9,19 +9,25 @@ export default class Set extends BaseModel {
   declare id: number
 
   @column()
-  declare reps: bigint
+  declare reps: number
 
   @column()
-  declare weight: bigint
+  declare weight: number
 
   @column()
   declare comment: string
 
   @column()
-  declare restTime: bigint //Time in seconds
+  declare restTime: number //Time in seconds
 
   @column()
   declare tempo: string
+
+  @column()
+  declare exerciseId: number
+
+  @column()
+  declare exerciseBlocId: number
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

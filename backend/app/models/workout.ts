@@ -11,6 +11,9 @@ export default class Workout extends BaseModel {
   @column()
   declare date: Date
 
+  @column()
+  declare user_id: number
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
