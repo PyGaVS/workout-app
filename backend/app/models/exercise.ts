@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm'
 import Set from '#models/set'
-import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
 import Muscle from '#models/muscle'
 
 export default class Exercise extends BaseModel {
@@ -25,6 +25,8 @@ export default class Exercise extends BaseModel {
   @belongsTo(() => Set)
   declare set: BelongsTo<typeof Set>
 
-  @hasMany(() => Muscle)
-  declare muscles: HasMany<typeof Muscle>
+  @manyToMany(() => Muscle, {
+    pivotTable: 'exercise_muscle',
+  })
+  declare muscles: ManyToMany<typeof Muscle>
 }

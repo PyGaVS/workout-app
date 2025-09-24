@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, manyToMany } from '@adonisjs/lucid/orm'
 import Exercise from '#models/exercise'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import type { ManyToMany } from '@adonisjs/lucid/types/relations'
 
 export default class Muscle extends BaseModel {
   @column({ isPrimary: true })
@@ -18,6 +18,8 @@ export default class Muscle extends BaseModel {
 
   // Relations
 
-  @belongsTo(() => Exercise)
-  declare exercise: BelongsTo<typeof Exercise>
+  @manyToMany(() => Exercise, {
+    pivotTable: 'exercise_muscle',
+  })
+  declare exercise: ManyToMany<typeof Exercise>
 }
