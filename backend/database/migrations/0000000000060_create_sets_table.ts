@@ -12,6 +12,12 @@ export default class extends BaseSchema {
       table.integer('restTime')
       table.string('tempo')
       table.integer('exercise_id').unsigned().references('id').inTable('exercises').notNullable()
+      table
+        .integer('exercise_bloc_id')
+        .unsigned()
+        .references('id')
+        .inTable('exercise_blocs')
+        .notNullable()
 
       table.timestamp('created_at')
       table.timestamp('updated_at')
