@@ -1,18 +1,18 @@
 import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
-import Workout from '#models/workout'
+import User from './user.js'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
-import Set from '#models/set'
+import ExerciseBloc from './exercise_bloc.js'
 
-export default class ExerciseBloc extends BaseModel {
+export default class Workout extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
   @column()
-  declare title: string
+  declare date: Date
 
   @column()
-  declare workoutId: number
+  declare user_id: number
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -22,9 +22,9 @@ export default class ExerciseBloc extends BaseModel {
 
   // Relations
 
-  @belongsTo(() => Workout)
-  declare workout: BelongsTo<typeof Workout>
+  @belongsTo(() => User)
+  declare user: BelongsTo<typeof User>
 
-  @hasMany(() => Set)
-  declare sets: HasMany<typeof Set>
+  @hasMany(() => ExerciseBloc)
+  declare exerciseBlocs: HasMany<typeof ExerciseBloc>
 }

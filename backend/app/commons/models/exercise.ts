@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
-import Set from '#models/set'
+import Set from './set.js'
 import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
-import Muscle from '#models/muscle'
+import Muscle from './muscle.js'
 
 export default class Exercise extends BaseModel {
   @column({ isPrimary: true })

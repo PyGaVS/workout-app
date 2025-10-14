@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, manyToMany } from '@adonisjs/lucid/orm'
-import Exercise from '#models/exercise'
+import Exercise from './exercise.js'
 import type { ManyToMany } from '@adonisjs/lucid/types/relations'
 
 export default class Muscle extends BaseModel {

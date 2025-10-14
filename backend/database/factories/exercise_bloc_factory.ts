@@ -1,6 +1,6 @@
 import factory from '@adonisjs/lucid/factories'
-import ExerciseBloc from '#models/exercise_bloc'
-import Workout from '#models/workout'
+import ExerciseBloc from '../../app/commons/models/exercise_bloc'
+import Workout from '../../app/commons/models/workout'
 
 export const ExerciseBlocFactory = factory
   .define(ExerciseBloc, async ({ faker }) => {
