@@ -1,6 +1,6 @@
 import factory from '@adonisjs/lucid/factories'
-import Workout from '../../app/commons/models/workout'
-import User from '../../app/commons/models/user'
+import Workout from '#commons/models/workout'
+import User from '#commons/models/user'
 
 export const WorkoutFactory = factory
   .define(Workout, async ({ faker }) => {

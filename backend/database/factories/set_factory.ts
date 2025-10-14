@@ -1,8 +1,8 @@
 import factory from '@adonisjs/lucid/factories'
-import Set from '../../app/commons/models/set'
-import ExerciseBloc from '../../app/commons/models/exercise_bloc'
-import Exercise from '../../app/commons/models/exercise'
-import {randomInt} from "node:crypto";
+import Set from '#commons/models/set'
+import ExerciseBloc from '#commons/models/exercise_bloc'
+import Exercise from '#commons/models/exercise'
+import { randomInt } from 'node:crypto'
 
 export const SetFactory = factory
   .define(Set, async ({ faker }) => {

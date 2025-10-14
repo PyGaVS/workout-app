@@ -1,6 +1,6 @@
-import {BaseSeeder} from '@adonisjs/lucid/seeders'
-import Muscle from '../../app/commons/models/muscle'
-import Exercise from '../../app/commons/models/exercise'
+import { BaseSeeder } from '@adonisjs/lucid/seeders'
+import Muscle from '#commons/models/muscle'
+import Exercise from '#commons/models/exercise'
 
 export default class ExerciseSeeder extends BaseSeeder {
   public async run() {
