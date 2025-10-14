@@ -8,17 +8,14 @@
 */
 
 import router from '@adonisjs/core/services/router'
-
-const AuthController = () => import('#domains/authentication/controllers/auth_controller')
+import authRoutes from '#domains/authentication/router'
+import workoutRoutes from '#domains/workout/router'
 
 router.get('/', async () => {
   return {
     hello: 'world',
   }
 })
-router
-  .group(() => {
-    router.post('/register', [AuthController, 'register']).as('auth.register')
-    router.post('/login', [AuthController, 'login']).as('auth.login')
-  })
-  .prefix('v1/auth')
+
+authRoutes()
+workoutRoutes()
