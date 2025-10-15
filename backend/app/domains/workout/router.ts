@@ -9,6 +9,7 @@ export default function workoutRoutes() {
       router
         .group(() => {
           router.get('/', [WorkoutsController, 'index'])
+          router.post('/', [WorkoutsController, 'store'])
         })
         .prefix('/workouts')
     })

@@ -1,4 +1,5 @@
 import Workout from '#commons/models/workout'
+import {CreateWorkoutSchema} from "#domains/workout/validators/workouts_validator";
 
 export default class WorkoutService {
   async getWorkouts(userId: number) {
@@ -9,5 +10,12 @@ export default class WorkoutService {
           setQuery.preload('exercise')
         })
       })
+  }
+
+  async create({ date }: CreateWorkoutSchema, user_id: number) {
+    return Workout.create({
+      date,
+      user_id,
+    })
   }
 }
