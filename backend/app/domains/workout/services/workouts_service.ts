@@ -1,5 +1,5 @@
 import Workout from '#commons/models/workout'
-import {CreateWorkoutSchema} from "#domains/workout/validators/workouts_validator";
+import { CreateWorkoutSchema } from '#domains/workout/validators/workouts_validator'
 
 export default class WorkoutService {
   async getWorkouts(userId: number) {
