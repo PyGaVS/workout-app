@@ -12,10 +12,10 @@ export default class WorkoutService {
       })
   }
 
-  async create({ date }: CreateWorkoutSchema, user_id: number) {
+  async create({ date }: CreateWorkoutSchema, userId: number) {
     return Workout.create({
       date,
-      user_id,
+      userId,
     })
   }
 }

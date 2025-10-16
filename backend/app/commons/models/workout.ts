@@ -12,7 +12,7 @@ export default class Workout extends BaseModel {
   declare date: Date
 
   @column()
-  declare user_id: number
+  declare userId: number
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
