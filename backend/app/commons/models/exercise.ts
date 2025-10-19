@@ -12,6 +12,9 @@ export default class Exercise extends BaseModel {
   declare name: string
 
   @column()
+  declare normalized_name: string
+
+  @column()
   declare type: string
 
   @column.dateTime({ autoCreate: true })
