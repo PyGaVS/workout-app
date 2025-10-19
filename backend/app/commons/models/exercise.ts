@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
+import {BaseModel, column, hasMany, manyToMany, scope} from '@adonisjs/lucid/orm'
 import Set from './set.js'
 import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import Muscle from './muscle.js'
@@ -32,4 +32,16 @@ export default class Exercise extends BaseModel {
     pivotTable: 'exercise_muscle',
   })
   declare muscles: ManyToMany<typeof Muscle>
+
+  static search = scope((query, search?: string) => {
+    // If search is given, followed is executed
+    query.if(search, (builder) => {
+      // Columns returned by query
+      const columns = ['normalized_name']
+      // Does a verification on each column
+      columns.forEach((field) => {
+        builder.orWhere(field, 'like', `%${search}%`)
+      })
+    })
+  })
 }
