@@ -11,4 +11,15 @@ export const createSetValidator = vine.compile(
   })
 )
 
+export const updateSetValidator = vine.compile(
+  vine.object({
+    reps: vine.number().optional(),
+    weight: vine.number().optional(),
+    comment: vine.string().optional(),
+    restTime: vine.number().optional(),
+    tempo: vine.string().optional(),
+  })
+)
+
 export type CreateSetSchema = Infer<typeof createSetValidator>
+export type UpdateSetSchema = Infer<typeof updateSetValidator>
