@@ -1,5 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import WorkoutService from '#domains/workout/services/workouts_service'
+import WorkoutService from '#domains/workout/services/workout_service'
 import { inject } from '@adonisjs/core'
 import { createWorkoutValidator } from '#domains/workout/validators/workouts_validator'
 import WorkoutPolicy from '#domains/workout/policies/workout_policy'
@@ -17,8 +17,8 @@ export default class WorkoutsController {
     const userId = auth.user!.id
     await bouncer.with(WorkoutPolicy).authorize('create')
     const data = await request.validateUsing(createWorkoutValidator)
-    const workout = await this.workoutService.create({ ...data }, userId)
 
+    const workout = await this.workoutService.create({ ...data }, userId)
     return response.created(workout)
   }
 }
