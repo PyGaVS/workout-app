@@ -20,4 +20,13 @@ export default class ExerciseBlocService {
       })
       .firstOrFail()
   }
+
+  async findByIdWithRelations(ebId: string | number) {
+    return await ExerciseBloc.query()
+      .where('id', ebId)
+      .preload('workout', (workoutQuery) => {
+        workoutQuery.preload('user')
+      })
+      .firstOrFail()
+  }
 }
