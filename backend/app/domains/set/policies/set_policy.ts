@@ -16,11 +16,11 @@ export default class SetPolicy extends BasePolicy {
   }
 
   // If user is admin, he is authorized anyway
-  async before(user: User) {
-    if (await this.permissionService.hasPermission(user, Permissions.ADMIN)) {
-      return true
-    }
-  }
+  // async before(user: User) {
+  //   if (await this.permissionService.hasPermission(user, Permissions.ADMIN)) {
+  //     return true
+  //   }
+  // }
 
   // User is authorized to browse sets (maybe to get inspiration)
   async browse() {
@@ -39,14 +39,39 @@ export default class SetPolicy extends BasePolicy {
 
   // User is authorized to edit his own sets, and only his own sets
   async edit(user: User, set: Set) {
-    if ((await this.ownerResolver.findOwner(set)) !== user) {
-      return false
+    const owner = await this.ownerResolver.findOwner(set)
+    if (owner === null) {
+      return {
+        authorized: false,
+        message: 'Owner cant be found',
+      }
     }
-    return this.permissionService.hasPermission(user, Permissions.MANAGE_SET)
+    if (owner.id !== user.id) {
+      return {
+        authorized: false,
+        message: `You are not the owner of this set`,
+      }
+    }
+    if (await this.permissionService.hasPermission(user, Permissions.MANAGE_SET)) {
+      return {
+        authorized: true,
+        message: 'You are authorized',
+      }
+    }
+    return {
+      authorized: true,
+      message: 'You are not authorized to update this set',
+    }
   }
 
   // User is authorized to delete his own sets and only his own sets
-  async delete() {
-    return true
+  async delete(user: User, set: Set) {
+    if ((await this.ownerResolver.findOwner(set)) !== user) {
+      return {
+        authorized: false,
+        message: `You are not the owner of this set`,
+      }
+    }
+    return this.permissionService.hasPermission(user, Permissions.MANAGE_SET)
   }
 }
