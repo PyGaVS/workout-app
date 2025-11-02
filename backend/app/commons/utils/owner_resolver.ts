@@ -8,7 +8,7 @@ import WorkoutService from '#domains/workout/services/workout_service'
 import UserService from '#domains/user/services/user_service'
 import { inject } from '@adonisjs/core'
 
-export type AnyEntity = User | Workout | ExerciseBloc | Set | string
+export type AnyEntity = User | Workout | ExerciseBloc | Set | string | object
 
 @inject()
 export default class OwnerResolver {
@@ -118,18 +118,19 @@ export default class OwnerResolver {
 
   // Type guards
   private isUser(obj: unknown): obj is User {
-    return !!obj && typeof (obj as any).id === 'string' && (obj as any).email !== undefined
+    return !!obj && typeof (obj as any).id === 'number' && (obj as any).email !== undefined
   }
 
   private isWorkout(obj: unknown): obj is Workout {
-    return !!obj && typeof (obj as any).id === 'string' && 'userId' in (obj as any)
+    return !!obj && typeof (obj as any).id === 'number' && (obj as any).userId6
   }
 
   private isExerciseBloc(obj: unknown): obj is ExerciseBloc {
-    return !!obj && typeof (obj as any).id === 'string' && 'workoutId' in (obj as any)
+    // throw new Error(JSON.stringify({ message: 'title' in (obj as any), code: 500 }))
+    return !!obj && typeof (obj as any).id === 'number' && (obj as any).workoutId
   }
 
   private isSet(obj: unknown): obj is Set {
-    return !!obj && typeof (obj as any).id === 'string' && 'exerciseBlocId' in (obj as any)
+    return !!obj && typeof (obj as any).id === 'number' && (obj as any).exerciseBlocId
   }
 }
