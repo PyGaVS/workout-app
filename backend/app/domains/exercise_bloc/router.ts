@@ -11,6 +11,7 @@ export default function exerciseBlocRoutes() {
         .group(() => {
           router.get('/:exerciseBlocId', [ExerciseBlocsController, 'show'])
           router.post('/:workoutId', [ExerciseBlocsController, 'store'])
+          router.put('/:ebId', [ExerciseBlocsController, 'update'])
         })
         .prefix('exerciseBloc/')
     })
