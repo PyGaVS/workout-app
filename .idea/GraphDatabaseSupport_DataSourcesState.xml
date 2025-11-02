@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GraphDatabaseSupport.DataSourcesState">
+    <option name="containerV1">
+      <DataSourceContainerV1>
+        <option name="dataSources">
+          <list>
+            <DataSourceV1>
+              <option name="uuid" value="9c378e26-1595-4b5c-a715-1f796ab52bd7" />
+              <option name="name" value="appmuscudb" />
+              <option name="dataSourceType" value="NEO4J_BOLT" />
+              <option name="configuration">
+                <map>
+                  <entry key="authType" value="User &amp; Password" />
+                  <entry key="database" value="appmuscudb" />
+                  <entry key="host" value="localhost" />
+                  <entry key="password" value="appmuscudb" />
+                  <entry key="port" value="5432" />
+                  <entry key="protocol" value="neo4j" />
+                  <entry key="user" value="admin" />
+                </map>
+              </option>
+            </DataSourceV1>
+          </list>
+        </option>
+      </DataSourceContainerV1>
+    </option>
+  </component>
+</project>
