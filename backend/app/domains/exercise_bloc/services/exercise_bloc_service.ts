@@ -1,4 +1,7 @@
-import { CreateExerciseBlocSchema } from '#domains/exercise_bloc/validators/exercise_blocs_validators'
+import {
+  CreateExerciseBlocSchema,
+  UpdateExerciseBlocSchema,
+} from '#domains/exercise_bloc/validators/exercise_blocs_validators'
 import ExerciseBloc from '#commons/models/exercise_bloc'
 import Workout from '#commons/models/workout'
 
@@ -19,6 +22,11 @@ export default class ExerciseBlocService {
         })
       })
       .firstOrFail()
+  }
+
+  async update(ebId: string | number, payload: UpdateExerciseBlocSchema) {
+    const eb = await ExerciseBloc.findOrFail(ebId)
+    return eb.merge(payload).save()
   }
 
   async findByIdWithRelations(ebId: string | number) {
