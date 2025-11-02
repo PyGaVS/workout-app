@@ -3,11 +3,11 @@ ___
 
 ## BackEnd
 
-- AdonisJS
+- AdonisTS
 
 ## FrontEnd
 
-- NextJs
+- React TSX
 
 ___
 
