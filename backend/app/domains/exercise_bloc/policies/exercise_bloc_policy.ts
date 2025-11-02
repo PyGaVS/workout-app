@@ -15,6 +15,13 @@ export default class ExerciseBlocPolicy extends BasePolicy {
     super()
   }
 
+  // If user is admin, he is authorized anyway
+  async before(user: User) {
+    if (await this.permissionService.hasPermission(user, Permissions.ADMIN)) {
+      return true
+    }
+  }
+
   // User is able to browse exercise_blocs (maybe to get inspiration)
   async browse() {
     return true

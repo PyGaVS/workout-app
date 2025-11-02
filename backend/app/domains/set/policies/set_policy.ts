@@ -16,11 +16,11 @@ export default class SetPolicy extends BasePolicy {
   }
 
   // If user is admin, he is authorized anyway
-  // async before(user: User) {
-  //   if (await this.permissionService.hasPermission(user, Permissions.ADMIN)) {
-  //     return true
-  //   }
-  // }
+  async before(user: User) {
+    if (await this.permissionService.hasPermission(user, Permissions.ADMIN)) {
+      return true
+    }
+  }
 
   // User is authorized to browse sets (maybe to get inspiration)
   async browse() {
