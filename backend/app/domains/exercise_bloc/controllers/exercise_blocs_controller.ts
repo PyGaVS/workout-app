@@ -6,15 +6,11 @@ import {
 import { inject } from '@adonisjs/core'
 import ExerciseBlocService from '#domains/exercise_bloc/services/exercise_bloc_service'
 import ExerciseBlocPolicy from '#domains/exercise_bloc/policies/exercise_bloc_policy'
-import OwnerResolver from '#commons/utils/owner_resolver'
-import ExerciseBloc from "#commons/models/exercise_bloc";
+import ExerciseBloc from '#commons/models/exercise_bloc'
 
 @inject()
 export default class ExerciseBlocsController {
-  constructor(
-    protected exerciseBlocService: ExerciseBlocService,
-    protected ownerResolver: OwnerResolver
-  ) {}
+  constructor(protected exerciseBlocService: ExerciseBlocService) {}
 
   async show({ params, bouncer, response }: HttpContext) {
     const ebId = params.exerciseBlocId
