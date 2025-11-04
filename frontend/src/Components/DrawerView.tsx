@@ -6,13 +6,18 @@ interface Props {
   children: React.ReactNode
 }
 
-export default function NavBarView(props: PropsWithChildren<Props>){
+export default function DrawerView(props: PropsWithChildren<Props>){
   return (
-    <div className='flex flex-row border-4 justify-start'>
+    <div className='flex flex-row justify-start'>
       <nav className='border-2'>
-        <NavLink to="">
+        <NavLink to="/">
           <div className=''>
             <p>Dashboard</p>
+          </div>
+        </NavLink>
+        <NavLink to="history">
+          <div className=''>
+            <p>History</p>
           </div>
         </NavLink>
       </nav>

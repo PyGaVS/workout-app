@@ -1,9 +1,9 @@
-import NavBarView from "@/Components/NavBarView";
+import DrawerView from "@/Components/DrawerView";
 
 export default function History() {
   return (
-    <NavBarView>
+    <DrawerView>
       <h1 className="text-blue-400">History</h1>
-    </NavBarView>
+    </DrawerView>
   )
 }
