@@ -1,6 +1,5 @@
 import React from 'react';
 import type { PropsWithChildren } from 'react'
-import { NavLink } from "react-router";
 import StaggeredMenu from './StaggeredMenu/StaggeredMenu';
 
 interface Props {
