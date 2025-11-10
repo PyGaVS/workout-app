@@ -9,9 +9,11 @@ export default function exerciseBlocRoutes() {
     .group(() => {
       router
         .group(() => {
-          router.post('/', [ExerciseBlocsController, 'store'])
+          router.get('/:exerciseBlocId', [ExerciseBlocsController, 'show'])
+          router.post('/:workoutId', [ExerciseBlocsController, 'store'])
+          router.put('/:ebId', [ExerciseBlocsController, 'update'])
         })
-        .prefix('exerciseBloc/:workoutId')
+        .prefix('exerciseBloc/')
     })
     .prefix('v1')
     .middleware(middleware.auth())

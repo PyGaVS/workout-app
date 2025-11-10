@@ -18,4 +18,8 @@ export default class WorkoutService {
       userId,
     })
   }
+
+  async findByIdWithRelations(workoutId: string | number) {
+    return await Workout.query().where('id', workoutId).preload('user').firstOrFail()
+  }
 }
