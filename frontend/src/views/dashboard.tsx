@@ -6,10 +6,11 @@ import { useNavigate } from "react-router";
 
 export default function Dashboard() {
 
-  const {user} = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate()
 
   useEffect(() => {
+    console.log(user)
     if(user.status == "disconnected"){
       navigate("/login")
     }

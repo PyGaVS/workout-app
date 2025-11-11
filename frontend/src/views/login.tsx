@@ -1,18 +1,29 @@
-import React, { useState } from "react";
+import { useAuth } from "@/Providers/AuthProvider";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 export default function Login() {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("lyl.ball@workout.fr");
+  const [password, setPassword] = useState("12345678");
+  const {user, login} = useAuth()
+  const navigate = useNavigate()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    login && login(email, password)
   }
+  
+  useEffect(() => {
+    if(user.status == "connected"){
+      navigate("/")
+    }
+  }, [user])
 
   return (
     <>
       <div className="min-h-screen flex items-center justify-center bg-bg text-text font-sans">
-      <div className="w-full max-w-md p-8 bg-surface rounded-[var(--radius)] shadow-md">
+      <div className="w-full max-w-md p-8 bg-surface rounded-(--radius) shadow-md">
         <h1 className="text-2xl font-bold mb-6 text-primary text-center">
           Login
         </h1>
@@ -25,7 +36,7 @@ export default function Login() {
             <input
               type="email"
               id="email"
-              className="w-full px-4 py-2 border border-border rounded-[var(--radius)] focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-text"
+              className="w-full px-4 py-2 border border-border rounded-(--radius) focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -39,7 +50,7 @@ export default function Login() {
             <input
               type="password"
               id="password"
-              className="w-full px-4 py-2 border border-border rounded-[var(--radius)] focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-text"
+              className="w-full px-4 py-2 border border-border rounded-(--radius) focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-text"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -48,7 +59,7 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-primary text-white rounded-[var(--radius)] hover:bg-accent transition-colors"
+            className="w-full py-2 px-4 bg-primary text-white hover:bg-accent transition-colors"
           >
             Sign In
           </button>

@@ -1,5 +1,6 @@
 import User from "@/api/models/User";
 
 export default interface AuthContext {
-    user: User
+    user: User,
+    login?: (email: string, password: string) => void
 }
