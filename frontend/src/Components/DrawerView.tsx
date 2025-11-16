@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Children, useEffect } from 'react';
 import type { PropsWithChildren } from 'react'
 import StaggeredMenu from './StaggeredMenu/StaggeredMenu';
+import { useAuth } from '@/Providers/AuthProvider';
+import { useNavigate } from 'react-router';
 
 interface Props {
   children: React.ReactNode
@@ -9,10 +11,21 @@ interface Props {
 
 export default function DrawerView(props: PropsWithChildren<Props>){
 
+  const { user } = useAuth();
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    console.log(user)
+    if(user.status == "disconnected"){
+      navigate("/login")
+    }
+  }, [user])
+
   const menuItems = [
     { label: 'Dashboard', ariaLabel: 'Overview', link: '/' },
     { label: 'History', ariaLabel: 'Last workouts', link: '/history' }
   ];
+
   return (
     <div className='flex flex-row justify-center h-screen'>
       <StaggeredMenu
@@ -31,6 +44,7 @@ export default function DrawerView(props: PropsWithChildren<Props>){
       />
       <div>
         <h1 className='text-5xl font-extrabold pb-1.5 text-transparent bg-clip-text bg-linear-to-r from-primary to-accent'>{props.title}</h1>
+        {props.children}
       </div>
     </div>
   )
