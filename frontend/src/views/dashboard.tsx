@@ -10,7 +10,7 @@ export default function Dashboard() {
 
   return (
     <DrawerView title="dashboard">
-        <h1 className="text-blue-400">Dashboard</h1>
+        <h2 className="text-text">Hi {user.fullName} !</h2>
     </DrawerView>
   )
 }

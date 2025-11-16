@@ -27,7 +27,7 @@ export default function DrawerView(props: PropsWithChildren<Props>){
   ];
 
   return (
-    <div className='flex flex-row justify-center h-screen'>
+    <div className='flex flex-row h-screen'>
       <StaggeredMenu
         position="left"
         items={menuItems}
@@ -42,9 +42,11 @@ export default function DrawerView(props: PropsWithChildren<Props>){
         accentColor="var(--accent)"
         isFixed
       />
-      <div>
+      <div className='w-screen flex flex-col items-center'>
         <h1 className='text-5xl font-extrabold pb-1.5 text-transparent bg-clip-text bg-linear-to-r from-primary to-accent'>{props.title}</h1>
-        {props.children}
+        <div className='flex-1 w-screen m-5 px-5 py-2'>
+          {props.children}
+        </div>
       </div>
     </div>
   )

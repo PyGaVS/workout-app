@@ -12,13 +12,9 @@ interface Props {
 export const AuthProvider = (props: PropsWithChildren<Props>) => {
     const [user, setUser] = useState<User>(new User());
 
-    useEffect(() => {
-        console.log("AuthProvider mounted ✅");
-        return () => console.log("AuthProvider unmounted ❌");
-    }, []);
-
     const login = (email: string, password: string) => {
         user.login({email, password}).then((r) => {
+            console.log("allo")
             console.log(r.user)
             setUser(r.user)
         })
