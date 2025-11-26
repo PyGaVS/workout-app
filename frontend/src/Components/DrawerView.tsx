@@ -38,7 +38,7 @@ export default function DrawerView(props: PropsWithChildren<Props>){
         openMenuButtonColor="var(--text)"
         changeMenuColorOnOpen={true}
         colors={['var(--primary)', 'var(--secondary)']}
-        logoUrl="/vite.svg"
+        logoUrl="/logo.png"
         accentColor="var(--accent)"
         isFixed
       />
