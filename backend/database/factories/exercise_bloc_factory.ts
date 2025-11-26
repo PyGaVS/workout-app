@@ -9,7 +9,7 @@ export const ExerciseBlocFactory = factory
     ])
 
     return {
-      title: faker.string.uuid(),
+      title: faker.word.words(),
       workoutId: workout?.id,
     }
   })

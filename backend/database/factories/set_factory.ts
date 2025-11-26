@@ -13,7 +13,7 @@ export const SetFactory = factory
     return {
       reps: randomInt(1, 10),
       weight: randomInt(1, 200),
-      comment: faker.string.sample({ min: 10, max: 30 }),
+      comment: faker.lorem.sentence(),
       restTime: randomInt(10, 120),
       tempo: faker.string.alpha(),
       exerciseId: exercise?.id,
