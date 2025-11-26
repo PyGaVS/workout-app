@@ -13,8 +13,7 @@ export default function exerciseBlocRoutes() {
           router.post('/:workoutId', [ExerciseBlocsController, 'store'])
           router.put('/:ebId', [ExerciseBlocsController, 'update'])
         })
-        .prefix('exerciseBloc/')
+        .prefix('exerciseBlocs/')
     })
-    .prefix('v1')
     .middleware(middleware.auth())
 }

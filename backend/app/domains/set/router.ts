@@ -13,6 +13,5 @@ export default function setRoutes() {
         })
         .prefix('/sets')
     })
-    .prefix('v1')
     .middleware(middleware.auth())
 }
