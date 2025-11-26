@@ -8,7 +8,6 @@ export const createExerciseValidator = vine.compile(
   vine.object({
     name: vine.string(),
     normalized_name: vine.string(),
-    type
   })
 )
 
