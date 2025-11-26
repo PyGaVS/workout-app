@@ -3,8 +3,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router";
 import Dashboard from './views/dashboard';
 import History from './views/history';
 import Login from './views/login';
-import { AuthProvider, useAuth } from './Providers/AuthProvider';
-import { useEffect } from 'react';
+import { AuthProvider } from './Providers/AuthProvider';
 
 function App() {
 

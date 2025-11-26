@@ -1,5 +1,6 @@
 import Workout from "@/api/models/Workout";
 import DrawerView from "@/Components/DrawerView";
+import WorkoutCard from "@/Components/WorkoutCard";
 import { useEffect, useState } from "react";
 
 export default function History() {
@@ -11,9 +12,11 @@ export default function History() {
 
   return (
     <DrawerView title="history">
-      <ul>
-        {workouts.map((workout) => <li><p>{workout.getDate().toLocaleDateString()}</p></li>)}
-      </ul>
+      <div className="flex">
+        {workouts.map((workout) => 
+          <WorkoutCard workout={workout}/>
+        )}
+      </div>
     </DrawerView>
   )
 }

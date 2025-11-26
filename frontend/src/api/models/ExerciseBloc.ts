@@ -1,7 +1,7 @@
 import type Set from "./Set"
 
 export default class ExerciseBloc {
-    private id: number
+    public id: number
     public title: string
     public sets: Set[]
 

@@ -1,4 +1,4 @@
-import React, { Children, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import type { PropsWithChildren } from 'react'
 import StaggeredMenu from './StaggeredMenu/StaggeredMenu';
 import { useAuth } from '@/Providers/AuthProvider';
