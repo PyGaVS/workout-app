@@ -24,6 +24,10 @@ export default class Workout {
     public getDate(){
         return this.date
     }
+
+    public getDateString(): string {
+        return this.date.toUTCString()
+    }
 }
 
 interface WorkoutResponse {

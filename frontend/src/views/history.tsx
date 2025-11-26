@@ -11,9 +11,8 @@ export default function History() {
 
   return (
     <DrawerView title="history">
-      <h1 className="text-blue-400">History allo</h1>
       <ul>
-        {workouts.map((workout) => <li>{workout.getDate().toString()}</li>)}
+        {workouts.map((workout) => <li><p>{workout.getDate().toLocaleDateString()}</p></li>)}
       </ul>
     </DrawerView>
   )

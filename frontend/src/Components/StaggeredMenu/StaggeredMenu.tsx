@@ -349,7 +349,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   return (
     <div
       className={(className ? className + ' ' : '') + 'staggered-menu-wrapper' + (isFixed ? ' fixed-wrapper' : '')}
-      style={accentColor ? { ['--sm-accent' as any]: accentColor } : undefined}
+      style={
+        accentColor ? { ['--sm-accent' as any]: accentColor,
+        pointerEvents: open ? 'auto' : 'none'
+      } : undefined}
       data-position={position}
       data-open={open || undefined}
     >

@@ -28,8 +28,7 @@ export default class Api {
 
     const isPublicRoute = () => [
       "/login",
-      "/register",
-      "/password/forgot"
+      "/register"
     ].some(route => this.url + route == url);
 
     let token = sessionStorage.getItem('token')
