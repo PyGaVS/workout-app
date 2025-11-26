@@ -5,7 +5,7 @@ type AuthStatus = "disconnected" | "loading" | "connected"
 export default class User {
     public fullName: string = ""
     public email: string = ""
-    public status: AuthStatus = "loading"
+    public status: AuthStatus = "disconnected"
 
     public constructor(){
         this.fullName = localStorage.getItem("fullName") || ""
@@ -17,6 +17,7 @@ export default class User {
         const storedStatus = localStorage.getItem("status")
 
         if(["disconnected", "loading", "connected"].includes(storedStatus || "")){
+
             return storedStatus as AuthStatus || "disconnected"
         }
 
@@ -29,8 +30,8 @@ export default class User {
         localStorage.setItem("status", this.status)
     }
 
-    public async login(credentials: {email: string, password: string}): Promise<{user: User, message: string}> {
-        const res = await Api.post<{user: User, token: string, error: string}>(credentials)
+    public static async login(credentials: {email: string, password: string}): Promise<{user: User, message: string}> {
+        const res = await Api.post<{user: User, token: string, error: string}>(credentials, "auth/login")
 
         const user = new User()
         if(res.success){          
@@ -38,6 +39,8 @@ export default class User {
             user.email = res.body.user.email
             user.status = "connected"
         }
+
+        sessionStorage.setItem('token', res.body.token)
 
         user.save()
         return {
