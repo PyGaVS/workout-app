@@ -1,9 +1,9 @@
 import type User from "./models/User"
 
 export default class Api {
-  public static url = "http://localhost:3333/v1"
+  public static url = "http://localhost:3333"
 
-  public static async get<Obj>(page: number = 1, route: string): Promise<ApiResponse<Obj>> {
+  public static async get<Obj>(route: string, page: number = 1): Promise<ApiResponse<Obj>> {
     const res = await this.fetchWithAuth(`${this.url}/${route}`, {
       method: "GET",
       mode: 'cors',

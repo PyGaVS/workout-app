@@ -13,7 +13,7 @@ export default class Workout {
     }
 
     public static async browse(page: number = 1): Promise<Workout[]> {
-        const response = await Api.get<WorkoutResponse[]>(page, 'workouts')
+        const response = await Api.get<WorkoutResponse[]>('workouts', page)
         let workouts: Workout[] = [];
         response.body.map((workout: WorkoutResponse) => {
             workouts.push(new Workout(workout.id, workout.date))

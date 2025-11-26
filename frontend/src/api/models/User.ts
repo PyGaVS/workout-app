@@ -5,7 +5,7 @@ type AuthStatus = "disconnected" | "loading" | "connected"
 export default class User {
     public fullName: string = ""
     public email: string = ""
-    public status: AuthStatus = "disconnected"
+    public status: AuthStatus = "loading"
 
     public constructor(){
         this.fullName = localStorage.getItem("fullName") || ""
@@ -14,9 +14,14 @@ export default class User {
     }
 
     private getStoredStatus(): AuthStatus {
-        const storedStatus = localStorage.getItem("status")
+        let storedStatus = localStorage.getItem("status")
 
         if(["disconnected", "loading", "connected"].includes(storedStatus || "")){
+
+            const token = sessionStorage.getItem("token")
+            if(!token){
+                storedStatus = "disconnected"
+            }
 
             return storedStatus as AuthStatus || "disconnected"
         }
@@ -46,6 +51,15 @@ export default class User {
         return {
             user: user,
             message: res.success ? "Login success" : res.errors[0]
+        }
+    }
+
+    public static async whoami(): Promise<User | null>{
+        const res = await Api.get<{user: User} | {}>("auth/me")
+        if('user' in res.body){
+            return res.body.user
+        } else {
+            return null
         }
     }
 }
