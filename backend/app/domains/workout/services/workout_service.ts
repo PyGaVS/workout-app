@@ -7,9 +7,11 @@ export default class WorkoutService {
       .where('user_id', userId)
       .preload('exerciseBlocs', (blocQuery) => {
         blocQuery.preload('sets', (setQuery) => {
-          setQuery.preload('exercise')
+          setQuery.preload('exercise', (muscleQuery) => {
+            muscleQuery.preload('muscles')
+          })
         })
-      })
+      }).orderBy('date', 'desc')
   }
 
   async create({ date }: CreateWorkoutSchema, userId: number) {

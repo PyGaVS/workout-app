@@ -21,5 +21,5 @@ export default class Muscle extends BaseModel {
   @manyToMany(() => Exercise, {
     pivotTable: 'exercise_muscle',
   })
-  declare exercise: ManyToMany<typeof Exercise>
+  declare exercises: ManyToMany<typeof Exercise>
 }

@@ -11,7 +11,7 @@ export default class WorkoutsController {
 
   async index({ auth, bouncer }: HttpContext) {
     await bouncer.with(WorkoutPolicy).authorize('browse')
-    return this.workoutService.getWorkouts(auth.user!.id)
+    return await this.workoutService.getWorkouts(auth.user!.id)
   }
 
   async store({ auth, request, response, bouncer }: HttpContext) {
