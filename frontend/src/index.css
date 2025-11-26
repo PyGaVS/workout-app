@@ -3,6 +3,10 @@
 
 /* @custom-variant dark (&:is(.dark *)); */
 
+/* * {
+  box-shadow: inset red 0 0 0 1px;
+} */
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

@@ -42,7 +42,7 @@ export default function DrawerView(props: PropsWithChildren<Props>){
         accentColor="var(--accent)"
         isFixed
       />
-      <div className='w-screen flex flex-col items-center pointer-events-auto select-text'>
+      <div className='w-screen flex flex-col items-center pointer-events-auto select-text pt-2'>
         <h1 className='text-5xl font-extrabold pb-1.5 text-transparent bg-clip-text bg-linear-to-r from-primary to-accent'>{props.title}</h1>
         <div className='flex-1 w-screen m-5 px-5 py-2'>
           {props.children}

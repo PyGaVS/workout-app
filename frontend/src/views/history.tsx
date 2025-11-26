@@ -12,7 +12,7 @@ export default function History() {
 
   return (
     <DrawerView title="history">
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row flex-wrap">
         {workouts.map((workout) => 
           <WorkoutCard workout={workout}/>
         )}

@@ -125,6 +125,36 @@ export default class ExerciseSeeder extends BaseSeeder {
         type: 'musculation',
         muscles: ['Erecteurs du rachis', 'Ischio-jambiers'],
       },
+      {
+        name: 'Tractions',
+        normalized_name: 'tractions',
+        type: 'poids du corps',
+        muscles: ['Grand dorsal', 'Biceps brachial', 'Trapèze moyen'],
+      },
+      {
+        name: 'Pompes',
+        normalized_name: 'pompes',
+        type: 'poids du corps',
+        muscles: ['Grand pectoral', 'Triceps brachial', 'Deltoïde antérieur'],
+      },
+      {
+        name: 'Dips',
+        normalized_name: 'dips',
+        type: 'poids du corps',
+        muscles: ['Triceps brachial', 'Grand pectoral', 'Deltoïde antérieur'],
+      },
+      {
+        name: 'Pull-over',
+        normalized_name: 'pull over',
+        type: 'musculation',
+        muscles: ['Grand dorsal', 'Grand pectoral'],
+      },
+      {
+        name: 'Planche',
+        normalized_name: 'planche',
+        type: 'poids du corps',
+        muscles: ['Grand droit de l’abdomen', 'Transverse de l’abdomen', 'Obliques'],
+      },
     ]
 
     for (const exercise of exercises) {
