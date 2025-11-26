@@ -13,9 +13,7 @@ export const AuthProvider = (props: PropsWithChildren<Props>) => {
     const [user, setUser] = useState<User>(new User());
 
     const login = (email: string, password: string) => {
-        user.login({email, password}).then((r) => {
-            console.log("allo")
-            console.log(r.user)
+        User.login({email, password}).then((r) => {
             setUser(r.user)
         })
     }
