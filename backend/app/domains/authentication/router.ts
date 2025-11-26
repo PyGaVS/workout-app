@@ -9,5 +9,5 @@ export default function authRoutes() {
       router.post('/login', [AuthController, 'login']).as('auth.login')
       router.get('/me', [AuthController, 'me']).as('auth.me')
     })
-    .prefix('v1/auth')
+    .prefix('auth')
 }

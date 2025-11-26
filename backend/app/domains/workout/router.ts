@@ -13,6 +13,5 @@ export default function workoutRoutes() {
         })
         .prefix('/workouts')
     })
-    .prefix('v1')
     .middleware(middleware.auth())
 }

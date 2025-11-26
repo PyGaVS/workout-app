@@ -15,6 +15,5 @@ export default function exerciseBlocRoutes() {
         })
         .prefix('exerciseBlocs/')
     })
-    .prefix('v1')
     .middleware(middleware.auth())
 }

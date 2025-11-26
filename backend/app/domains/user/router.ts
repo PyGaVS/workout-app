@@ -12,6 +12,5 @@ export default function userRoutes() {
         })
         .prefix('/users')
     })
-    .prefix('v1')
     .middleware(middleware.auth())
 }
