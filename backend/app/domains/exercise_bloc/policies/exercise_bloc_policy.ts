@@ -34,7 +34,7 @@ export default class ExerciseBlocPolicy extends BasePolicy {
 
   // User is able to see his own exercise_blocs, maybe could see other ones blocs as an example for him
   async view(user: User, exerciseBloc: ExerciseBloc) {
-    if ((await this.ownerResolver.findOwner(exerciseBloc)) !== user) {
+    if ((await this.ownerResolver.findOwner(exerciseBloc)) === user) {
       return {
         authorized: false,
         message: `You are not the owner of this exercise bloc`,

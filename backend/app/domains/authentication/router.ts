@@ -7,6 +7,7 @@ export default function authRoutes() {
     .group(() => {
       router.post('/register', [AuthController, 'register']).as('auth.register')
       router.post('/login', [AuthController, 'login']).as('auth.login')
+      router.get('/me', [AuthController, 'me']).as('auth.me')
     })
     .prefix('v1/auth')
 }

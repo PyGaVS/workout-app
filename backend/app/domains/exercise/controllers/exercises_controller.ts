@@ -14,4 +14,8 @@ export default class ExercisesController {
 
     return this.exerciseService.paginate(payload)
   }
+
+  // async post({ auth, request, bouncer }: HttpContext) {
+  //   const payload = await request.validateUsing(searchExerciseValidator)
+  // }
 }

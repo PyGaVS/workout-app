@@ -4,4 +4,12 @@ import { Infer } from '@vinejs/vine/types'
 
 export const searchExerciseValidator = vine.compile(vine.object(searchComposable.getProperties()))
 
+export const createExerciseValidator = vine.compile(
+  vine.object({
+    name: vine.string(),
+    normalized_name: vine.string(),
+    type
+  })
+)
+
 export type SearchExerciseSchema = Infer<typeof searchExerciseValidator>
