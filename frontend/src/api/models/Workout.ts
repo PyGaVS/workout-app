@@ -3,7 +3,7 @@ import type ExerciseBloc from "./ExerciseBloc"
 import type User from "./User"
 
 export default class Workout {
-    private id: number
+    public id: number
     private date: Date
     private user?: User
     public exerciseBlocs: ExerciseBloc[] = []
