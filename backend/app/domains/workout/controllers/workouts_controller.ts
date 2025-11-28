@@ -1,9 +1,12 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import WorkoutService from '#domains/workout/services/workout_service'
 import { inject } from '@adonisjs/core'
-import { createWorkoutValidator } from '#domains/workout/validators/workouts_validator'
+import {
+  createWorkoutValidator,
+  updateWorkoutValidator,
+} from '#domains/workout/validators/workouts_validator'
 import WorkoutPolicy from '#domains/workout/policies/workout_policy'
-import Workout from "#commons/models/workout";
+import Workout from '#commons/models/workout'
 
 @inject()
 export default class WorkoutsController {
@@ -11,7 +14,15 @@ export default class WorkoutsController {
 
   async index({ auth, bouncer }: HttpContext) {
     await bouncer.with(WorkoutPolicy).authorize('browse')
-    return await this.workoutService.getWorkouts(auth.user!.id)
+    return this.workoutService.getWorkouts(auth.user!.id)
+  }
+
+  async update({ bouncer, request }: HttpContext) {
+    const workout = await Workout.findOrFail(request.param('id'))
+    await bouncer.with(WorkoutPolicy).authorize('edit', workout)
+
+    const data = await request.validateUsing(updateWorkoutValidator)
+    return this.workoutService.update(data, workout)
   }
 
   async store({ auth, request, response, bouncer }: HttpContext) {
@@ -19,38 +30,6 @@ export default class WorkoutsController {
     await bouncer.with(WorkoutPolicy).authorize('create')
 
     const data = await request.validateUsing(createWorkoutValidator)
-
-    // Création du workout
-    const workout = await Workout.create({
-      date: data.date,
-      userId,
-    })
-
-    // Création des blocs et sets liés
-    if (data.exercise_blocs) {
-      for (const bloc of data.exercise_blocs) {
-        const exerciseBloc = await workout.related('exerciseBlocs').create({
-          title: bloc?.title,
-        })
-        if (bloc && bloc.sets) {
-          for (const set of bloc.sets) {
-            await exerciseBloc.related('sets').create({
-              exerciseId: set?.exercise_id,
-              reps: set?.reps,
-              weight: set?.weight,
-              comment: set?.comment,
-              restTime: set?.restTime,
-              tempo: set?.tempo,
-            })
-          }
-        }
-      }
-    }
-
-    await workout.load('exerciseBlocs', (blocQuery) => {
-      blocQuery.preload('sets')
-    })
-
-    return response.created(workout)
+    return response.created(this.workoutService.create(data, userId))
   }
 }

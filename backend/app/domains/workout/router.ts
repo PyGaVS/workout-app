@@ -10,6 +10,7 @@ export default function workoutRoutes() {
         .group(() => {
           router.get('/', [WorkoutsController, 'index'])
           router.post('/', [WorkoutsController, 'store'])
+          router.put('/:id', [WorkoutsController, 'update'])
         })
         .prefix('/workouts')
     })
