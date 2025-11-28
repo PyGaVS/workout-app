@@ -25,11 +25,11 @@ export default class WorkoutsController {
     return this.workoutService.update(data, workout)
   }
 
-  async store({ auth, request, response, bouncer }: HttpContext) {
+  async store({ auth, request, bouncer }: HttpContext) {
     const userId = auth.user!.id
     await bouncer.with(WorkoutPolicy).authorize('create')
 
     const data = await request.validateUsing(createWorkoutValidator)
-    return response.created(this.workoutService.create(data, userId))
+    return this.workoutService.create(data, userId)
   }
 }

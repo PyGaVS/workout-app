@@ -49,9 +49,11 @@ export default class WorkoutService {
         }
       }
     }
+
     await workout.load('exerciseBlocs', (blocQuery) => {
       blocQuery.preload('sets')
     })
+
     return workout
   }
 
@@ -74,7 +76,7 @@ export default class WorkoutService {
           })
           await bloc.save()
         } else {
-          // Créer le bloc si il n'existe pas encore
+          // Créer le bloc s'il n'existe pas encore
           bloc = await workout.related('exerciseBlocs').create({
             title: blocData.title!,
           })
