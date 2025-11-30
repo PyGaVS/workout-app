@@ -19,10 +19,10 @@ export const createWorkoutValidator = vine.compile(
                 tempo: vine.string().optional(),
               })
             )
-            .optional(), // sets peut être absent
+            .optional()
         })
       )
-      .optional(), // ✅ exercise_blocs peut être absent
+      .optional()
   })
 )
 

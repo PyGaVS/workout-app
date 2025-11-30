@@ -24,6 +24,11 @@ export default class Workout {
         return workouts
     }
 
+    public static async add(form: addWorkoutBody): Promise<Workout> {
+        const response = await Api.post<Workout>(form, 'workouts');
+        return response.body
+    }
+
     public getDate(){
         return this.date
     }
@@ -36,6 +41,22 @@ export default class Workout {
 interface WorkoutResponse {
     id: number;
     date: string;
-    userId: number;
+    userId?: number;
     exerciseBlocs: []
+}
+
+interface addWorkoutBody {
+    [key: string]: unknown;
+    date: string
+    exercise_blocs?: {
+        title?: string
+        sets?: {
+            exercise_id: number
+            reps: number
+            weight: number
+            comment: string
+            restTime: number
+            tempo?: string
+        }[]
+    }[]
 }

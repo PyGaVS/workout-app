@@ -7,10 +7,11 @@ interface Props {
 
 export default function WorkoutCard(props: PropsWithChildren<Props>){
   return (
-    <div className="bg-surface shadow-md rounded-[var(--radius)] p-5 m-1 mb-4 w-xl hover:shadow-xl transition-shadow duration-300 border border-[var(--border)]">
+    <div className="bg-surface shadow-md rounded-(--radius) p-5 m-1 mb-4 min-w-md max-w-1/2 w-md grow
+    hover:shadow-xl transition-shadow duration-300 border border-border">
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-xl font-bold text-text">
-          Workout {props.workout.getDate().toLocaleDateString()}
+          Workout {props.workout.getDate().toLocaleDateString('en')}
         </h2>
       </div>
     

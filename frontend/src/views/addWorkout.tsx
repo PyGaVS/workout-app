@@ -1,35 +1,47 @@
 import Workout from "@/api/models/Workout";
-import DrawerView from "@/Components/DrawerView";
 import { Button } from "@/Components/ui/button";
-import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTrigger } from "@/Components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "@/Components/ui/dialog";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function AddWorkout() {
 
+  const [date, setDate] = useState<string>(new Date().toLocaleDateString('en-CA'));
+  const [open, setOpen] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    Workout.add({ date: date })
+
+    setOpen(false)
+  }
+
   return (
-    <Dialog modal>
-      <form>
-        <DialogTrigger asChild>
-          <button className="bg-secondary text-surface inline-block px-2 py-3 rounded-radius my-3 mx-6 border-none
-            shadow-md transition-all duration-300 hover:bg-accent hover:shadow-lg hover:scale-105">
-            <i className="fa-solid fa-dumbbell fa-xl pr-1" /> Save workout
-          </button>
-        </DialogTrigger>
+    <Dialog modal open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <button className="bg-text text-surface inline-block px-2 py-3 rounded-radius my-3 mx-6 border-none
+          shadow-md transition-all duration-300 hover:bg-accent hover:shadow-lg hover:scale-105">
+          <i className="fa-solid fa-dumbbell fa-xl pr-1" /> Save workout
+        </button>
+      </DialogTrigger>
         <DialogContent className="sm:max-w-5xl bg-surface">
-          <DialogHeader>
-            <DialogTitle>Add Workout</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4">
-            <div className="grid gap-3">
-              <Label htmlFor="name-1">Name</Label>
-              <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
+          <form className="grid gap-4" onSubmit={handleSubmit}>
+            <DialogHeader>
+              <DialogTitle>Add Workout</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4">
+              <div className="grid gap-3">
+                <Label htmlFor="date">Date</Label>
+                <Input id="date" type="date" onChange={(e) => setDate(e.target.value)} value={date}/>
+              </div>
             </div>
-          </div>
+            <DialogFooter className="">
+              <Button type="submit" className="hover:bg-accent bg-text text-surface hover:rotate-2">Save workout</Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
-      </form>
     </Dialog>
   )
 }

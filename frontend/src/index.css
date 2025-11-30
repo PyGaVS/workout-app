@@ -11,6 +11,7 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  overflow-x: hidden;
 
   color-scheme: light dark;
   color: var(--text);
@@ -42,6 +43,18 @@
   --border: #27272A;       
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background-color: var(--text);
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: 600ms;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  background-color: var(--accent);
+  transform: rotate(8deg);
+}
 
 
 a {
@@ -70,6 +83,7 @@ button {
   font-weight: 500;
   cursor: pointer;
 }
+
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

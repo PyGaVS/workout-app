@@ -14,7 +14,7 @@ export default class Api {
     return Api.getResponse(res)
   }
 
-  public static async post<Obj>(body: {[key: string]: string | number}, route: string): Promise<ApiResponse<Obj>>{
+  public static async post<Obj>(body: {[key: string]: unknown}, route: string): Promise<ApiResponse<Obj>>{
     const res = await Api.fetchWithAuth(`${this.url}/${route}`, {
             method: "POST",
             mode: 'cors',
@@ -39,7 +39,6 @@ export default class Api {
     }
     console.log(isPublicRoute(), token)
     if (!isPublicRoute() && token) {
-      console.log('allo')
       headers.Authorization = `Bearer ${token}`;
     }
 

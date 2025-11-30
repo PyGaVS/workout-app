@@ -4,7 +4,6 @@ import Dashboard from './views/dashboard';
 import History from './views/history';
 import Login from './views/login';
 import { AuthProvider } from './Providers/AuthProvider';
-import AddWorkout from './views/addWorkout';
 
 function App() {
 
