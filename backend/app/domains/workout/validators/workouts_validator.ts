@@ -35,16 +35,16 @@ export const updateWorkoutValidator = vine.compile(
         formats: ['iso8601'],
       })
       .optional(),
-    exercise_blocs: vine
+    exerciseBlocs: vine
       .array(
         vine.object({
-          id: vine.number().optional(),
+          id: vine.number(),
           title: vine.string().optional(),
           sets: vine
             .array(
               vine.object({
-                id: vine.number().optional(),
-                exercise_id: vine.number().optional(),
+                id: vine.number(),
+                exerciseId: vine.number().optional(),
                 reps: vine.number().optional(),
                 weight: vine.number().optional(),
                 comment: vine.string().optional(),

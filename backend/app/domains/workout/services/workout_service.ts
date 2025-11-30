@@ -64,19 +64,18 @@ export default class WorkoutService {
     })
     await workout.save()
 
-    // Parcours des bloc exercices
-    if (data.exercise_blocs) {
-      for (const blocData of data.exercise_blocs) {
+    // Parcours des bloc Exercices
+    if (data.exerciseBlocs) {
+      for (const blocData of data.exerciseBlocs) {
         let bloc: ExerciseBloc | null = null
         if (blocData.id) {
           bloc = await ExerciseBloc.findOrFail(blocData.id)
-          // Update de l'exercise_bloc
+
           bloc.merge({
             title: blocData.title ?? bloc.title,
           })
           await bloc.save()
         } else {
-          // Créer le bloc s'il n'existe pas encore
           bloc = await workout.related('exerciseBlocs').create({
             title: blocData.title!,
           })
