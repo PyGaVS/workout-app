@@ -8,7 +8,7 @@ export default function exerciseRoutes() {
     .group(() => {
       router
         .group(() => {
-          router.post('/', [ExercisesController, 'index'])
+          router.get('/', [ExercisesController, 'index'])
         })
         .prefix('/exercises')
     })
