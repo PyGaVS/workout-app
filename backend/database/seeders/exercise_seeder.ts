@@ -5,153 +5,128 @@ import Exercise from '#commons/models/exercise'
 export default class ExerciseSeeder extends BaseSeeder {
   public async run() {
     const exercises = [
+      // --- Haut du corps ---
       {
         name: 'Développé couché',
-        normalized_name: 'developpe couche',
         type: 'polyarticulaire',
-        muscles: ['Grand pectoral', 'Triceps brachial', 'Deltoïde antérieur'],
+        muscles: ['Pectoraux', 'Triceps', 'Épaules'],
       },
       {
-        name: 'Squat',
-        normalized_name: 'squat',
+        name: 'Développé incliné avec haltères',
         type: 'polyarticulaire',
-        muscles: ['Droit fémoral', 'Grand fessier', 'Vaste latéral'],
-      },
-      {
-        name: 'Soulevé de terre jambes tendues',
-        normalized_name: 'souleve de terre jambes tendues',
-        type: 'polyarticulaire',
-        muscles: ['Ischio-jambiers', 'Grand fessier', 'Erecteurs du rachis'],
-      },
-      {
-        name: 'Rowing barre',
-        normalized_name: 'rowing barre',
-        type: 'polyarticulaire',
-        muscles: ['Grand dorsal', 'Trapèze moyen', 'Biceps brachial'],
-      },
-      {
-        name: 'Crunchs',
-        normalized_name: 'crunchs',
-        type: 'poids du corps',
-        muscles: ['Grand droit de l’abdomen', 'Obliques externes'],
-      },
-      {
-        name: 'Curl biceps',
-        normalized_name: 'curl biceps',
-        type: 'isolation',
-        muscles: ['Biceps brachial'],
-      },
-      {
-        name: 'Mollets debout',
-        normalized_name: 'mollets debout',
-        type: 'isolation',
-        muscles: ['Gastrocnemien'],
-      },
-      {
-        name: 'Burpees',
-        normalized_name: 'burpees',
-        type: 'cardio',
-        muscles: ['Grand fessier', 'Quadriceps', 'Deltoïde moyen'],
+        muscles: ['Pectoraux', 'Épaules', 'Triceps'],
       },
       {
         name: 'Développé militaire',
-        normalized_name: 'developpe militaire',
         type: 'polyarticulaire',
-        muscles: ['Deltoïde antérieur', 'Triceps brachial'],
-      },
-      {
-        name: 'Tirage vertical',
-        normalized_name: 'tirage vertical',
-        type: 'musculation',
-        muscles: ['Grand dorsal', 'Biceps brachial'],
-      },
-      {
-        name: 'Fentes',
-        normalized_name: 'fentes',
-        type: 'polyarticulaire',
-        muscles: ['Quadriceps', 'Grand fessier'],
-      },
-      {
-        name: 'Planche latérale',
-        normalized_name: 'planche laterale',
-        type: 'poids du corps',
-        muscles: ['Obliques externes', 'Transverse de l’abdomen'],
-      },
-      {
-        name: 'Extension triceps à la poulie',
-        normalized_name: 'extension triceps a la poulie',
-        type: 'isolation',
-        muscles: ['Triceps brachial'],
+        muscles: ['Épaules', 'Triceps'],
       },
       {
         name: 'Élévations latérales',
-        normalized_name: 'elevations laterales',
         type: 'isolation',
-        muscles: ['Deltoïde moyen'],
+        muscles: ['Épaules'],
+      },
+      {
+        name: 'Rowing barre',
+        type: 'polyarticulaire',
+        muscles: ['Dos', 'Biceps', 'Trapèzes'],
+      },
+      {
+        name: 'Tirage horizontal à la machine',
+        type: 'machine',
+        muscles: ['Dos', 'Biceps'],
+      },
+      {
+        name: 'Tirage vertical à la poulie',
+        type: 'machine',
+        muscles: ['Dos', 'Biceps'],
+      },
+      {
+        name: 'Curl biceps avec barre',
+        type: 'isolation',
+        muscles: ['Biceps'],
+      },
+      {
+        name: 'Extension triceps à la poulie',
+        type: 'isolation',
+        muscles: ['Triceps'],
+      },
+
+      // --- Tronc ---
+      {
+        name: 'Crunchs',
+        type: 'poids du corps',
+        muscles: ['Abdominaux'],
+      },
+      {
+        name: 'Gainage planche',
+        type: 'poids du corps',
+        muscles: ['Abdominaux', 'Dos'],
+      },
+      {
+        name: 'Planche latérale',
+        type: 'poids du corps',
+        muscles: ['Obliques'],
+      },
+
+      // --- Bas du corps ---
+      {
+        name: 'Squat',
+        type: 'polyarticulaire',
+        muscles: ['Quadriceps', 'Fessiers', 'Ischio-jambiers'],
+      },
+      {
+        name: 'Fentes avant',
+        type: 'polyarticulaire',
+        muscles: ['Quadriceps', 'Fessiers'],
+      },
+      {
+        name: 'Presse à cuisses',
+        type: 'machine',
+        muscles: ['Quadriceps', 'Fessiers'],
+      },
+      {
+        name: 'Soulevé de terre',
+        type: 'polyarticulaire',
+        muscles: ['Dos', 'Ischio-jambiers', 'Fessiers'],
       },
       {
         name: 'Hip thrust',
-        normalized_name: 'hip thrust',
-        type: 'musculation',
-        muscles: ['Grand fessier'],
+        type: 'polyarticulaire',
+        muscles: ['Fessiers', 'Ischio-jambiers'],
       },
       {
-        name: 'Mountain climbers',
-        normalized_name: 'mountain climbers',
-        type: 'cardio',
-        muscles: ['Grand droit de l’abdomen', 'Quadriceps'],
+        name: 'Mollets debout',
+        type: 'isolation',
+        muscles: ['Mollets'],
       },
       {
-        name: 'Jumping jacks',
-        normalized_name: 'jumping jacks',
-        type: 'cardio',
-        muscles: ['Deltoïde moyen', 'Quadriceps'],
-      },
-      {
-        name: 'Étirements du dos',
-        normalized_name: 'etirements du dos',
-        type: 'mobilité',
-        muscles: ['Erecteurs du rachis'],
-      },
-      {
-        name: 'Étirements des ischios',
-        normalized_name: 'etirements des ischios',
-        type: 'mobilité',
-        muscles: ['Ischio-jambiers'],
-      },
-      {
-        name: 'Good mornings',
-        normalized_name: 'good mornings',
-        type: 'musculation',
-        muscles: ['Erecteurs du rachis', 'Ischio-jambiers'],
+        name: 'Mollets à la presse',
+        type: 'machine',
+        muscles: ['Mollets'],
       },
       {
         name: 'Tractions',
-        normalized_name: 'tractions',
         type: 'poids du corps',
         muscles: ['Grand dorsal', 'Biceps brachial', 'Trapèze moyen'],
       },
       {
         name: 'Pompes',
-        normalized_name: 'pompes',
         type: 'poids du corps',
         muscles: ['Grand pectoral', 'Triceps brachial', 'Deltoïde antérieur'],
       },
       {
         name: 'Dips',
-        normalized_name: 'dips',
         type: 'poids du corps',
         muscles: ['Triceps brachial', 'Grand pectoral', 'Deltoïde antérieur'],
       },
       {
         name: 'Pull-over',
-        normalized_name: 'pull over',
         type: 'musculation',
         muscles: ['Grand dorsal', 'Grand pectoral'],
       },
       {
         name: 'Planche',
-        normalized_name: 'planche',
         type: 'poids du corps',
         muscles: ['Grand droit de l’abdomen', 'Transverse de l’abdomen', 'Obliques'],
       },
@@ -170,7 +145,6 @@ export default class ExerciseSeeder extends BaseSeeder {
       const createdExercise = await Exercise.create({
         name: exercise.name,
         type: exercise.type,
-        normalized_name: exercise.normalized_name,
       })
 
       await createdExercise.related('muscles').attach(muscleIds)
