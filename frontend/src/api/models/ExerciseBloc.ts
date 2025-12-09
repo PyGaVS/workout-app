@@ -29,6 +29,11 @@ export default class ExerciseBloc {
         this.sets = sets
         return this
     }
+
+    public setTitle(title: string){
+        this.title = title
+        return this
+    }
 }
 
 export interface ExerciseBlocJSON {

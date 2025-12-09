@@ -21,8 +21,8 @@ export default function History() {
   return (
     <DrawerView title="history">
       
-      <WorkoutFormProvider>
-        <AddWorkout exercises={exercises}/>
+      <WorkoutFormProvider exercises={exercises}>
+        <AddWorkout />
       </WorkoutFormProvider>
 
       <div className="flex flex-col lg:flex-row flex-wrap justify-center">

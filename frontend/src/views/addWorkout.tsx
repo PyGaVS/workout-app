@@ -11,9 +11,7 @@ import { useWorkoutForm } from "@/Provider/WorkoutFormProvider";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useState, type PropsWithChildren } from "react";
 
-interface Props {
-  exercises: Exercise[]
-}
+interface Props {}
 
 export default function AddWorkout(props: PropsWithChildren<Props>){
 
@@ -22,8 +20,7 @@ export default function AddWorkout(props: PropsWithChildren<Props>){
   
   function handleSubmit(e: React.FormEvent){
     e.preventDefault();
-    const date = form.workout.getDate()
-    //Workout.add({ form.workout.getDate() , exerciseBlocs })
+    form.submit();
     setOpen(false)
   }
 
@@ -49,7 +46,7 @@ export default function AddWorkout(props: PropsWithChildren<Props>){
               </div>
               <div className="grid gap-3">
                 {form.workout.exerciseBlocs.map((ex, i) => 
-                  <ExerciseBlocForm exerciseBloc={ex} index={i} exercises={props.exercises} />
+                  <ExerciseBlocForm exerciseBloc={ex} index={i} exercises={form.exercises} />
                 )}
               </div>
               <button type="button" className="bg-text text-surface inline-block px-2 py-2 rounded-radius my-3 border-none
