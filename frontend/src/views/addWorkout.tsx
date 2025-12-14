@@ -42,7 +42,7 @@ export default function AddWorkout(props: PropsWithChildren<Props>){
                 <Label htmlFor="date">Date</Label>
                 <Input id="date" type="date" 
                   onChange={(e) => form.setDate(e.target.value)} 
-                  value={form.workout.getDate().toLocaleDateString('en-CA')} />
+                  value={form.workout.dateStr()} />
               </div>
               <div className="grid gap-3">
                 {form.workout.exerciseBlocs.map((ex, i) => 

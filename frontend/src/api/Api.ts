@@ -35,13 +35,11 @@ export default class Api {
       'Content-Type': 'application/json',
       'Accept': '*/*'
     }
-    console.log(isPublicRoute(), token)
+
     if (!isPublicRoute() && token) {
       headers.Authorization = `Bearer ${token}`;
     }
-
-    console.log(options)
-
+    
     options.headers = headers
 
     return fetch(url, options)

@@ -35,6 +35,36 @@ export default class Set {
             reps, weight, comment, restTime, tempo
         }
     }
+
+    setReps(reps: number){
+        this.reps = reps
+        return this
+    }
+
+    setWeight(weight: number){
+        this.weight = weight
+        return this
+    }
+
+    setExercise(exercise: Exercise){
+        this.exercise = exercise
+        return this
+    }
+
+    setComment(comment: string){
+        this.comment = comment
+        return this
+    }
+
+    setRestTime(restTime: number){
+        this.restTime = restTime
+        return this
+    }
+
+    setTempo(tempo: string){
+        this.tempo = tempo
+        return this
+    }
 }
 
 export interface SetJSON {

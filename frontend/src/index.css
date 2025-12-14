@@ -43,7 +43,7 @@
   --border: #27272A;       
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+input[type="date"]::-webkit-calendar-picker-indicator, input[type="time"]::-webkit-calendar-picker-indicator {
     background-color: var(--text);
     padding: 6px;
     border-radius: var(--radius-sm);
@@ -51,7 +51,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     transition: 600ms;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator:hover {
+input[type="date"]::-webkit-calendar-picker-indicator:hover, input[type="time"]::-webkit-calendar-picker-indicator:hover {
   background-color: var(--accent);
   transform: rotate(8deg);
 }

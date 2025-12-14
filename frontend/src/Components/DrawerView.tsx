@@ -15,7 +15,6 @@ export default function DrawerView(props: PropsWithChildren<Props>){
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(user)
     if(user.status == "disconnected"){
       navigate("/login")
     }

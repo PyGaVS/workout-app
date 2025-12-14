@@ -35,7 +35,7 @@ export const WorkoutFormProvider = ({ children, exercises }: PropsWithChildren<P
     }
 
     const setDate = (date: string) => {
-        setWorkout(workout.setDate(date))
+        setWorkout( createWorkoutInstance(workout.setDate(date).dateStr()) )
     }
 
     const addExerciseBloc = () => {

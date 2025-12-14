@@ -29,8 +29,7 @@ export default function History() {
         {workouts.map((workout) => 
           <WorkoutCard key={workout.id} workout={workout}/>
         )}
-      </div> 
-      
+      </div>       
     </DrawerView>
   )
 }
