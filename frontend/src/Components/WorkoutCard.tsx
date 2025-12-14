@@ -11,7 +11,7 @@ export default function WorkoutCard(props: PropsWithChildren<Props>){
     hover:shadow-xl transition-shadow duration-300 border border-border">
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-xl font-bold text-text">
-          Workout {props.workout.getDate().toLocaleDateString('en')}
+          Workout {props.workout.getDate().toLocaleDateString('en-CA')}
         </h2>
       </div>
     

@@ -1,20 +1,26 @@
+import Exercise from "@/api/models/Exercise";
+import ExerciseBloc from "@/api/models/ExerciseBloc";
+import Set from "@/api/models/Set";
 import Workout from "@/api/models/Workout";
+import ExerciseBlocForm from "@/Components/ExerciseBlocForm";
 import { Button } from "@/Components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "@/Components/ui/dialog";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
+import { useWorkoutForm } from "@/Provider/WorkoutFormProvider";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { useState } from "react";
+import { useState, type PropsWithChildren } from "react";
 
-export default function AddWorkout() {
+interface Props {}
 
-  const [date, setDate] = useState<string>(new Date().toLocaleDateString('en-CA'));
+export default function AddWorkout(props: PropsWithChildren<Props>){
+
   const [open, setOpen] = useState(false);
-
-  function handleSubmit(e: React.FormEvent) {
+  const form = useWorkoutForm()
+  
+  function handleSubmit(e: React.FormEvent){
     e.preventDefault();
-    Workout.add({ date: date })
-
+    form.submit();
     setOpen(false)
   }
 
@@ -26,7 +32,7 @@ export default function AddWorkout() {
           <i className="fa-solid fa-dumbbell fa-xl pr-1" /> Save workout
         </button>
       </DialogTrigger>
-        <DialogContent className="sm:max-w-5xl bg-surface">
+        <DialogContent className="sm:max-w-5xl bg-surface max-h-full overflow-y-scroll">
           <form className="grid gap-4" onSubmit={handleSubmit}>
             <DialogHeader>
               <DialogTitle>Add Workout</DialogTitle>
@@ -34,10 +40,20 @@ export default function AddWorkout() {
             <div className="grid gap-4">
               <div className="grid gap-3">
                 <Label htmlFor="date">Date</Label>
-                <Input id="date" type="date" onChange={(e) => setDate(e.target.value)} value={date}/>
+                <Input id="date" type="date" 
+                  onChange={(e) => form.setDate(e.target.value)} 
+                  value={form.workout.dateStr()} />
               </div>
+              <div className="grid gap-3">
+                {form.workout.exerciseBlocs.map((ex, i) => 
+                  <ExerciseBlocForm exerciseBloc={ex} index={i} exercises={form.exercises} />
+                )}
+              </div>
+              <button type="button" className="bg-text text-surface inline-block px-2 py-2 rounded-radius my-3 border-none
+              shadow-md transition-all duration-300 hover:bg-accent hover:shadow-lg hover:scale-101"
+              onClick={() => form.addExerciseBloc()}>Ajouter des exercices</button>
             </div>
-            <DialogFooter className="">
+            <DialogFooter>
               <Button type="submit" className="hover:bg-accent bg-text text-surface hover:rotate-2">Save workout</Button>
             </DialogFooter>
           </form>

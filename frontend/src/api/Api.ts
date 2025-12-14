@@ -9,12 +9,10 @@ export default class Api {
       mode: 'cors',
     })
 
-    console.log(res)
-
     return Api.getResponse(res)
   }
 
-  public static async post<Obj>(body: {[key: string]: unknown}, route: string): Promise<ApiResponse<Obj>>{
+  public static async post<Body, Obj>(body: Body, route: string): Promise<ApiResponse<Obj>>{
     const res = await Api.fetchWithAuth(`${this.url}/${route}`, {
             method: "POST",
             mode: 'cors',
@@ -37,13 +35,11 @@ export default class Api {
       'Content-Type': 'application/json',
       'Accept': '*/*'
     }
-    console.log(isPublicRoute(), token)
+
     if (!isPublicRoute() && token) {
       headers.Authorization = `Bearer ${token}`;
     }
-
-    console.log(options)
-
+    
     options.headers = headers
 
     return fetch(url, options)

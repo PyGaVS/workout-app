@@ -1,5 +1,5 @@
 import DrawerView from "@/Components/DrawerView";
-import { useAuth } from "@/Providers/AuthProvider";
+import { useAuth } from "@/Provider/AuthProvider";
 
 export default function Dashboard() {
 

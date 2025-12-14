@@ -1,9 +1,8 @@
-import './App.css'
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router";
 import Dashboard from './views/dashboard';
 import History from './views/history';
 import Login from './views/login';
-import { AuthProvider } from './Providers/AuthProvider';
+import { AuthProvider } from './Provider/AuthProvider';
 
 function App() {
 

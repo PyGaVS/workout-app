@@ -1,4 +1,4 @@
-import { useAuth } from "@/Providers/AuthProvider";
+import { useAuth } from "@/Provider/AuthProvider";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -6,7 +6,7 @@ export default function Login() {
 
   const [email, setEmail] = useState<string>("lyl.ball@workout.fr");
   const [password, setPassword] = useState<string>("12345678");
-  const {user, login} = useAuth()
+  const { user, login } = useAuth()
   const navigate = useNavigate()
 
   const handleSubmit = (e: React.FormEvent) => {
