@@ -65,6 +65,10 @@ export default class Set {
         this.tempo = tempo
         return this
     }
+
+    clone(): Set {
+        return new Set(this.exercise, this.reps, this.weight, this.tempo, this.comment, this.restTime)
+    }
 }
 
 export interface SetJSON {

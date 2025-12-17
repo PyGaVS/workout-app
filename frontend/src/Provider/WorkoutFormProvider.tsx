@@ -3,7 +3,7 @@ import ExerciseBloc from "@/api/models/ExerciseBloc";
 import type Set from "@/api/models/Set";
 import Workout from "@/api/models/Workout";
 import WorkoutService from "@/api/services/WorkoutService";
-import React, { useState, createContext, useContext, useEffect } from "react";
+import React, { useState, createContext, useContext } from "react";
 import type { PropsWithChildren } from "react";
 
 type WorkoutContextType = {
@@ -14,6 +14,8 @@ type WorkoutContextType = {
     addExerciseBloc: () => void;
     updateExerciseBloc: (blocIndex: number, newBloc: ExerciseBloc) => void;
     addSet: (blocIndex: number) => void;
+    duplicateSet: (blocIndex: number, setIndex: number) => void;
+    removeSet: (blocIndex: number, setIndex: number) => void;
     updateSet: (blocIndex: number, setIndex: number, newSet: Set) => void;
     submit: () => void;
 };
@@ -56,6 +58,20 @@ export const WorkoutFormProvider = ({ children, exercises }: PropsWithChildren<P
         setWorkout( createWorkoutInstance(undefined, exerciseBlocs) )
     }
 
+    const duplicateSet = (blocIndex: number, setIndex: number) => {
+        const exerciseBlocs = workout.exerciseBlocs.map((bloc, i) => 
+            i === blocIndex ? bloc.duplicateSet(setIndex) : bloc
+        )
+        setWorkout( createWorkoutInstance(undefined, exerciseBlocs) )
+    }
+
+    const removeSet = (blocIndex: number, setIndex: number) => {
+        const exerciseBlocs = workout.exerciseBlocs.map((bloc, i) => 
+            i === blocIndex ? bloc.removeSet(setIndex) : bloc
+        )
+        setWorkout( createWorkoutInstance(undefined, exerciseBlocs) )
+    }
+
     const updateSet = (blocIndex: number, setIndex: number, newSet: Set) => {
         const exerciseBlocs = workout.exerciseBlocs.map((bloc, i) => 
             i === blocIndex 
@@ -74,7 +90,7 @@ export const WorkoutFormProvider = ({ children, exercises }: PropsWithChildren<P
             workout, exercises: exercises, 
             setWorkout, setDate, 
             addExerciseBloc, updateExerciseBloc,
-            addSet, updateSet, 
+            addSet, duplicateSet, removeSet, updateSet, 
             submit 
         }}>
             {children}

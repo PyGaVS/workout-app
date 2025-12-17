@@ -1,4 +1,6 @@
 import Api from "../Api";
+import ExerciseBloc from "../models/ExerciseBloc";
+import type Set from "../models/Set";
 import Workout, { type WorkoutJSON } from "../models/Workout";
 
 

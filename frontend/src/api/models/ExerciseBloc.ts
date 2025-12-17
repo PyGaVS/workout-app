@@ -17,11 +17,21 @@ export default class ExerciseBloc {
         return { title: this.title, sets: this.sets.map((set) => set.toJSON()) }
     }
 
-    public addSet(set?: Set){
+    public addSet(set?: Set): ExerciseBloc{
         this.sets.push(
             set ? set : new Set()
         )
 
+        return this
+    }
+
+    public duplicateSet(setIndex: number): ExerciseBloc {
+        this.sets.splice(setIndex+1, 0, this.sets[setIndex].clone())
+        return this
+    }
+
+    public removeSet(setIndex: number): ExerciseBloc {
+        this.sets.splice(setIndex, 1)
         return this
     }
 

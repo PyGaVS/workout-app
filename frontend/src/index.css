@@ -30,6 +30,7 @@
   --text: #111827;         /* texte principal */
   --text-muted: #6B7280;   /* texte secondaire */
   --border: #E5E7EB;
+  --error: #DC2626;
 }
 
 [data-theme="dark"] {
@@ -40,7 +41,8 @@
   --accent: #22C55E;
   --text: #E5E7EB;
   --text-muted: #9CA3AF;
-  --border: #27272A;       
+  --border: #27272A;
+  --error: #F87171;  
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator, input[type="time"]::-webkit-calendar-picker-indicator {
@@ -125,6 +127,7 @@ button {
   --color-surface: var(--surface);
   --color-text-muted: var(--text-muted);
   --color-text: var(--text);
+  --color-error: var(--error);
 }
 
 

@@ -1,13 +1,10 @@
-import Exercise from "@/api/models/Exercise";
-import ExerciseBloc from "@/api/models/ExerciseBloc";
-import Set from "@/api/models/Set";
-import Workout from "@/api/models/Workout";
 import ExerciseBlocForm from "@/Components/ExerciseBlocForm";
 import { Button } from "@/Components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "@/Components/ui/dialog";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { useWorkoutForm } from "@/Provider/WorkoutFormProvider";
+import { buttonClasses } from "@/utils/styles";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useState, type PropsWithChildren } from "react";
 
@@ -19,7 +16,7 @@ export default function AddWorkout(props: PropsWithChildren<Props>){
   const form = useWorkoutForm()
   
   function handleSubmit(e: React.FormEvent){
-    e.preventDefault();
+    //e.preventDefault();
     form.submit();
     setOpen(false)
   }
@@ -49,8 +46,7 @@ export default function AddWorkout(props: PropsWithChildren<Props>){
                   <ExerciseBlocForm exerciseBloc={ex} index={i} exercises={form.exercises} />
                 )}
               </div>
-              <button type="button" className="bg-text text-surface inline-block px-2 py-2 rounded-radius my-3 border-none
-              shadow-md transition-all duration-300 hover:bg-accent hover:shadow-lg hover:scale-101"
+              <button type="button" className={buttonClasses}
               onClick={() => form.addExerciseBloc()}>Ajouter des exercices</button>
             </div>
             <DialogFooter>
