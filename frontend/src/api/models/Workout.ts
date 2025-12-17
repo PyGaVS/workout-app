@@ -1,62 +1,63 @@
 import Api from "../Api"
+import type { ExerciseBlocJSON } from "./ExerciseBloc"
 import type ExerciseBloc from "./ExerciseBloc"
 import type User from "./User"
 
 export default class Workout {
-    public id: number
-    private date: Date
-    private user?: User
-    public exerciseBlocs: ExerciseBloc[] = []
+  public id?: number
+  public date: Date
+  public user?: User
+  public exerciseBlocs: ExerciseBloc[] = []
 
-    public constructor(id: number, dateIso: string, exerciseBlocs: ExerciseBloc[] = [], user?: User){
-        this.id = id
-        this.user = user
-        this.date = new Date(dateIso)
-        this.exerciseBlocs = exerciseBlocs
-    }
+  public constructor(
+    dateIso: string = new Date().toLocaleDateString('en-CA'), 
+    exerciseBlocs: ExerciseBloc[] = [], 
+    user?: User, 
+    id?: number
+  ){
+    this.id = id
+    this.user = user
+    this.date = new Date(dateIso)
+    this.exerciseBlocs = exerciseBlocs
+  }
 
-    public static async browse(page: number = 1): Promise<Workout[]> {
-        const response = await Api.get<WorkoutResponse[]>('workouts', page)
-        let workouts: Workout[] = [];
-        response.body.map((workout: WorkoutResponse) => {
-            workouts.push(new Workout(workout.id, workout.date, workout.exerciseBlocs))
-        })
-        return workouts
-    }
+  public toJSON(): WorkoutJSON {
+    return { date: this.dateStr(), exercise_blocs: this.exerciseBlocs.map((bloc) => bloc.toJSON()) }
+  }
 
-    public static async add(form: addWorkoutBody): Promise<Workout> {
-        const response = await Api.post<Workout>(form, 'workouts');
-        return response.body
-    }
+  public setExerciseBlocs(exerciseBlocs: ExerciseBloc[]): Workout {
+    this.exerciseBlocs = exerciseBlocs
+    return this
+  }
 
-    public getDate(){
-        return this.date
-    }
+  public getDate(): Date {
+    return this.date
+  }
 
-    public getDateString(): string {
-        return this.date.toUTCString()
+  public dateStr(): string {
+    return this.date.toLocaleDateString('en-CA')
+  }
+
+  public setDate(date: Date | string){
+    if(date instanceof Date){
+      this.date = date
+    } else {
+      this.date = new Date(date)
     }
+    return this
+  }
+
+  public addSet(exerciseBlocIndex: number): Workout {
+    this.setExerciseBlocs(
+      this.exerciseBlocs.map((bloc, i) => 
+        i === exerciseBlocIndex ? bloc.addSet() : bloc
+      )
+    )
+    return this
+  }
 }
 
-interface WorkoutResponse {
-    id: number;
-    date: string;
-    userId?: number;
-    exerciseBlocs: []
-}
-
-interface addWorkoutBody {
-    [key: string]: unknown;
-    date: string
-    exercise_blocs?: {
-        title?: string
-        sets?: {
-            exercise_id: number
-            reps: number
-            weight: number
-            comment: string
-            restTime: number
-            tempo?: string
-        }[]
-    }[]
+export interface WorkoutJSON {
+  date: string
+  exercise_blocs: ExerciseBlocJSON[]
 }

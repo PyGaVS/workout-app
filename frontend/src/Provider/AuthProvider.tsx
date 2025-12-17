@@ -5,9 +5,7 @@ import type { PropsWithChildren } from "react";
 
 const AuthContext = createContext<AuthContextInterface>({user: new User()});
 
-interface Props {
-    children: React.ReactNode
-}
+interface Props {}
 
 export const AuthProvider = (props: PropsWithChildren<Props>) => {
     const [user, setUser] = useState<User>(new User());

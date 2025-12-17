@@ -65,8 +65,8 @@ export default class WorkoutService {
     await workout.save()
 
     // Parcours des bloc Exercices
-    if (data.exerciseBlocs) {
-      for (const blocData of data.exerciseBlocs) {
+    if (data.exercise_blocs) {
+      for (const blocData of data.exercise_blocs) {
         let bloc: ExerciseBloc | null = null
         if (blocData.id) {
           bloc = await ExerciseBloc.findOrFail(blocData.id)
