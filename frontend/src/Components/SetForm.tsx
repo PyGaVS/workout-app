@@ -1,5 +1,5 @@
 import ExerciseBloc from "@/api/models/ExerciseBloc";
-import { type PropsWithChildren } from "react";
+import { useState, type PropsWithChildren } from "react";
 import { Input } from "./ui/input";
 import type Exercise from "@/api/models/Exercise";
 import { Label } from "./ui/label";
@@ -29,16 +29,20 @@ export default function SetForm({ exerciseBloc, exerciseBlocIndex, exercises, se
         value={exerciseBloc.sets[setIndex].reps}></Input>
       <Label>Poids (en kg)</Label>
       <Input type="number"
-        onChange={(e) => form.updateSet(exerciseBlocIndex, setIndex, set.setWeight(e.target.valueAsNumber))}></Input>
+        onChange={(e) => form.updateSet(exerciseBlocIndex, setIndex, set.setWeight(e.target.valueAsNumber))}
+        value={exerciseBloc.sets[setIndex].weight}></Input>
       <Label>Temps de repos (en secondes)</Label>
       <Input type="number"
-        onChange={(e) => form.updateSet(exerciseBlocIndex, setIndex, set.setRestTime(e.target.valueAsNumber))}></Input>
+        onChange={(e) => form.updateSet(exerciseBlocIndex, setIndex, set.setRestTime(e.target.valueAsNumber))}
+        value={exerciseBloc.sets[setIndex].restTime}></Input>
       <Label>Commentaire</Label>
       <Input type="text"
-        onChange={(e) => form.updateSet(exerciseBlocIndex, setIndex, set.setComment(e.target.value))}></Input>
+        onChange={(e) => form.updateSet(exerciseBlocIndex, setIndex, set.setComment(e.target.value))}
+        value={exerciseBloc.sets[setIndex].comment}></Input>
       <Label>Tempo</Label>
       <Input type="text"
-        onChange={(e) => form.updateSet(exerciseBlocIndex, setIndex, set.setTempo(e.target.value))}></Input>
+        onChange={(e) => form.updateSet(exerciseBlocIndex, setIndex, set.setTempo(e.target.value))}
+        value={exerciseBloc.sets[setIndex].tempo}></Input>
       <Label>Exercice</Label>
       <select className="p-2 border border-border rounded-radius bg-surface z-50 w-full"
         onChange={(e) => {

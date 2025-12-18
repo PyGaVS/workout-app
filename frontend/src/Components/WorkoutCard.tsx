@@ -22,7 +22,7 @@ export default function WorkoutCard(props: PropsWithChildren<Props>){
               <ul className="mt-1 text-text-muted text-sm list-disc list-inside">
                 {bloc.sets.map((set) => (
                   <li key={set.id}>
-                    <span className="font-medium text-text">{set.exercise.name}</span> {set.reps} reps @ {set.weight} kg
+                    <span className="font-medium text-text">{set.exercise.name}</span> {set.reps}×{set.weight} kg
                     {set.comment && <span className="text-accent"> - "{set.comment}"</span>}
                   </li>
                 ))}

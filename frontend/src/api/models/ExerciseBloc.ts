@@ -36,8 +36,7 @@ export default class ExerciseBloc {
     }
 
     public setSets(sets: Set[]){
-        this.sets = sets
-        return this
+        return new ExerciseBloc(this.title, sets, this.position, this.id)
     }
 
     public setTitle(title: string){

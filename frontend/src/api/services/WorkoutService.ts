@@ -7,7 +7,7 @@ import Workout, { type WorkoutJSON } from "../models/Workout";
 export default class WorkoutService {
   public static async browse(page: number = 1): Promise<Workout[]> {
     const response = await Api.get<WorkoutResponse[]>('workouts', page)
-    let workouts: Workout[] = [];
+    const workouts: Workout[] = [];
     response.body.map((workout: WorkoutResponse) => {
       workouts.push(new Workout(workout.date, workout.exerciseBlocs, undefined, workout.id))
     })
