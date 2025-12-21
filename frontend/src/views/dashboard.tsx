@@ -9,6 +9,7 @@ import StatCard from "@/Components/StatCard.tsx";
 import {ChartAreaInteractive} from "@/Components/ui/chart-area-interactive.tsx";
 import {ChartPieDonut, type ChartPieDonutDataType} from "@/Components/ui/chart-pie-donut.tsx";
 import {ChartLineMultiple} from "@/Components/ui/chart-line-multiple.tsx";
+import {Skeleton} from "@/Components/ui/skeleton.tsx";
 
 export default function Dashboard() {
     const {user} = useAuth();
@@ -54,41 +55,58 @@ export default function Dashboard() {
                         vos <span
                             className="italic">statistiques</span>.</p>
                 </div>
-                <div className="w-full flex gap-4">
-                    <StatCard statBadge={stats?.favouriteExercise.total + " fois"}
-                              statLabel="Exercice favoris"
-                              stat={stats?.favouriteExercise.name}
-                              statText="Vous êtes en bonne voie"
-                              statDescription="L'exercice qui apparait le plus dans vos sets"/>
+                {stats ?
+                    <div className="w-full flex gap-4">
+                        <StatCard statBadge={stats?.favouriteExercise.total + " fois"}
+                                  statLabel="Exercice favoris"
+                                  stat={stats?.favouriteExercise.name}
+                                  statText="Vous êtes en bonne voie"
+                                  statDescription="L'exercice qui apparait le plus dans vos sets"/>
 
-                    <StatCard statLabel="Total de séance"
-                              stat={stats?.totalWorkouts + " séances"}
-                              statText="Quelle persévérence!"
-                              statDescription={"Nombre total de séance référencées"}/>
+                        <StatCard statLabel="Total de séance"
+                                  stat={stats?.totalWorkouts + " séances"}
+                                  statText="Quelle persévérence!"
+                                  statDescription={"Nombre total de séance référencées"}/>
 
-                    <StatCard statBadge={lastWorkoutData?.daysBetween + " jours"}
-                              statLabel="Dernière séance"
-                              stat={lastWorkoutData?.message}
-                              statText="Continue comme ça 💪"
-                              statDescription="Temps depuis lequel vous ne vous êtes pas entrainé"/>
+                        <StatCard statBadge={lastWorkoutData?.daysBetween + " jours"}
+                                  statLabel="Dernière séance"
+                                  stat={lastWorkoutData?.message}
+                                  statText="Continue comme ça 💪"
+                                  statDescription="Temps depuis lequel vous ne vous êtes pas entrainé"/>
 
-                    <StatCard statBadge={stats?.mostUsedMuscle[0]?.total + " fois"}
-                              statLabel="Muscle favori"
-                              stat={stats?.mostUsedMuscle[0]?.name}
-                              statText="Bien ciblé!"
-                              statDescription="Le muscle que vous travaillez le plus"/>
-                </div>
-                {workoutsByMonth.length > 0 && (
-                    <div className="flex justify-between">
+                        <StatCard statBadge={stats?.mostUsedMuscle[0]?.total + " fois"}
+                                  statLabel="Muscle favori"
+                                  stat={stats?.mostUsedMuscle[0]?.name}
+                                  statText="Bien ciblé!"
+                                  statDescription="Le muscle que vous travaillez le plus"/>
+                    </div>
+                    :
+                    <div className="w-full flex gap-4">
+                        <StatCard skeleton={true}/>
+                        <StatCard skeleton={true}/>
+                        <StatCard skeleton={true}/>
+                        <StatCard skeleton={true}/>
+                    </div>
+                }
+
+                <div className="flex justify-between">
+                    {workoutsByMonth.length > 0 ?
                         <div className="flex flex-col border-gray-300 border-1 rounded-xl w-42/60 h-full">
                             {workoutsByMonth && <ChartAreaInteractive data={workoutsByMonth}/>}
                         </div>
+                        :
+                        <Skeleton className="flex flex-col border-gray-300 border-1 rounded-xl w-42/60 h-80">
+                        </Skeleton>
+                    }
+                    {topExercises ?
                         <div className="border-gray-300 border-1 rounded-xl w-17/60 p-3">
-                            {/*{topExercise && <DoughnutChart data={topExercise}/>}*/}
-                            {topExercises && <ChartPieDonut data={topExercises}/>}
+                            <ChartPieDonut data={topExercises}/>
                         </div>
-                    </div>
-                )}
+                        :
+                        <Skeleton className="border-gray-300 border-1 rounded-xl w-17/60 p-3 h-80"></Skeleton>
+                    }
+
+                </div>
                 <div className="">
                     {weeklyMusclesUsage &&
                         <ChartLineMultiple data={weeklyMusclesUsage}/>
