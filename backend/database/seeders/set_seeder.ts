@@ -3,6 +3,6 @@ import { SetFactory } from '#database/factories/set_factory'
 
 export default class extends BaseSeeder {
   async run() {
-    await SetFactory.createMany(100)
+    await SetFactory.createMany(300)
   }
 }
