@@ -13,25 +13,35 @@ export default class AuthController {
     return User.accessTokens.create(user)
   }
 
-  async login({ request }: HttpContext) {
+  async login({ request, response }: HttpContext) {
     const { email, password } = await request.validateUsing(loginValidator)
     const user = await User.verifyCredentials(email, password)
-    const token = await User.accessTokens.create(user)
+    const token = await User.accessTokens.create(user, undefined, { expiresIn: '99999d' })
 
-    return { user, token: token.toJSON().token }
+    response.plainCookie('auth_token', token.toJSON().token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+      encode: false,
+      maxAge: '99999d'
+    })
+
+    return response.send(user)
   }
 
-  async me({ auth }: HttpContext) {
-    await auth.check()
+  async me({ auth, response }: HttpContext) {
+    const check = await auth.check()
 
-    return {
+    response.status(check ? 200 : 401 )
+    return response.send({
       user: auth.user,
-    }
+    })
   }
 
-  async logout({ auth }: HttpContext) {
+  async logout({ auth, response }: HttpContext) {
     const user = auth.user!
     await User.accessTokens.delete(user, user.currentAccessToken.identifier)
+    response.clearCookie('auth_token')
 
     return { message: 'success' }
   }

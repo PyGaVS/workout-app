@@ -15,7 +15,7 @@ export default function Login() {
   }
   
   useEffect(() => {
-    if(user.status == "connected"){
+    if(user.authenticated){
       navigate("/")
     }
   }, [user])

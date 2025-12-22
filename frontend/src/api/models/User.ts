@@ -1,51 +1,34 @@
 import Api from "../Api"
 
-type AuthStatus = "disconnected" | "loading" | "connected"
-
 export default class User {
     public fullName: string = ""
     public email: string = ""
-    public status: AuthStatus = "loading"
+    public authenticated: null | boolean = null //null = loading 
+    
 
-    public constructor(){
-        this.fullName = localStorage.getItem("fullName") || ""
-        this.email = localStorage.getItem("email") || ""
-        this.status = this.getStoredStatus()
-    }
-
-    private getStoredStatus(): AuthStatus {
-        let storedStatus = localStorage.getItem("status")
-
-        if(["disconnected", "loading", "connected"].includes(storedStatus || "")){
-
-            const token = sessionStorage.getItem("token")
-            if(!token){
-                storedStatus = "disconnected"
-            }
-
-            return storedStatus as AuthStatus || "disconnected"
+    public constructor(fullname?: string, email?: string, authenticated?: null | boolean){
+        this.fullName = fullname || ""
+        this.email = email || ""
+        if(this.email){
+            this.authenticated = true
         }
-
-        return "disconnected"
     }
 
     private save(){
-        localStorage.setItem("fullName", this.fullName)
-        localStorage.setItem("email", this.email)
-        localStorage.setItem("status", this.status)
+        sessionStorage.setItem("fullName", this.fullName)
+        sessionStorage.setItem("email", this.email)
+        sessionStorage.setItem("auth", this.authenticated ? "true" : "false")
     }
 
     public static async login(credentials: {email: string, password: string}): Promise<{user: User, message: string}> {
-        const res = await Api.post<{user: User, token: string, error: string}>(credentials, "auth/login")
+        const res = await Api.post<{email: string, password: string}, {fullName: string, email: string, error: string}>(credentials, "auth/login")
 
         const user = new User()
         if(res.success){          
-            user.fullName = res.body.user.fullName
-            user.email = res.body.user.email
-            user.status = "connected"
+            user.fullName = res.body.fullName
+            user.email = res.body.email
+            user.authenticated = true
         }
-
-        sessionStorage.setItem('token', res.body.token)
 
         user.save()
         return {
