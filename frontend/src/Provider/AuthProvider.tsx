@@ -10,6 +10,12 @@ interface Props {}
 export const AuthProvider = (props: PropsWithChildren<Props>) => {
     const [user, setUser] = useState<User>(new User());
 
+    useEffect(() => {
+        User.whoami().then((user) => {
+            setUser(new User(user?.fullName, user?.email, user ? true : false))
+        })
+    }, [])
+
     const login = (email: string, password: string) => {
         User.login({email, password}).then((r) => {
             setUser(r.user)

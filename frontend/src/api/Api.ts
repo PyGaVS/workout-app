@@ -1,11 +1,10 @@
-import type User from "./models/User"
-
 export default class Api {
   public static url = "http://localhost:3333"
 
   public static async get<Obj>(route: string, page: number = 1): Promise<ApiResponse<Obj>> {
     const res = await this.fetchWithAuth(`${this.url}/${route}`, {
       method: "GET",
+      credentials: 'include',
       mode: 'cors',
     })
 
@@ -15,6 +14,7 @@ export default class Api {
   public static async post<Body, Obj>(body: Body, route: string): Promise<ApiResponse<Obj>>{
     const res = await Api.fetchWithAuth(`${this.url}/${route}`, {
             method: "POST",
+            credentials: 'include',
             mode: 'cors',
             body: JSON.stringify(body),
         })
