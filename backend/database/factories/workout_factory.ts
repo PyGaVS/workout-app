@@ -7,7 +7,7 @@ export const WorkoutFactory = factory
     const [user] = await Promise.all([User.query().select('id').orderByRaw('RANDOM()').first()])
 
     return {
-      date: faker.date.between({from: new Date("2017-01-01"), to: new Date()}),
+      date: faker.date.between({ from: new Date('2025-01-01'), to: new Date() }),
       user_id: user?.id,
     }
   })

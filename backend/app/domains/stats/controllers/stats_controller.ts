@@ -7,20 +7,22 @@ export default class StatsController {
   constructor(protected statsService: StatsService) {}
 
   async index({ auth }: HttpContext) {
-    const avgReps = await this.statsService.index(auth.user!.id)
     const totalWorkouts = await this.statsService.workouts(auth.user!.id)
-    const monthWorkouts = await this.statsService.thisMonthWorkouts(auth.user!.id)
+    const workoutsByMonths = await this.statsService.workoutsByMonths(auth.user!.id)
     const mostUsedMuscle = await this.statsService.mostUsedMuscles(auth.user!.id)
     const favouriteExercise = await this.statsService.favouriteExercise(auth.user!.id)
     const topExercise = await this.statsService.topExercises(auth.user!.id)
+    const weeklyMusclesUsage = await this.statsService.musclesUsageAverage(auth.user!.id)
+    const lastWorkoutData = await this.statsService.lastWorkoutData(auth.user!.id)
 
     return {
-      avgReps,
+      lastWorkoutData,
       totalWorkouts,
-      monthWorkouts,
+      workoutsByMonths,
       mostUsedMuscle,
       favouriteExercise,
       topExercise,
+      weeklyMusclesUsage,
     }
   }
 
