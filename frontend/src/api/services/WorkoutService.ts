@@ -1,16 +1,27 @@
 import Api from "../Api";
+import Exercise from "../models/Exercise";
 import ExerciseBloc from "../models/ExerciseBloc";
-import type Set from "../models/Set";
+import Set from "../models/Set";
 import Workout, { type WorkoutJSON } from "../models/Workout";
+import type { ExerciseResponse } from "./ExerciseService";
 
 
 export default class WorkoutService {
   public static async browse(page: number = 1): Promise<Workout[]> {
     const response = await Api.get<WorkoutResponse[]>('workouts', page)
-    const workouts: Workout[] = [];
-    response.body.map((workout: WorkoutResponse) => {
-      workouts.push(new Workout(workout.date, workout.exerciseBlocs, undefined, workout.id))
-    })
+    const workouts: Workout[] = response.body.map((workout: WorkoutResponse) =>
+      new Workout(
+        workout.date, 
+        workout.exerciseBlocs.map((bloc) => new ExerciseBloc(
+          bloc.title, 
+          bloc.sets.map((set: any) => new Set(
+            new Exercise(set.exercise.id, set.exercise.name, set.exercise.type), 
+            set.reps, set.weight, set.comment, set.restTime, set.tempo
+          ))
+        )), 
+        workout.id
+      )
+    )
     return workouts
   }
 
@@ -19,13 +30,32 @@ export default class WorkoutService {
     const response = await Api.post<WorkoutJSON, Workout>(body, 'workouts');
     return response.body
   }
+
+  public static async delete(workoutId: number): Promise<string> {
+    const res = await Api.delete<{ message: string }>(`workouts/${workoutId}`);
+    return res.body.message;
+  }
 }
 
 interface WorkoutResponse {
-  id: number;
-  date: string;
-  userId?: number;
-  exerciseBlocs: []
+  id: number
+  date: string
+  userId?: number
+  exerciseBlocs: ExerciseBlocResponse[]
+}
+
+interface ExerciseBlocResponse {
+  title: string
+  sets: SetResponse[]
+}
+
+interface SetResponse {
+  reps: number
+  weight: number
+  tempo: string
+  exercise: ExerciseResponse
+  comment: string
+  restTime: number
 }
 
 interface addWorkoutBody {

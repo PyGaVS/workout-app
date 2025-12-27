@@ -18,7 +18,7 @@ export default class WorkoutPolicy extends BasePolicy {
     }
   }
 
-  // User is able to browse workouts (maybe to get inspiration)
+  // User is able to browse workouts
   async browse(user: User) {
     return this.permissionService.hasPermission(user, Permissions.VIEW_WORKOUT)
   }

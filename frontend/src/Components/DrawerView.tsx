@@ -15,7 +15,6 @@ export default function DrawerView(props: PropsWithChildren<Props>){
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(!user.authenticated, sessionStorage.getItem("auth"))
     if(!user.authenticated && sessionStorage.getItem("auth") !== "true"){
       navigate("/login")
     }

@@ -101,4 +101,10 @@ export default class WorkoutService {
 
     return workout
   }
+
+  async delete(workout: Workout) {
+    await workout.delete()
+
+    return workout.$isDeleted
+  }
 }

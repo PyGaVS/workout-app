@@ -1,3 +1,4 @@
+import Workout from "@/api/models/Workout";
 import ExerciseBlocForm from "@/Components/ExerciseBlocForm";
 import { Button } from "@/Components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "@/Components/ui/dialog";
@@ -6,15 +7,25 @@ import { Label } from "@/Components/ui/label";
 import { useWorkoutForm } from "@/Provider/WorkoutFormProvider";
 import { buttonClasses } from "@/utils/styles";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { Dumbbell } from "lucide-react";
-import { useState, type PropsWithChildren } from "react";
+import { useEffect, useState, type PropsWithChildren } from "react";
 
-interface Props {}
+interface Props {
+  children: React.ReactNode
+  edit?: boolean
+  workout?: Workout
+}
 
-export default function AddWorkout(props: PropsWithChildren<Props>){
+export default function WorkoutModal(props: PropsWithChildren<Props>){
 
   const [open, setOpen] = useState(false);
-  const form = useWorkoutForm()
+  const form = useWorkoutForm();
+
+  useEffect(() => {
+    if(props.workout){
+      form.setWorkout(props.workout);
+    }
+    setOpen(false)
+  }, []);
   
   function handleSubmit(e: React.FormEvent){
     //e.preventDefault();
@@ -24,12 +35,7 @@ export default function AddWorkout(props: PropsWithChildren<Props>){
 
   return (
     <Dialog modal open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <button className="bg-text text-surface inline-flex px-2 py-3 rounded-radius my-3 mx-6 border-none
-          shadow-md transition-all duration-300 hover:bg-accent hover:shadow-lg hover:scale-105">
-          <Dumbbell className="mx-1"/> Save workout
-        </button>     
-      </DialogTrigger>
+      <DialogTrigger asChild>{props.children}</DialogTrigger>
         <DialogContent className="sm:max-w-5xl bg-surface max-h-full overflow-y-scroll">
           <form className="grid gap-4" onSubmit={handleSubmit}>
             <DialogHeader>

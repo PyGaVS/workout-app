@@ -1,10 +1,9 @@
-import Api from "../Api"
 import type { ExerciseBlocJSON } from "./ExerciseBloc"
 import type ExerciseBloc from "./ExerciseBloc"
 import type User from "./User"
 
 export default class Workout {
-  public id?: number
+  public id: number
   public date: Date
   public user?: User
   public exerciseBlocs: ExerciseBloc[] = []
@@ -12,8 +11,8 @@ export default class Workout {
   public constructor(
     dateIso: string = new Date().toLocaleDateString('en-CA'), 
     exerciseBlocs: ExerciseBloc[] = [], 
+    id: number,
     user?: User, 
-    id?: number
   ){
     this.id = id
     this.user = user

@@ -13,11 +13,21 @@ export default class Api {
 
   public static async post<Body, Obj>(body: Body, route: string): Promise<ApiResponse<Obj>>{
     const res = await Api.fetchWithAuth(`${this.url}/${route}`, {
-            method: "POST",
-            credentials: 'include',
-            mode: 'cors',
-            body: JSON.stringify(body),
-        })
+      method: "POST",
+      credentials: 'include',
+      mode: 'cors',
+      body: JSON.stringify(body),
+    })
+    
+    return Api.getResponse(res)
+  }
+
+  public static async delete<Obj>(route: string): Promise<ApiResponse<Obj>>{
+    const res = await Api.fetchWithAuth(`${this.url}/${route}`, {
+      method: "DELETE",
+      credentials: 'include',
+      mode: 'cors',
+    })
     
     return Api.getResponse(res)
   }

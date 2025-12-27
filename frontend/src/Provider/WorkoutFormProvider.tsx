@@ -27,13 +27,13 @@ interface Props {
 }
 
 export const WorkoutFormProvider = ({ children, exercises }: PropsWithChildren<Props>) => {
-    const [workout, setWorkout] = useState<Workout>( new Workout( new Date().toLocaleDateString('en-CA') ) );
+    const [workout, setWorkout] = useState<Workout>( new Workout( new Date().toLocaleDateString('en-CA'), [], 0 ) );
 
     const createWorkoutInstance = (
         date: string = workout.dateStr(),
         exerciseBlocs: ExerciseBloc[] = workout.exerciseBlocs
     ): Workout => {
-        return new Workout(date, exerciseBlocs)
+        return new Workout(date, exerciseBlocs, workout.id)
     }
 
     const setDate = (date: string) => {

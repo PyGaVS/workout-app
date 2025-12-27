@@ -11,6 +11,7 @@ export default function workoutRoutes() {
           router.get('/', [WorkoutsController, 'index'])
           router.post('/', [WorkoutsController, 'store'])
           router.put('/:id', [WorkoutsController, 'update'])
+          router.delete('/:id', [WorkoutsController, 'destroy'])
         })
         .prefix('/workouts')
     })

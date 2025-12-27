@@ -22,7 +22,6 @@ export default class AuthMiddleware {
     const token = ctx.request.cookiesList()['auth_token']
     ctx.request.headers().authorization = `Bearer ${token}`
     await ctx.auth.authenticateUsing(options.guards, { loginRoute: this.redirectTo })
-    await next()
-
+    return await next()
   }
 }

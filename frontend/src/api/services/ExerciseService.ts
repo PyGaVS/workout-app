@@ -9,7 +9,7 @@ export default class ExerciseService {
   }
 }
 
-interface ExerciseResponse {
+export interface ExerciseResponse {
   id: number;
   name: string;
   type: string;

@@ -17,7 +17,7 @@ export default class extends BaseSchema {
         .unsigned()
         .references('id')
         .inTable('exercise_blocs')
-        .notNullable()
+        .notNullable().onDelete('CASCADE')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')
