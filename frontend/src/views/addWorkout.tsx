@@ -6,6 +6,7 @@ import { Label } from "@/Components/ui/label";
 import { useWorkoutForm } from "@/Provider/WorkoutFormProvider";
 import { buttonClasses } from "@/utils/styles";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { Dumbbell } from "lucide-react";
 import { useState, type PropsWithChildren } from "react";
 
 interface Props {}
@@ -24,10 +25,10 @@ export default function AddWorkout(props: PropsWithChildren<Props>){
   return (
     <Dialog modal open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button className="bg-text text-surface inline-block px-2 py-3 rounded-radius my-3 mx-6 border-none
+        <button className="bg-text text-surface inline-flex px-2 py-3 rounded-radius my-3 mx-6 border-none
           shadow-md transition-all duration-300 hover:bg-accent hover:shadow-lg hover:scale-105">
-          <i className="fa-solid fa-dumbbell fa-xl pr-1" /> Save workout
-        </button>
+          <Dumbbell className="mx-1"/> Save workout
+        </button>     
       </DialogTrigger>
         <DialogContent className="sm:max-w-5xl bg-surface max-h-full overflow-y-scroll">
           <form className="grid gap-4" onSubmit={handleSubmit}>
