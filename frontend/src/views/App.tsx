@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import Dashboard from './views/dashboard';
-import History from './views/history';
-import Login from './views/login';
-import { AuthProvider } from './Provider/AuthProvider';
+import Dashboard from './dashboard';
+import History from './history';
+import Login from './login';
+import { AuthProvider } from '../Provider/AuthProvider';
 
 function App() {
 

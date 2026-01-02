@@ -32,6 +32,17 @@ export default class Api {
     return Api.getResponse(res)
   }
 
+  public static async put<Body, Obj>(body: Body, route: string): Promise<ApiResponse<Obj>>{
+    const res = await Api.fetchWithAuth(`${this.url}/${route}`, {
+      method: "PUT",
+      credentials: 'include',
+      mode: 'cors',
+      body: JSON.stringify(body),
+    })
+    
+    return Api.getResponse(res)
+  }
+
   private static fetchWithAuth(url: string, options: RequestInit): Promise<Response>{
 
     const isPublicRoute = () => [

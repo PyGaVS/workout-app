@@ -16,7 +16,7 @@ export default class WorkoutService {
           bloc.title, 
           bloc.sets.map((set: any) => new Set(
             new Exercise(set.exercise.id, set.exercise.name, set.exercise.type), 
-            set.reps, set.weight, set.comment, set.restTime, set.tempo
+            set.reps, set.weight, set.tempo, set.comment, set.restTime
           ))
         )), 
         workout.id
@@ -34,6 +34,12 @@ export default class WorkoutService {
   public static async delete(workoutId: number): Promise<string> {
     const res = await Api.delete<{ message: string }>(`workouts/${workoutId}`);
     return res.body.message;
+  }
+
+  public static async edit(workout: Workout): Promise<Workout> {
+    const body: WorkoutJSON = workout.toJSON()
+    const response = await Api.put<WorkoutJSON, Workout>(body, 'workouts/' + workout.id);
+    return response.body
   }
 }
 

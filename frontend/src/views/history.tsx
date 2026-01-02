@@ -19,6 +19,7 @@ export default function History() {
     ExerciseService.browse().then((exercises) => setExercises(exercises))
   }, [])
 
+
   const refresh = () => {
     WorkoutService.browse().then((workouts) => setWorkouts(workouts))
   }

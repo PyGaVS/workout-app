@@ -58,48 +58,40 @@ export default class WorkoutService {
   }
 
   async update(data: UpdateWorkoutSchema, workout: Workout) {
-    // Update infos workout
-    workout.merge({
-      date: data.date ?? workout.date,
+    const id = workout.id
+    await workout.delete()
+
+    const newWorkout = await Workout.create({
+      id,
+      date: data.date,
+      userId: workout.userId,
     })
-    await workout.save()
 
-    // Parcours des bloc Exercices
     if (data.exercise_blocs) {
-      for (const blocData of data.exercise_blocs) {
-        let bloc: ExerciseBloc | null = null
-        if (blocData.id) {
-          bloc = await ExerciseBloc.findOrFail(blocData.id)
-
-          bloc.merge({
-            title: blocData.title ?? bloc.title,
-          })
-          await bloc.save()
-        } else {
-          bloc = await workout.related('exerciseBlocs').create({
-            title: blocData.title!,
-          })
-        }
-
-        if (blocData.sets) {
-          for (const setData of blocData.sets) {
-            if (setData.id) {
-              const set = await SetModel.findOrFail(setData.id)
-              set.merge(setData)
-              await set.save()
-            } else {
-              await bloc.related('sets').create({ ...setData, exerciseBlocId: blocData.id })
-            }
+      for (const bloc of data.exercise_blocs) {
+        const exerciseBloc = await newWorkout.related('exerciseBlocs').create({
+          title: bloc?.title,
+        })
+        if (bloc && bloc.sets) {
+          for (const set of bloc.sets) {
+            await exerciseBloc.related('sets').create({
+              exerciseId: set?.exercise_id,
+              reps: set?.reps,
+              weight: set?.weight,
+              comment: set?.comment,
+              restTime: set?.restTime,
+              tempo: set?.tempo,
+            })
           }
         }
       }
     }
 
-    await workout.load('exerciseBlocs', (query) => {
-      query.preload('sets')
+    await newWorkout.load('exerciseBlocs', (blocQuery) => {
+      blocQuery.preload('sets')
     })
 
-    return workout
+    return newWorkout
   }
 
   async delete(workout: Workout) {

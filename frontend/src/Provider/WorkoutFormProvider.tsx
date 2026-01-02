@@ -17,7 +17,7 @@ type WorkoutContextType = {
     duplicateSet: (blocIndex: number, setIndex: number) => void;
     removeSet: (blocIndex: number, setIndex: number) => void;
     updateSet: (blocIndex: number, setIndex: number, newSet: Set) => void;
-    submit: () => void;
+    submit: (edit?: boolean) => void;
 };
 
 const WorkoutContext = createContext<WorkoutContextType | undefined>(undefined);
@@ -81,8 +81,12 @@ export const WorkoutFormProvider = ({ children, exercises }: PropsWithChildren<P
         setWorkout( createWorkoutInstance(undefined, exerciseBlocs) )
     }
 
-    const submit = () => {
-        WorkoutService.add(workout)
+    const submit = (edit?: boolean) => {
+        if(edit) {
+            WorkoutService.edit(workout)
+        } else {
+            WorkoutService.add(workout)
+        }
     }
 
     return (

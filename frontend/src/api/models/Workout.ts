@@ -57,6 +57,7 @@ export default class Workout {
 }
 
 export interface WorkoutJSON {
+  id?: number
   date: string
   exercise_blocs: ExerciseBlocJSON[]
 }
