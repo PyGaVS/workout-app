@@ -20,7 +20,7 @@ export default function WorkoutCardActions({ workout, refresh }: PropsWithChildr
   return (
       <ContextMenuContent className='bg-surface border-border'>
         <DialogTrigger asChild>
-          <ContextMenuItem>
+          <ContextMenuItem className='data-highlighted:text-surface'>
             <div><i className="fa-solid fa-pen-to-square"></i> Modifier</div>
           </ContextMenuItem>
         </DialogTrigger>
