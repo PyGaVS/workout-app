@@ -1,10 +1,10 @@
 import ExerciseBloc from "@/api/models/ExerciseBloc";
 import { useState, type PropsWithChildren } from "react";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import type Exercise from "@/api/models/Exercise";
-import { Label } from "./ui/label";
+import { Label } from "../ui/label";
 import { useWorkoutForm } from "@/Provider/WorkoutFormProvider";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import SetForm from "./SetForm";
 import { buttonClasses } from "@/utils/styles";
 

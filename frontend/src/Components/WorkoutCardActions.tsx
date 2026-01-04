@@ -4,7 +4,7 @@ import { ContextMenuContent, ContextMenuItem } from './ui/context-menu'
 import WorkoutModal from '@/views/WorkoutModal'
 import WorkoutService from '@/api/services/WorkoutService'
 import { Dialog, DialogTrigger } from './ui/dialog'
-import WorkoutFormContent from './WorkoutFormContent'
+import WorkoutFormContent from './workoutForm/WorkoutFormContent'
 
 interface Props {
   workout: Workout

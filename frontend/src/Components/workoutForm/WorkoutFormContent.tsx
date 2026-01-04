@@ -1,5 +1,5 @@
 import Workout from "@/api/models/Workout";
-import ExerciseBlocForm from "@/Components/ExerciseBlocForm";
+import ExerciseBlocForm from "@/Components/workoutForm/ExerciseBlocForm";
 import { Button } from "@/Components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "@/Components/ui/dialog";
 import { Input } from "@/Components/ui/input";

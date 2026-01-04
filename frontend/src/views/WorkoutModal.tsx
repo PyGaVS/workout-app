@@ -1,10 +1,10 @@
 import Workout from "@/api/models/Workout";
-import ExerciseBlocForm from "@/Components/ExerciseBlocForm";
+import ExerciseBlocForm from "@/Components/workoutForm/ExerciseBlocForm";
 import { Button } from "@/Components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "@/Components/ui/dialog";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
-import WorkoutFormContent from "@/Components/WorkoutFormContent";
+import WorkoutFormContent from "@/Components/workoutForm/WorkoutFormContent";
 import { useWorkoutForm } from "@/Provider/WorkoutFormProvider";
 import { buttonClasses } from "@/utils/styles";
 import { DialogTitle } from "@radix-ui/react-dialog";
