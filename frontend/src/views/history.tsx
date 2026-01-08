@@ -33,11 +33,9 @@ export default function History() {
             <Dumbbell className="mx-1"/> Save workout
           </button> 
         </WorkoutModal>
-      
-
         <div className="flex flex-col lg:flex-row flex-wrap justify-center">
           {workouts.map((workout) => 
-            <WorkoutCard key={workout.id} workout={workout} refresh={refresh}/>
+            <WorkoutCard key={workout.id} workout={workout} refresh={refresh} />
           )}
         </div>      
       </WorkoutFormProvider>

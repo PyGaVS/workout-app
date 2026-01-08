@@ -6,6 +6,7 @@ import setRoutes from '#domains/set/router'
 import exerciseRoutes from '#domains/exercise/router'
 import userRoutes from '#domains/user/router'
 import statRoutes from '#domains/stats/router'
+import accessCodeRoutes from '#domains/access_code/router'
 
 router.get('/', async () => {
   return {
@@ -18,5 +19,6 @@ workoutRoutes()
 exerciseBlocRoutes()
 setRoutes()
 exerciseRoutes()
+accessCodeRoutes()
 userRoutes()
 statRoutes()

@@ -9,7 +9,7 @@ export default class User {
     public constructor(fullname?: string, email?: string, authenticated?: null | boolean){
         this.fullName = fullname || ""
         this.email = email || ""
-        if(this.email){
+        if(this.email && authenticated !== false){
             this.authenticated = true
         }
     }
@@ -40,7 +40,9 @@ export default class User {
     public static async whoami(): Promise<User | null>{
         const res = await Api.get<{user: User} | {}>("auth/me")
         if('user' in res.body){
-            return res.body.user
+            const user = new User(res.body.user.fullName, res.body.user.email, true)
+            user.save()
+            return user
         } else {
             return null
         }

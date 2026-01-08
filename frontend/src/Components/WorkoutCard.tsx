@@ -8,6 +8,7 @@ import { useWorkoutForm } from '@/Provider/WorkoutFormProvider'
 
 interface Props {
   workout: Workout
+  skeleton?: boolean
   refresh: () => void
 }
 
