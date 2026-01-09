@@ -4,15 +4,18 @@ import { useNavigate } from "react-router";
 
 export default function Register() {
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const { user, login } = useAuth()
+  const [email, setEmail] = useState<string>("test@gmail.com");
+  const [fullName, setFullName] = useState<string>("John Doe");
+  const [password, setPassword] = useState<string>("12345678");
+  const [confirmPassword, setConfirmPassword] = useState<string>("12345678");
+  const [accessCode, setAccessCode] = useState<string>("HHHHHHHH");
+  
+  const { user, register, errorMessage } = useAuth()
   const navigate = useNavigate()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    login && login(email, password)
+      register(email, password, confirmPassword, fullName, accessCode)
   }
   
   useEffect(() => {
@@ -22,11 +25,10 @@ export default function Register() {
   }, [user])
 
   return (
-    <>
-      <div className="min-h-screen flex items-center justify-center bg-bg text-text font-sans">
+    <div className="min-h-screen flex items-center justify-center bg-bg text-text font-sans">
       <div className="w-full max-w-md p-8 bg-surface rounded-(--radius) shadow-md">
         <h1 className="text-2xl font-bold mb-6 text-primary text-center">
-          Login
+          S'inscrire
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -43,10 +45,23 @@ export default function Register() {
               required
             />
           </div>
+          <div>
+            <label className="block text-text-muted mb-1" htmlFor="full-name">
+              Nom utilisateur
+            </label>
+            <input
+              type="text"
+              id="full-name"
+              className="w-full px-4 py-2 border border-border rounded-(--radius) focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-text"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              required
+            />
+          </div>
 
           <div>
             <label className="block text-text-muted mb-1" htmlFor="password">
-              Password
+              Mot de passe
             </label>
             <input
               type="password"
@@ -60,7 +75,7 @@ export default function Register() {
 
           <div>
             <label className="block text-text-muted mb-1" htmlFor="confirm-password">
-              Confirm password
+              Confirmer le mot de passe
             </label>
             <input
               type="password"
@@ -72,22 +87,36 @@ export default function Register() {
             />
           </div>
 
+          <div>
+            <label className="block text-text-muted mb-1" htmlFor="access-code">
+              Code d'accès
+            </label>
+            <input
+              type="password"
+              id="access-code"
+              className="w-full px-4 py-2 border border-border rounded-(--radius) focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-text"
+              value={accessCode}
+              onChange={(e) => setAccessCode(e.target.value)}
+              required
+            />
+          </div>
+
+          <p className="text-error">{errorMessage}</p>
           <button
             type="submit"
             className="w-full py-2 px-4 bg-black text-white hover:bg-accent transition-colors"
           >
-            Sign In
+            S'inscrire
           </button>
         </form>
 
         <p className="mt-4 text-sm text-text-muted text-center">
-          Don't have an account?{" "}
-          <a href="#" className="text-primary font-semibold hover:underline">
-            Sign Up
+          Tu as déjà un compte?{" "}
+          <a href="/login" className="text-primary font-semibold hover:underline">
+            Se connecter
           </a>
         </p>
       </div>
     </div>
-    </>
   )
 }

@@ -1,8 +1,8 @@
 import type Workout from '@/api/models/Workout'
-import { useState, type PropsWithChildren } from 'react'
+import { type PropsWithChildren } from 'react'
 import { ContextMenuContent, ContextMenuItem } from './ui/context-menu'
 import WorkoutService from '@/api/services/WorkoutService'
-import { Dialog, DialogTrigger } from './ui/dialog'
+import { DialogTrigger } from './ui/dialog'
 
 interface Props {
   workout: Workout

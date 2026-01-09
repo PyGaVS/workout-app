@@ -6,6 +6,8 @@ import {
 } from '#domains/authentication/validators/auth_validator'
 import { AccessCodeService } from '#domains/access_code/services/access_code_service'
 import { inject } from '@adonisjs/core'
+import { computeBitfield } from '#commons/utils/compute_bitfield'
+import { defaultUserPermissions } from '#commons/permissions/permissions_enum'
 
 @inject()
 export default class AuthController {
@@ -18,7 +20,7 @@ export default class AuthController {
       return response.unauthorized({ message: 'Invalid access code' })
     }
 
-    const user = await User.create({ email: data.email, password: data.password, fullName: data.fullName })
+    const user = await User.create({ email: data.email, password: data.password, fullName: data.fullName, permissions: computeBitfield(defaultUserPermissions) })
     const token = await User.accessTokens.create(user, undefined, { expiresIn: '99999d' })
 
     response.plainCookie('auth_token', token.toJSON().token, {
