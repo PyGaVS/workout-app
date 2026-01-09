@@ -21,7 +21,7 @@ export default class StatsService {
             return {
                 item: exercise.name,
                 total: exercise.pourcentage,
-                fill: this.getRandomPieChartColor(undefined, index)
+                fill: this.getRandomPieChartColor(0.9, index)
             }
         })
 
@@ -51,29 +51,25 @@ export default class StatsService {
 
     static getRandomPieChartColor(opacity: number = 0.7, index: number): string {
         const colors = [
-            `rgba(0, 0, 80, ${opacity})`,       // bleu marine très foncé
-            `rgba(0, 0, 120, ${opacity})`,      // bleu marine
-            `rgba(0, 0, 160, ${opacity})`,      // bleu foncé
-            `rgba(0, 20, 180, ${opacity})`,     // bleu profond
-            `rgba(0, 40, 200, ${opacity})`,     // bleu intense
-            `rgba(0, 60, 220, ${opacity})`,     // bleu vif foncé
-            `rgba(0, 80, 240, ${opacity})`,     // bleu électrique
-            `rgba(20, 100, 255, ${opacity})`,   // bleu cobalt
-            `rgba(40, 120, 255, ${opacity})`,   // bleu azur foncé
-            `rgba(60, 140, 255, ${opacity})`,   // bleu azure
-            `rgba(80, 160, 255, ${opacity})`,   // bleu ciel moyen
-            `rgba(100, 180, 255, ${opacity})`,  // bleu clair
-            `rgba(120, 195, 255, ${opacity})`,  // bleu ciel
-            `rgba(140, 210, 255, ${opacity})`,  // bleu pastel
-            `rgba(160, 220, 255, ${opacity})`,  // bleu ciel clair
-            `rgba(180, 230, 255, ${opacity})`,  // bleu très clair
-            `rgba(200, 240, 255, ${opacity})`,  // bleu pâle
-            `rgba(220, 245, 255, ${opacity})`,  // bleu glacé
-            `rgba(235, 250, 255, ${opacity})`,  // bleu presque blanc
-            `rgba(245, 252, 255, ${opacity})`,  // bleu très pâle
+            `rgba(239, 68, 68, ${opacity})`,   // 1 - rouge vif (EF4444)
+            `rgba(245, 80, 60, ${opacity})`,   // 2
+            `rgba(250, 95, 50, ${opacity})`,   // 3
+            `rgba(252, 110, 40, ${opacity})`,  // 4
+            `rgba(253, 120, 32, ${opacity})`,  // 5
+            `rgba(249, 115, 22, ${opacity})`,  // 6 - orange vif (F97316)
+            `rgba(252, 130, 40, ${opacity})`,  // 7
+            `rgba(253, 145, 60, ${opacity})`,  // 8
+            `rgba(254, 160, 80, ${opacity})`,  // 9
+            `rgba(255, 175, 100, ${opacity})`, // 10
+            `rgba(255, 190, 120, ${opacity})`, // 11
+            `rgba(255, 205, 140, ${opacity})`, // 12
+            `rgba(255, 220, 160, ${opacity})`, // 13
+            `rgba(255, 235, 185, ${opacity})`, // 14
+            `rgba(255, 245, 210, ${opacity})`, // 15 - orange très clair
         ]
         return colors[index % colors.length]
     }
+
 
     static getRandomLineChartColor(opacity: number = 0.7, index: number): string {
         const colors = [

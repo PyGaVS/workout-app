@@ -92,12 +92,12 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
                             <linearGradient id="fillTotal" x1="0" y1="0" x2="0" y2="1">
                                 <stop
                                     offset="5%"
-                                    stopColor="rgb(0, 40, 200)"
+                                    stopColor="var(--accent)"
                                     stopOpacity={0.8}
                                 />
                                 <stop
                                     offset="95%"
-                                    stopColor="rgba(0, 60, 220)"
+                                    stopColor="var(--surface)"
                                     stopOpacity={0.1}
                                 />
                             </linearGradient>
@@ -134,7 +134,7 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
                             dataKey="total"
                             type="natural"
                             fill="url(#fillTotal)"
-                            stroke="rgb(40, 120, 255)"
+                            stroke="var(--accent)"
                             strokeWidth={1}
                         />
                     </AreaChart>
