@@ -9,6 +9,7 @@ export default function authRoutes() {
       router.post('/register', [AuthController, 'register']).as('auth.register')
       router.post('/login', [AuthController, 'login']).as('auth.login')
       router.get('/me', [AuthController, 'me']).as('auth.me').middleware(middleware.auth())
+      router.post('/logout', [AuthController, 'logout']).as('auth.logout').middleware(middleware.auth())
     })
     .prefix('auth')
 }
