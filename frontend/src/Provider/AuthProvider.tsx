@@ -1,9 +1,9 @@
 import User from "@/api/models/User";
 import type AuthContextInterface from "@/types/AuthContext";
-import React, { useState, createContext, useContext, useEffect } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 import type { PropsWithChildren } from "react";
 
-const AuthContext = createContext<AuthContextInterface>({user: new User()});
+const AuthContext = createContext<AuthContextInterface | undefined>(undefined);
 
 interface Props {}
 
@@ -43,4 +43,8 @@ export const AuthProvider = (props: PropsWithChildren<Props>) => {
     )
 }
 
-export const useAuth = () => useContext(AuthContext)
+export const useAuth = () => {
+    const ctx = useContext(AuthContext)
+    if(!ctx) { throw new Error("useAuth must be used inside an AuthProvider"); }
+    return ctx
+}

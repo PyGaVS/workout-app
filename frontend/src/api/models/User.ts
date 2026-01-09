@@ -37,6 +37,25 @@ export default class User {
         }
     }
 
+    public static async register(data: {fullName: string, email: string, password: string, accessCode: string}): Promise<{user: User, message: string}> {
+        const res = await Api.post<
+            {fullName: string, email: string, password: string, accessCode: string}, {fullName?: string, email?: string, error?: string[]}
+        >(data, "auth/register")
+
+        const user = new User()
+        if(res.success){
+            user.fullName = res.body.fullName || ""
+            user.email = res.body.email || ""
+            user.authenticated = true
+        }
+
+        user.save()
+        return {
+            user: user,
+            message: res.success ? "Registration success" : res.errors[0]
+        }
+    }
+
     public static async whoami(): Promise<User | null>{
         const res = await Api.get<{user: User} | {}>("auth/me")
         if('user' in res.body){

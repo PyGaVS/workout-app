@@ -2,16 +2,17 @@ import { useAuth } from "@/Provider/AuthProvider";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-export default function Login() {
+export default function Register() {
 
-  const [email, setEmail] = useState<string>("lyl.ball@workout.fr");
-  const [password, setPassword] = useState<string>("12345678");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const { user, login } = useAuth()
   const navigate = useNavigate()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    login(email, password)
+    login && login(email, password)
   }
   
   useEffect(() => {
@@ -57,6 +58,20 @@ export default function Login() {
             />
           </div>
 
+          <div>
+            <label className="block text-text-muted mb-1" htmlFor="confirm-password">
+              Confirm password
+            </label>
+            <input
+              type="password"
+              id="confirm-password"
+              className="w-full px-4 py-2 border border-border rounded-(--radius) focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-text"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+
           <button
             type="submit"
             className="w-full py-2 px-4 bg-black text-white hover:bg-accent transition-colors"
@@ -65,9 +80,12 @@ export default function Login() {
           </button>
         </form>
 
-          <a href="#register" className="text-primary font-semibold hover:underline">
+        <p className="mt-4 text-sm text-text-muted text-center">
+          Don't have an account?{" "}
+          <a href="#" className="text-primary font-semibold hover:underline">
             Sign Up
           </a>
+        </p>
       </div>
     </div>
     </>
