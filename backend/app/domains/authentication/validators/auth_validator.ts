@@ -14,6 +14,7 @@ export const registerValidator = vine.compile(
         return !match // If exists (return !true -> false) unvalidated
       }),
     password,
+    accessCode: vine.string().fixedLength(8).alphaNumeric()
   })
 )
 

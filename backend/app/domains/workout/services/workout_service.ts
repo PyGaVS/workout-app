@@ -3,8 +3,6 @@ import {
   CreateWorkoutSchema,
   UpdateWorkoutSchema,
 } from '#domains/workout/validators/workouts_validator'
-import ExerciseBloc from '#commons/models/exercise_bloc'
-import SetModel from '#commons/models/set'
 
 export default class WorkoutService {
   async getWorkouts(userId: number) {

@@ -9,6 +9,7 @@ import SetItem from './SetItem'
 
 interface Props {
   workout: Workout
+  skeleton?: boolean
   refresh: () => void
 }
 

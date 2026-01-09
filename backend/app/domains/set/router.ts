@@ -9,7 +9,7 @@ export default function setRoutes() {
       router
         .group(() => {
           router.post('/:exerciseBlocId/:exerciseId', [SetsController, 'store'])
-          router.put('/update/:setId', [SetsController, 'update'])
+          //router.put('/update/:setId', [SetsController, 'update'])
         })
         .prefix('/sets')
     })

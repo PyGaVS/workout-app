@@ -22,12 +22,14 @@ export default class SetsController {
     return response.created(set)
   }
 
-  async update({ request, response, params, bouncer }: HttpContext) {
+  async update({ }: HttpContext) {
+    /*
     const setToUpdate = await Set.findOrFail(params.setId)
     await bouncer.with(SetPolicy).authorize('edit', setToUpdate)
     const payload = await request.validateUsing(updateSetValidator)
     const set = await this.setService.updateById(params.setId, payload)
 
     return response.ok(set)
+    */
   }
 }

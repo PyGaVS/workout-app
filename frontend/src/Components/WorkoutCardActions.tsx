@@ -1,10 +1,8 @@
 import type Workout from '@/api/models/Workout'
 import { useState, type PropsWithChildren } from 'react'
 import { ContextMenuContent, ContextMenuItem } from './ui/context-menu'
-import WorkoutModal from '@/views/WorkoutModal'
 import WorkoutService from '@/api/services/WorkoutService'
 import { Dialog, DialogTrigger } from './ui/dialog'
-import WorkoutFormContent from './workoutForm/WorkoutFormContent'
 
 interface Props {
   workout: Workout
@@ -20,7 +18,7 @@ export default function WorkoutCardActions({ workout, refresh }: PropsWithChildr
   return (
       <ContextMenuContent className='bg-surface border-border'>
         <DialogTrigger asChild>
-          <ContextMenuItem className='data-highlighted:text-surface'>
+          <ContextMenuItem className='data-highlighted:bg-accent data-highlighted:text-surface'>
             <div><i className="fa-solid fa-pen-to-square"></i> Modifier</div>
           </ContextMenuItem>
         </DialogTrigger>
