@@ -47,4 +47,14 @@ export default class User {
             return null
         }
     }
+
+    public static async logout(): Promise<boolean>{
+        const res = await Api.post<{}, unknown>({}, "auth/logout")
+        if(res.success){
+            sessionStorage.removeItem("fullName")
+            sessionStorage.removeItem("email")
+            sessionStorage.removeItem("auth")
+        }
+        return res.success;
+    }
 }

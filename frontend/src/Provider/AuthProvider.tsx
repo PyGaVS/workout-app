@@ -22,11 +22,20 @@ export const AuthProvider = (props: PropsWithChildren<Props>) => {
         })
     }
 
+    const logout = () => {
+        User.logout().then((success) => {
+            if (success) {
+                setUser(new User());
+            }
+        })
+    }
+
     return (
         <AuthContext.Provider
             value={{
                 user: user,
-                login: login
+                login: login,
+                logout: logout
             }}
         >
             {props.children}
