@@ -57,9 +57,9 @@ export default function Dashboard() {
                 </div>
                 {stats ?
                     <div className="w-full flex gap-4">
-                        <StatCard statBadge={stats?.favouriteExercise.total + " fois"}
+                        <StatCard statBadge={stats.favouriteExercise ? stats.favouriteExercise.total + " fois" : "0 fois"}
                                   statLabel="Exercice favoris"
-                                  stat={stats?.favouriteExercise.name}
+                                  stat={stats.favouriteExercise ? stats.favouriteExercise.name : "Aucun"}
                                   statText="Vous êtes en bonne voie"
                                   statDescription="L'exercice qui apparait le plus dans vos sets"/>
 
@@ -74,7 +74,7 @@ export default function Dashboard() {
                                   statText="Continue comme ça 💪"
                                   statDescription="Temps depuis lequel vous ne vous êtes pas entrainé"/>
 
-                        <StatCard statBadge={stats?.mostUsedMuscle[0]?.total + " fois"}
+                        <StatCard statBadge={stats?.mostUsedMuscle[0]?.total ? stats?.mostUsedMuscle[0]?.total + " fois" : "0 fois"}
                                   statLabel="Muscle favori"
                                   stat={stats?.mostUsedMuscle[0]?.name}
                                   statText="Bien ciblé!"

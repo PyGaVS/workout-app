@@ -9,6 +9,7 @@ interface Props {}
 
 export const AuthProvider = (props: PropsWithChildren<Props>) => {
     const [user, setUser] = useState<User>(new User());
+    const [errorMessage, setErrorMessage] = useState<string>("");
 
     useEffect(() => {
         User.whoami().then((user) => {
@@ -18,6 +19,23 @@ export const AuthProvider = (props: PropsWithChildren<Props>) => {
 
     const login = (email: string, password: string) => {
         User.login({email, password}).then((r) => {
+            if (r.error) {
+                setErrorMessage(r.error ?? "Une erreur est survenue.")
+            }
+            setUser(r.user)
+        })
+    }
+
+    const register = (email: string, password: string, confirmPassword: string, fullName: string, accessCode: string) => {
+        if (password !== confirmPassword) {
+            setErrorMessage("Les mots de passe ne correspondent pas.")
+            return
+        }
+
+        User.register({email, password, fullName, accessCode}).then((r) => {
+            if (r.error) {
+                setErrorMessage(r.error ?? "Une erreur est survenue.")
+            }
             setUser(r.user)
         })
     }
@@ -35,7 +53,9 @@ export const AuthProvider = (props: PropsWithChildren<Props>) => {
             value={{
                 user: user,
                 login: login,
-                logout: logout
+                logout: logout,
+                register: register,
+                errorMessage: errorMessage
             }}
         >
             {props.children}

@@ -74,7 +74,17 @@ export default class Api {
       body: success ? result : {},
       success: success,
       status: response.status,
-      errors: !success ? [...result.errors] : []
+      error: Api.catchError(result),
+    }
+  }
+
+  private static catchError(result: any): string {
+    if(result.errors){
+      return result.errors[0].message
+    } else if(result.message){
+      return result.message
+    } else {
+      return ""
     }
   }
 }
@@ -83,6 +93,6 @@ export interface ApiResponse<T> {
   body: T,
   success: boolean,
   status: number,
-  errors: any[],
+  error: string,
   page?: number
 }

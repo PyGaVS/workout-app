@@ -1,4 +1,4 @@
-import { LogOut, User2, User2Icon } from "lucide-react";
+import { LogOut, User2 } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -8,17 +8,12 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "./ui/sidebar";
 import { useAuth } from "@/Provider/AuthProvider";
 
-interface Props {
-} 
-
-
-export default function AppSidebar(props: Props) {
+export default function AppSidebar() {
 
     const { user, logout } = useAuth();
 

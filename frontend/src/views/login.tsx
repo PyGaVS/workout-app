@@ -6,7 +6,7 @@ export default function Login() {
 
   const [email, setEmail] = useState<string>("lyl.ball@workout.fr");
   const [password, setPassword] = useState<string>("12345678");
-  const { user, login } = useAuth()
+  const { user, login, errorMessage } = useAuth()
   const navigate = useNavigate()
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -25,7 +25,7 @@ export default function Login() {
       <div className="min-h-screen flex items-center justify-center bg-bg text-text font-sans">
       <div className="w-full max-w-md p-8 bg-surface rounded-(--radius) shadow-md">
         <h1 className="text-2xl font-bold mb-6 text-primary text-center">
-          Login
+          Se connecter
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -56,18 +56,20 @@ export default function Login() {
               required
             />
           </div>
-
+          <div className="flex justify-center text-error">{errorMessage}</div>
           <button
             type="submit"
             className="w-full py-2 px-4 bg-black text-white hover:bg-accent transition-colors"
           >
-            Sign In
+            Se connecter
           </button>
         </form>
 
-          <a href="#register" className="text-primary font-semibold hover:underline">
-            Sign Up
-          </a>
+          <p className="mt-4 text-sm text-text text-center">
+            <a href="/register" className="font-semibold hover:underline">
+              S'inscrire
+            </a>
+          </p>
       </div>
     </div>
     </>

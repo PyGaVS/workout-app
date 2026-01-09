@@ -3,6 +3,7 @@ import Dashboard from './dashboard';
 import History from './history';
 import Login from './login';
 import { AuthProvider } from '../Provider/AuthProvider';
+import Register from "./register";
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="history" element={<History />} />
             <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
