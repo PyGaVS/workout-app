@@ -101,7 +101,7 @@ export function ChartPieDonut({ data, title, description }: ChartPieDonutProps) 
                 {topExercise && (
                     <div className="flex items-center gap-2 leading-none font-medium">
                         Exercice le plus pratiqué: {topExercise.item} ({topExercise.total.toFixed(2)}%)
-                        <TrendingUp className="h-4 w-4" />
+                        <TrendingUp className="h-4 w-4"/>
                     </div>
                 )}
                 <div className="text-muted-foreground leading-none">
