@@ -1,8 +1,8 @@
 import Workout from "@/api/models/Workout";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "@/Components/ui/dialog";
+import { Dialog, DialogTrigger } from "@/Components/ui/dialog";
 import WorkoutFormContent from "@/Components/workoutForm/WorkoutFormContent";
 import { useWorkoutForm } from "@/Provider/WorkoutFormProvider";
-import { useEffect, useState, type PropsWithChildren } from "react";
+import { useState, type PropsWithChildren } from "react";
 
 interface Props {
   children: React.ReactNode

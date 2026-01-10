@@ -35,7 +35,7 @@
   --error: #DC2626;
 
   --sidebar: #FFFFFF;
-  --sidebar-foreground: var(--text);
+  --sidebar-foreground: var(--text-muted);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: var(--bg);

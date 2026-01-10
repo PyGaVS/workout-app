@@ -13,15 +13,14 @@ import {
 } from "./ui/sidebar";
 import { useAuth } from "@/Provider/AuthProvider";
 import { Link } from "react-router";
+import type { MenuGroupItem } from "@/types/MenuGroupItem";
 
-export default function AppSidebar() {
+interface Props {
+    menuItems: MenuGroupItem[];
+}
+export default function AppSidebar(props: Props) {
 
     const { user, logout } = useAuth();
-
-    const menuItems = [
-        { label: 'Dashboard', ariaLabel: 'Dashboard', link: '/', icon: 'fa-solid fa-chart-line' },
-        { label: 'History', ariaLabel: 'History', link: '/history', icon: 'fa-solid fa-calendar-check' }
-    ];
 
     return (
         <Sidebar className="border-border">
@@ -30,20 +29,25 @@ export default function AppSidebar() {
                 <h2 className="text-2xl font-bold"><span className="text-primary">Workout</span> app</h2>
             </SidebarHeader>
             <SidebarContent>
-                <SidebarGroup>
-                    <SidebarGroupLabel>Workouts</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            {menuItems.map((item) => (
-                                <SidebarMenuItem key={item.label}>
-                                    <SidebarMenuButton asChild className="text-text text-xl p-5 hover:bg-accent/70 font-semibold">
-                                        <Link to={item.link} aria-label={item.ariaLabel}> <i className={item.icon} /> {item.label}</Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
+                {props.menuItems.map((group) => (
+                    <SidebarGroup>
+                        <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+                        <SidebarGroupContent>
+                            <SidebarMenu>
+                                {group.items.map((item) => (
+                                    <SidebarMenuItem key={item.label}>
+                                        <SidebarMenuButton asChild 
+                                        className="text-text text-xl p-5 hover:bg-secondary hover:text-surface font-semibold">
+                                            <Link to={item.link} aria-label={item.ariaLabel}> 
+                                                <i className={item.icon} style={{ color: "var(--accent)" }}/> {item.label}
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                ))}
+                            </SidebarMenu>
+                        </SidebarGroupContent>
+                    </SidebarGroup>
+                ))}
             </SidebarContent>
             <SidebarFooter>
                 <SidebarGroup>

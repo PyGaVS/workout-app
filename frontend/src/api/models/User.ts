@@ -4,18 +4,19 @@ export default class User {
     public fullName: string = ""
     public email: string = ""
     public authenticated: null | boolean = null //null = loading 
+    public isAdmin: boolean = false
     
 
-    public constructor(fullname?: string, email?: string, authenticated?: null | boolean){
+    public constructor(fullname?: string, email?: string, authenticated?: null | boolean, isAdmin?: boolean) {
         this.fullName = fullname || ""
         this.email = email || ""
         this.authenticated = this.email ? authenticated || null : false
+        this.isAdmin = isAdmin || false
     }
 
     public static async login(credentials: {email: string, password: string}): Promise<{user: User, error: string}> {
-        const res = await Api.post<{email: string, password: string}, {fullName?: string, email?: string}>(credentials, "auth/login")
-
-        const user = new User(res.body.fullName, res.body.email, true)
+        const res = await Api.post<{email: string, password: string}, {fullName?: string, email?: string, isAdmin?: boolean}>(credentials, "auth/login")
+        const user = new User(res.body.fullName, res.body.email, true, res.body.isAdmin)
 
         return {
             user: user,
@@ -39,7 +40,7 @@ export default class User {
     public static async whoami(): Promise<User | null>{
         const res = await Api.get<{user: User} | {}>("auth/me")
         if('user' in res.body){
-            const user = new User(res.body.user.fullName, res.body.user.email, true)
+            const user = new User(res.body.user.fullName, res.body.user.email, true, res.body.user.isAdmin)
             return user
         } else {
             const user = new User()

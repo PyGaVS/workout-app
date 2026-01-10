@@ -1,5 +1,3 @@
-import Api from "../Api"
-
 export default class Exercise {
   private id: number
   public name: string

@@ -13,7 +13,7 @@ export const AuthProvider = (props: PropsWithChildren<Props>) => {
 
     useEffect(() => {
         User.whoami().then((user) => {
-            setUser(new User(user?.fullName, user?.email, user ? true : false))
+            setUser(new User(user?.fullName, user?.email, user ? true : false, user?.isAdmin));
         })
     }, [])
 

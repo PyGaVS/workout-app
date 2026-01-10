@@ -1,4 +1,3 @@
-import type Exercise from "./Exercise"
 import Set, { type SetJSON } from "./Set"
 
 export default class ExerciseBloc {
