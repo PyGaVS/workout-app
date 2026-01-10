@@ -1,17 +1,18 @@
 import { LogOut, User2 } from "lucide-react";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+    Sidebar,
+    SidebarContent,
+    SidebarFooter,
+    SidebarGroup,
+    SidebarGroupContent,
+    SidebarGroupLabel,
+    SidebarHeader,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
 } from "./ui/sidebar";
 import { useAuth } from "@/Provider/AuthProvider";
+import { Link } from "react-router";
 
 export default function AppSidebar() {
 
@@ -36,7 +37,7 @@ export default function AppSidebar() {
                             {menuItems.map((item) => (
                                 <SidebarMenuItem key={item.label}>
                                     <SidebarMenuButton asChild className="text-text text-xl p-5 hover:bg-accent/70 font-semibold">
-                                        <a href={item.link} aria-label={item.ariaLabel}> <i className={item.icon} /> {item.label}</a>
+                                        <Link to={item.link} aria-label={item.ariaLabel}> <i className={item.icon} /> {item.label}</Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}

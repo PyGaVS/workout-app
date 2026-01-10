@@ -43,7 +43,7 @@ export const AuthProvider = (props: PropsWithChildren<Props>) => {
     const logout = () => {
         User.logout().then((success) => {
             if (success) {
-                setUser(new User());
+                setUser( new User(undefined, undefined, false) );
             }
         })
     }

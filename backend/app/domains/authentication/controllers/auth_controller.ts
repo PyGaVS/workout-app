@@ -16,11 +16,14 @@ export default class AuthController {
   async register({ request, response }: HttpContext) {
     const data = await request.validateUsing(registerValidator)
     const accessCode = await this.accessCodeService.findByCode(data.accessCode)
-    if (!accessCode) {
+    if (!accessCode || accessCode.userId !== null) {
       return response.unauthorized({ message: 'Invalid access code' })
     }
 
-    const user = await User.create({ email: data.email, password: data.password, fullName: data.fullName, permissions: computeBitfield(defaultUserPermissions) })
+    const user = await User.create(
+      { email: data.email, password: data.password, fullName: data.fullName, permissions: computeBitfield(defaultUserPermissions) }
+    )
+    await this.accessCodeService.assignToUser(accessCode, user.id)
     const token = await User.accessTokens.create(user, undefined, { expiresIn: '99999d' })
 
     response.plainCookie('auth_token', token.toJSON().token, {
