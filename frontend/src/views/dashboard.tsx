@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {useAuth} from "@/Provider/AuthProvider.tsx";
 import StatsService, {
     type LastWorkoutDataType,
+    type MostUsedMuscleType,
     type StatsSchema, type WeeklyChartDataType,
 } from "@/api/services/StatsService.ts";
 import StatCard from "@/Components/StatCard.tsx";
@@ -30,7 +31,7 @@ export default function Dashboard() {
         const topExercises = statsRes.topExercise;
         const workoutsMonths = statsRes.workoutsByMonths;
         const weeklyMusclesUsageTemp = statsRes.weeklyMusclesUsage;
-        const lastWorkoutData = statsRes.lastWorkoutData
+        const lastWorkoutData = statsRes.lastWorkoutData;
 
         // Convertir les données pour l'affichage
         const convertedWorkouts = StatsService.workoutByMonthConvert(workoutsMonths);
@@ -47,6 +48,17 @@ export default function Dashboard() {
         }
     }
 
+    const getMostUsedMuscle = (): MostUsedMuscleType => {
+        if (!stats?.mostUsedMuscle || stats.mostUsedMuscle.length === 0){
+            return { name: "Aucun", total: "0" }
+        };
+
+        return {
+            name: stats.mostUsedMuscle[0].name,
+            total: stats.mostUsedMuscle[0].total ? stats.mostUsedMuscle[0].total : "0"
+        }
+    }
+
     return (
         <DrawerView title="dashboard">
             <div className="p-5 flex flex-col gap-8">
@@ -55,7 +67,7 @@ export default function Dashboard() {
                         vos <span
                             className="italic">statistiques</span>.</p>
                 </div>
-                {stats ?
+                {stats && Object.keys(stats ? stats : {}).length > 0 ?
                     <div className="w-full flex gap-4">
                         <StatCard statBadge={stats.favouriteExercise ? stats.favouriteExercise.total + " fois" : "0 fois"}
                                   statLabel="Exercice favoris"
@@ -74,9 +86,9 @@ export default function Dashboard() {
                                   statText="Continue comme ça 💪"
                                   statDescription="Temps depuis lequel vous ne vous êtes pas entrainé"/>
 
-                        <StatCard statBadge={stats?.mostUsedMuscle[0]?.total ? stats?.mostUsedMuscle[0]?.total + " fois" : "0 fois"}
+                        <StatCard statBadge={getMostUsedMuscle().total + " fois"}
                                   statLabel="Muscle favori"
-                                  stat={stats?.mostUsedMuscle[0]?.name}
+                                  stat={getMostUsedMuscle().name}
                                   statText="Bien ciblé!"
                                   statDescription="Le muscle que vous travaillez le plus"/>
                     </div>
@@ -91,19 +103,19 @@ export default function Dashboard() {
 
                 <div className="flex justify-between">
                     {workoutsByMonth.length > 0 ?
-                        <div className="flex flex-col border-gray-300 border-1 rounded-xl w-42/60 h-full">
+                        <div className="flex flex-col border-gray-300 border rounded-xl w-42/60 h-full">
                             {workoutsByMonth && <ChartAreaInteractive data={workoutsByMonth}/>}
                         </div>
                         :
-                        <Skeleton className="flex flex-col border-gray-300 border-1 rounded-xl w-42/60 h-80">
+                        <Skeleton className="flex flex-col border-gray-300 border rounded-xl w-42/60 h-80">
                         </Skeleton>
                     }
                     {topExercises ?
-                        <div className="border-gray-300 border-1 rounded-xl w-17/60 p-3">
+                        <div className="border-gray-300 border rounded-xl w-17/60 p-3">
                             <ChartPieDonut data={topExercises}/>
                         </div>
                         :
-                        <Skeleton className="border-gray-300 border-1 rounded-xl w-17/60 p-3 h-80"></Skeleton>
+                        <Skeleton className="border-gray-300 border rounded-xl w-17/60 p-3 h-80"></Skeleton>
                     }
 
                 </div>

@@ -1,7 +1,7 @@
 import Workout from "@/api/models/Workout";
 import DrawerView from "@/Components/DrawerView";
 import WorkoutCard from "@/Components/WorkoutCard";
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import WorkoutModal from "@/views/WorkoutModal";
 import Exercise from "@/api/models/Exercise";
 import { WorkoutFormProvider } from "@/Provider/WorkoutFormProvider";

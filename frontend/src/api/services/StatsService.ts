@@ -8,6 +8,7 @@ export default class StatsService {
     }
 
     public static workoutByMonthConvert(workoutsByMonth: WorkoutsByMonthsType[]) {
+        if(!workoutsByMonth) return []
         return workoutsByMonth.map((monthWorkout) => {
             return {
                 date: monthWorkout.monthName,
@@ -17,6 +18,7 @@ export default class StatsService {
     }
 
     public static topExerciseConvert(topExercises: TopExercisesType[]) {
+        if(!topExercises) return []
         const data: ChartPieDonutDataType[] = topExercises.map((exercise, index) => {
             return {
                 item: exercise.name,
@@ -30,7 +32,7 @@ export default class StatsService {
 
     public static weeklyMusclesUsageConvert(weeklyMuscleUsage: WeeklyMusclesUsageType[]): WeeklyChartDataType[] {
         const weekMap = new Map<string, WeeklyChartDataType>()
-
+        if(!weeklyMuscleUsage) return []
         weeklyMuscleUsage.forEach((muscle) => {
             muscle.weeklyData.forEach((weekData) => {
                 const week = weekData.week
@@ -125,7 +127,7 @@ export type StatsSchema = {
     weeklyMusclesUsage: WeeklyMusclesUsageType[]
 }
 
-type MostUsedMuscleType = {
+export type MostUsedMuscleType = {
     name: string,
     total: string
 }
