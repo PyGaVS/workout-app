@@ -1,5 +1,5 @@
 import Workout from "@/api/models/Workout";
-import DrawerView from "@/Components/DrawerView";
+import AuthView from "@/Components/AuthView";
 import WorkoutCard from "@/Components/WorkoutCard";
 import { useEffect, useState } from "react";
 import WorkoutModal from "@/views/WorkoutModal";
@@ -25,7 +25,7 @@ export default function History() {
   }
 
   return (
-    <DrawerView title="history">
+    <AuthView title="history">
       <WorkoutFormProvider exercises={exercises}>
         <WorkoutModal>
           <button className="bg-text text-surface inline-flex px-2 py-3 rounded-radius my-3 mx-6 border-none
@@ -39,6 +39,6 @@ export default function History() {
           )}
         </div>      
       </WorkoutFormProvider>
-    </DrawerView>
+    </AuthView>
   )
 }

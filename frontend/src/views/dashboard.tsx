@@ -1,4 +1,4 @@
-import DrawerView from "@/Components/DrawerView";
+import AuthView from "@/Components/AuthView";
 import {useEffect, useState} from "react";
 import {useAuth} from "@/Provider/AuthProvider.tsx";
 import StatsService, {
@@ -60,7 +60,7 @@ export default function Dashboard() {
     }
 
     return (
-        <DrawerView title="dashboard">
+        <AuthView title="dashboard">
             <div className="p-5 flex flex-col gap-8">
                 <div>
                     <p className="text-3xl">Bonjour <span className="font-bold">{user.fullName}</span> 👋, visualisez
@@ -125,6 +125,6 @@ export default function Dashboard() {
                     }
                 </div>
             </div>
-        </DrawerView>
+        </AuthView>
     )
 }

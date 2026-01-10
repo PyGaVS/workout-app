@@ -14,6 +14,8 @@ export default class AccessCodePolicy extends BasePolicy {
   async before(user: User) {
     if (await this.permissionService.hasPermission(user, Permissions.ADMIN)) {
       return true
+    } else {
+      return false
     }
   }
 

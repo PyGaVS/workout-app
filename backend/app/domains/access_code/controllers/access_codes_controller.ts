@@ -14,9 +14,10 @@ export default class AccessCodesController {
   
   async show({}: HttpContext) {}
   
-  async store({ bouncer } : HttpContext) {
+  async store({ bouncer, request } : HttpContext) {
     await bouncer.with(AccessCodePolicy).authorize('admin')
-    return this.accessCodeService.generateAccessCode()
+    const { memberFirstName, memberLastName } = request.body()
+    return this.accessCodeService.createAccessCode(memberFirstName, memberLastName)
   }
   
 }

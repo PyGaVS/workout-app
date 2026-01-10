@@ -9,28 +9,14 @@ export default class User {
     public constructor(fullname?: string, email?: string, authenticated?: null | boolean){
         this.fullName = fullname || ""
         this.email = email || ""
-        if(this.email && authenticated !== false){
-            this.authenticated = true
-        }
-    }
-
-    private save(){
-        sessionStorage.setItem("fullName", this.fullName)
-        sessionStorage.setItem("email", this.email)
-        sessionStorage.setItem("auth", this.authenticated ? "true" : "false")
+        this.authenticated = this.email ? authenticated || null : false
     }
 
     public static async login(credentials: {email: string, password: string}): Promise<{user: User, error: string}> {
         const res = await Api.post<{email: string, password: string}, {fullName?: string, email?: string}>(credentials, "auth/login")
 
-        const user = new User()
-        if(res.success){          
-            user.fullName = res.body.fullName || ""
-            user.email = res.body.email || ""
-            user.authenticated = true
-        }
+        const user = new User(res.body.fullName, res.body.email, true)
 
-        user.save()
         return {
             user: user,
             error: !res.success ? res.error : ""
@@ -42,14 +28,8 @@ export default class User {
             {fullName: string, email: string, password: string, accessCode: string}, {fullName?: string, email?: string}
         >(data, "auth/register")
 
-        const user = new User()
-        if(res.success){
-            user.fullName = res.body.fullName || ""
-            user.email = res.body.email || ""
-            user.authenticated = true
-        }
+        const user = new User(res.body.fullName, res.body.email, true)
 
-        user.save()
         return {
             user: user,
             error: !res.success ? res.error : ""
@@ -60,20 +40,16 @@ export default class User {
         const res = await Api.get<{user: User} | {}>("auth/me")
         if('user' in res.body){
             const user = new User(res.body.user.fullName, res.body.user.email, true)
-            user.save()
             return user
         } else {
-            return null
+            const user = new User()
+            user.authenticated = false
+            return user
         }
     }
 
     public static async logout(): Promise<boolean>{
         const res = await Api.post<{}, unknown>({}, "auth/logout")
-        if(res.success){
-            sessionStorage.removeItem("fullName")
-            sessionStorage.removeItem("email")
-            sessionStorage.removeItem("auth")
-        }
-        return res.success;
+        return res.success || res.status == 401;
     }
 }
