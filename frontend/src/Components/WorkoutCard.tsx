@@ -35,7 +35,7 @@ export default function WorkoutCard(props: PropsWithChildren<Props>){
           <div className='items-center mb-6 border-b border-border pb-4'>
             <span className="text-xs font-bold uppercase tracking-wider text-primary">Entraînement</span>
             <h2 className="text-text font-bold text-lg flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              {props.workout.date.getTime() > Date.now() ? <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span> : null}
               {props.workout.dateStr()}
             </h2>
           </div>
