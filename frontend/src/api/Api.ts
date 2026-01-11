@@ -43,22 +43,10 @@ export default class Api {
     return Api.getResponse(res)
   }
 
-  private static fetchWithAuth(url: string, options: RequestInit): Promise<Response>{
-
-    const isPublicRoute = () => [
-      "/login",
-      "/register"
-    ].some(route => this.url + route == url);
-
-    let token = sessionStorage.getItem('token')
-    
+  private static fetchWithAuth(url: string, options: RequestInit): Promise<Response>{    
     let headers: HeadersInit = {
       'Content-Type': 'application/json',
       'Accept': '*/*'
-    }
-
-    if (!isPublicRoute() && token) {
-      headers.Authorization = `Bearer ${token}`;
     }
     
     options.headers = headers
