@@ -8,12 +8,12 @@ const AuthContext = createContext<AuthContextInterface | undefined>(undefined);
 interface Props {}
 
 export const AuthProvider = (props: PropsWithChildren<Props>) => {
-    const [user, setUser] = useState<User>(new User());
+    const [user, setUser] = useState<User>(new User(undefined, undefined, null));
     const [errorMessage, setErrorMessage] = useState<string>("");
 
     useEffect(() => {
         User.whoami().then((user) => {
-            setUser(new User(user?.fullName, user?.email, user ? true : false, user?.isAdmin));
+            setUser(new User(user?.fullName, user?.email, user?.authenticated, user?.isAdmin));
         })
     }, [])
 

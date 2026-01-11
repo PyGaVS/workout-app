@@ -20,7 +20,7 @@ export default function WorkoutFormContent(props: PropsWithChildren<Props>){
   const form = useWorkoutForm();
 
   function handleSubmit(e: React.FormEvent){
-    e.preventDefault();
+    //e.preventDefault();
     form.submit(props.edit);
     props.setOpen(false)
   }

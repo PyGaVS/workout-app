@@ -3,6 +3,7 @@ import AccessCodeService from "@/api/services/AccessCodeService";
 import AdminView from "@/Components/AdminView";
 import { Table, TableBody, TableHead, TableRow, TableCell, TableHeader } from "@/Components/ui/table";
 import { useEffect, useState } from "react";
+import AccessCodeModal from "./AccessCodeModal";
 
 export default function AccessCodes() {
   const  [accessCodes, setAccessCodes] = useState<AccessCode[]>([]);
@@ -13,6 +14,12 @@ export default function AccessCodes() {
 
   return (
     <AdminView title="Access Codes">
+      <AccessCodeModal>
+        <button className="bg-text text-surface inline-flex px-2 py-3 rounded-radius my-3 mx-6 border-none
+        shadow-md transition-all duration-300 hover:bg-accent hover:shadow-lg hover:scale-105">
+          Generate Access Code
+        </button>
+      </AccessCodeModal>
       <Table>
         <TableHeader>
           <TableRow>

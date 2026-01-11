@@ -7,10 +7,10 @@ export default class User {
     public isAdmin: boolean = false
     
 
-    public constructor(fullname?: string, email?: string, authenticated?: null | boolean, isAdmin?: boolean) {
+    public constructor(fullname?: string, email?: string, authenticated: null | boolean = false, isAdmin?: boolean) {
         this.fullName = fullname || ""
         this.email = email || ""
-        this.authenticated = this.email ? authenticated || null : false
+        this.authenticated = this.email && authenticated ? true : authenticated
         this.isAdmin = isAdmin || false
     }
 
@@ -44,7 +44,6 @@ export default class User {
             return user
         } else {
             const user = new User()
-            user.authenticated = false
             return user
         }
     }

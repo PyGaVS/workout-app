@@ -36,7 +36,7 @@ export default function AuthView(props: PropsWithChildren<Props>){
         {
             label: "Backoffice",
             items: [
-                { label: 'Users', ariaLabel: 'Users', link: '/backoffice', icon: 'fa-solid fa-users' },
+                //{ label: 'Users', ariaLabel: 'Users', link: '/backoffice', icon: 'fa-solid fa-users' },
                 { label: 'Access Codes', ariaLabel: 'Access Codes', link: '/backoffice/access-codes', icon: 'fa-solid fa-key' }
             ]
         }

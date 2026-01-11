@@ -1,6 +1,6 @@
 import { useAuth } from "@/Provider/AuthProvider";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function Login() {
 
@@ -66,9 +66,9 @@ export default function Login() {
         </form>
 
           <p className="mt-4 text-sm text-text text-center">
-            <a href="/register" className="font-semibold hover:underline">
+            <Link to="/register" className="font-semibold hover:underline">
               S'inscrire
-            </a>
+            </Link>
           </p>
       </div>
     </div>
