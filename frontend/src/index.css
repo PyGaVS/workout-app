@@ -3,11 +3,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* @custom-variant dark (&:is(.dark *)); */
+/** {*/
+/*  box-shadow: inset red 0 0 0 1px;*/
+/*}*/
 
-/* * {
-  box-shadow: inset red 0 0 0 1px;
-} */
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; }
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -24,7 +25,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --radius: 0.625rem;
-  --bg: #F3F4F6;           /* gris clair */
+  --bg: #FAFAFA;           /* gris clair */
   --surface: #FFFFFF;      /* fond des cartes */
   --primary: #EF4444;      /* rouge énergique */
   --secondary: #1F2937;    /* gris acier */
@@ -43,12 +44,12 @@
   --sidebar-ring: var(--primary);
 }
 
-[data-theme="dark"] {
+:root.dark {
   --bg: #0F0F0F;
   --surface: #1E1E1E;
-  --primary: #3B82F6;    
-  --secondary: #111827;
-  --accent: #22C55E;
+  --primary: #EF4444;
+  --secondary: #F8F8F8;
+  --accent: #F97316;
   --text: #E5E7EB;
   --text-muted: #9CA3AF;
   --border: #27272A;

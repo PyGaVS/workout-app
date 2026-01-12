@@ -14,6 +14,7 @@ import {
 import { useAuth } from "@/Provider/AuthProvider";
 import { Link } from "react-router";
 import type { MenuGroupItem } from "@/types/MenuGroupItem";
+import {AnimatedThemeToggler} from "@/Components/ui/animated-theme-toggler.tsx";
 
 interface Props {
     menuItems: MenuGroupItem[];
@@ -51,7 +52,14 @@ export default function AppSidebar(props: Props) {
             </SidebarContent>
             <SidebarFooter>
                 <SidebarGroup>
-                    <SidebarGroupLabel className="space-x-2"><User2 /> <span>{user.fullName}</span></SidebarGroupLabel>
+                    <SidebarGroupLabel className="space-x-2">
+                        <div className="flex justify-between w-full">
+                            <div className={"flex"}>
+                                <User2 /> <span>{user.fullName}</span>
+                            </div>
+                            <AnimatedThemeToggler/>
+                        </div>
+                    </SidebarGroupLabel>
                         <SidebarMenuItem className="flex flex-row items-center gap-2">
                             <SidebarMenuButton className="text-error" onClick={logout}>
                                 <LogOut /> Sign out
