@@ -1,4 +1,4 @@
-import { LogOut, User2 } from "lucide-react";
+import {LogOut, User2} from "lucide-react";
 import {
     Sidebar,
     SidebarContent,
@@ -11,22 +11,22 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "./ui/sidebar";
-import { useAuth } from "@/Provider/AuthProvider";
-import { Link } from "react-router";
-import type { MenuGroupItem } from "@/types/MenuGroupItem";
-import {AnimatedThemeToggler} from "@/Components/ui/animated-theme-toggler.tsx";
+import {useAuth} from "@/Provider/AuthProvider";
+import {Link} from "react-router";
+import type {MenuGroupItem} from "@/types/MenuGroupItem";
 
 interface Props {
     menuItems: MenuGroupItem[];
 }
+
 export default function AppSidebar(props: Props) {
 
-    const { user, logout } = useAuth();
+    const {user, logout} = useAuth();
 
     return (
         <Sidebar className="border-border">
             <SidebarHeader className="flex flex-row items-center w-full gap-1 cursor-pointer p-4">
-                <img src="/logo.png" alt="Workout App Logo" className="w-1/5" />
+                <img src="/logo.png" alt="Workout App Logo" className="w-1/5"/>
                 <h2 className="text-2xl font-bold"><span className="text-primary">Workout</span> app</h2>
             </SidebarHeader>
             <SidebarContent>
@@ -37,10 +37,10 @@ export default function AppSidebar(props: Props) {
                             <SidebarMenu>
                                 {group.items.map((item) => (
                                     <SidebarMenuItem key={item.label}>
-                                        <SidebarMenuButton asChild 
-                                        className="text-text text-xl p-5 hover:bg-secondary hover:text-surface font-semibold">
-                                            <Link to={item.link} aria-label={item.ariaLabel}> 
-                                                <i className={item.icon} style={{ color: "var(--accent)" }}/> {item.label}
+                                        <SidebarMenuButton asChild
+                                                           className="text-text text-xl p-5 hover:bg-secondary hover:text-surface font-semibold">
+                                            <Link to={item.link} aria-label={item.ariaLabel}>
+                                                <i className={item.icon} style={{color: "var(--accent)"}}/> {item.label}
                                             </Link>
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>
@@ -52,19 +52,20 @@ export default function AppSidebar(props: Props) {
             </SidebarContent>
             <SidebarFooter>
                 <SidebarGroup>
-                    <SidebarGroupLabel className="space-x-2">
+                    <div className="space-x-2">
                         <div className="flex justify-between w-full">
-                            <div className={"flex"}>
-                                <User2 /> <span>{user.fullName}</span>
+                            <div className="flex items-center">
+                                <SidebarGroupLabel className="space-x-2">
+                                    <User2/> <span>{user.fullName}</span>
+                                </SidebarGroupLabel>
                             </div>
-                            <AnimatedThemeToggler/>
                         </div>
-                    </SidebarGroupLabel>
-                        <SidebarMenuItem className="flex flex-row items-center gap-2">
-                            <SidebarMenuButton className="text-error" onClick={logout}>
-                                <LogOut /> Sign out
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
+                    </div>
+                    <SidebarMenuItem className="flex flex-row items-center gap-2">
+                        <SidebarMenuButton className="text-error" onClick={logout}>
+                            <LogOut/> Se déconnecter
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
                 </SidebarGroup>
             </SidebarFooter>
         </Sidebar>

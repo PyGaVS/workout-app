@@ -20,6 +20,8 @@ export default function Dashboard() {
     const [weeklyMusclesUsage, setWeeklyMusclesUsage] = useState<WeeklyChartDataType[]>();
     const [lastWorkoutData, setLastWorkoutData] = useState<LastWorkoutDataType>();
 
+    const [lastWorkoutDataText, setLastWorkoutDataText] = useState<string>("");
+
     useEffect(() => {
         StatsService.getStats().then((statsRes) => {
             setStats(statsRes)
@@ -46,6 +48,18 @@ export default function Dashboard() {
         if (lastWorkoutData) {
             setLastWorkoutData(lastWorkoutData);
         }
+
+        if (lastWorkoutData.daysBetween) {
+            const d = lastWorkoutData.daysBetween
+
+            if (d < 3) {
+                setLastWorkoutDataText("Tu t’es entraîné récemment🔥")
+            } else if (d < 7) {
+                setLastWorkoutDataText("Ça fait quelques jours💪")
+            } else {
+                setLastWorkoutDataText("Ça fait longtemps…⏳")
+            }
+        }
     }
 
     const getMostUsedMuscle = (): MostUsedMuscleType => {
@@ -60,7 +74,7 @@ export default function Dashboard() {
     }
 
     return (
-        <AuthView title="dashboard">
+        <AuthView title="Tableau de bord">
             <div className="p-5 flex flex-col gap-8">
                 <div>
                     <p className="text-3xl">Bonjour <span className="font-bold">{user.fullName}</span> 👋, visualisez
@@ -83,7 +97,7 @@ export default function Dashboard() {
                         <StatCard statBadge={lastWorkoutData?.daysBetween + " jours"}
                                   statLabel="Dernière séance"
                                   stat={lastWorkoutData?.message}
-                                  statText="Continue comme ça 💪"
+                                  statText={lastWorkoutDataText}
                                   statDescription="Temps depuis lequel vous ne vous êtes pas entrainé"/>
 
                         <StatCard statBadge={getMostUsedMuscle().total + " fois"}
@@ -103,7 +117,7 @@ export default function Dashboard() {
 
                 <div className="flex justify-between">
                     {workoutsByMonth.length > 0 ?
-                        <div className="flex flex-col border-gray-300 border rounded-xl w-42/60 h-full">
+                        <div className="flex flex-col border-(--stats-border) border rounded-xl w-42/60 h-full">
                             {workoutsByMonth && <ChartAreaInteractive data={workoutsByMonth}/>}
                         </div>
                         :
@@ -111,7 +125,7 @@ export default function Dashboard() {
                         </Skeleton>
                     }
                     {topExercises ?
-                        <div className="border-gray-300 border rounded-xl w-17/60 p-3">
+                        <div className="border-(--stats-border) border rounded-xl w-17/60 p-3">
                             <ChartPieDonut data={topExercises}/>
                         </div>
                         :

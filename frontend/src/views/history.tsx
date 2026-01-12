@@ -33,7 +33,7 @@ export default function History() {
   }
 
   return (
-    <AuthView title="history">
+    <AuthView title="Historique">
       <WorkoutFormProvider exercises={exercises}>
         <div className="flex items-center justify-between gap-9 py-3 px-6">
           <WorkoutModal>
