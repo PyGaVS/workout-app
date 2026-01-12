@@ -58,7 +58,7 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
 
     return (
         <Card className="pt-0 !border-none shadow-none">
-            <CardHeader className="flex items-center gap-2 space-y-0 border-b !border-gray-300 py-5 sm:flex-row">
+            <CardHeader className="flex items-center gap-2 space-y-0 border-b !border-(--stats-border) py-5 sm:flex-row">
                 <div className="grid flex-1 gap-1">
                     <CardTitle>Évolution des séances</CardTitle>
                     <CardDescription>
@@ -91,7 +91,7 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
                         <defs>
                             <linearGradient id="fillTotal" x1="0" y1="0" x2="0" y2="1">
                                 <stop
-                                    offset="5%"
+                                    offset="10%"
                                     stopColor="var(--accent)"
                                     stopOpacity={0.8}
                                 />
@@ -108,6 +108,7 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
                             tickLine={false}
                             axisLine={false}
                             tickMargin={8}
+                            tick={{ style: { fill: "var(--text)" } }}
                             tickFormatter={(value) => {
                                 const date = new Date(value)
                                 return date.toLocaleDateString("fr-FR", {
@@ -132,7 +133,7 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
                         />
                         <Area
                             dataKey="total"
-                            type="natural"
+                            type="monotone"
                             fill="url(#fillTotal)"
                             stroke="var(--accent)"
                             strokeWidth={1}

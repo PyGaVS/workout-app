@@ -38,7 +38,7 @@ export function ChartLineMultiple({ data }: ChartLineMultipleProps) {
     }, {} as ChartConfig)
 
     return (
-        <Card className="w-full border-gray-300 shadow-none">
+        <Card className="w-full border-(--stats-border) shadow-none">
             <CardHeader className="pb-2">
                 <CardTitle>Évolution par muscle</CardTitle>
                 <CardDescription>20 dernières semaines</CardDescription>
@@ -60,12 +60,14 @@ export function ChartLineMultiple({ data }: ChartLineMultipleProps) {
                             axisLine={false}
                             tickMargin={8}
                             tickFormatter={(value) => value.slice(-2)}
+                            tick={{ style: { fill: "var(--text)" } }}
                             height={30}
                         />
                         <YAxis
                             tickLine={false}
                             axisLine={false}
                             width={30}
+                            tick={{ style: { fill: "var(--text)" } }}
                         />
                         <ChartTooltip
                             cursor={false}

@@ -42,6 +42,8 @@
   --sidebar-accent: var(--bg);
   --sidebar-accent-foreground: var(--secondary);
   --sidebar-ring: var(--primary);
+
+    --stats-border: #d1d5dc;
 }
 
 :root.dark {
@@ -53,7 +55,7 @@
   --text: #E5E7EB;
   --text-muted: #9CA3AF;
   --border: #27272A;
-  --error: #F87171;  
+  --error: #F87171;
 
   --sidebar: #000000;
   --sidebar-foreground: var(--text);
@@ -63,6 +65,8 @@
   --sidebar-accent-foreground: var(--secondary);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--primary);
+
+    --stats-border: #CACACA;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator, input[type="time"]::-webkit-calendar-picker-indicator {
