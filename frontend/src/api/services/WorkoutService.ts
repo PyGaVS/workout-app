@@ -7,8 +7,10 @@ import type { ExerciseResponse } from "./ExerciseService";
 
 
 export default class WorkoutService {
-  public static async browse(page: number = 1): Promise<Workout[]> {
-    const response = await Api.get<WorkoutResponse[]>('workouts', page)
+  public static async browse(dateFilter: Date | null = null, page: number = 1): Promise<Workout[]> {
+    const params: string[] = [];
+    params.push(`date=${dateFilter?.toLocaleDateString('en-CA')}`);
+    const response = await Api.get<WorkoutResponse[]>('workouts', params, page)
     const workouts: Workout[] = response.body.map((workout: WorkoutResponse) =>
       new Workout(
         workout.date, 

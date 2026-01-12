@@ -62,7 +62,7 @@ export default function SetForm({ exerciseBloc, exerciseBlocIndex, exercises, se
           <Button type="button" onClick={() => form.duplicateSet(exerciseBlocIndex, setIndex)} className={`${buttonClasses} w-1/5`}>
             <i className="fa-solid fa-clone" />
           </Button>
-          <Button type="button" onClick={() => form.removeSet(exerciseBlocIndex, setIndex)} className={`${buttonClasses} w-1/5 bg-error hover:bg-error hover:brightness-110`}>
+          <Button type="button" onClick={() => form.removeSet(exerciseBlocIndex, setIndex)} className={`${buttonClasses} w-1/5 bg-error hover:bg-error/80`}>
             <i className="fa-solid fa-trash"></i>
           </Button>
         </div>

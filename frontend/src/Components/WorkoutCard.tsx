@@ -6,6 +6,7 @@ import { Dialog } from './ui/dialog'
 import WorkoutFormContent from './workoutForm/WorkoutFormContent'
 import { useWorkoutForm } from '@/Provider/WorkoutFormProvider'
 import SetItem from './SetItem'
+import { getFrDateLong } from '@/lib/utils'
 
 interface Props {
   workout: Workout
@@ -36,7 +37,7 @@ export default function WorkoutCard(props: PropsWithChildren<Props>){
             <span className="text-xs font-bold uppercase tracking-wider text-primary">Entraînement</span>
             <h2 className="text-text font-bold text-lg flex items-center gap-2">
               {props.workout.date.getTime() > Date.now() ? <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span> : null}
-              {props.workout.dateStr()}
+              {getFrDateLong(props.workout.date)}
             </h2>
           </div>
 
@@ -45,7 +46,7 @@ export default function WorkoutCard(props: PropsWithChildren<Props>){
               <div key={bloc.id} className="group">
                 <h3 className="text-secondary font-bold text-md mb-3">{bloc.title}</h3>
                   <div className="space-y-2">
-                    {bloc.sets.map((set) => (
+                    {bloc.getSetsWithMultiplier().map((set) => (
                       <SetItem set={set} />
                     ))}
                   </div>

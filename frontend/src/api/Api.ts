@@ -1,8 +1,12 @@
 export default class Api {
   public static url = "http://localhost:3333"
 
-  public static async get<Obj>(route: string, page: number = 1): Promise<ApiResponse<Obj>> {
-    const res = await this.fetchWithAuth(`${this.url}/${route}`, {
+  public static async get<Obj>(route: string, params: string[] = [], page: number = 1): Promise<ApiResponse<Obj>> {
+    let url = `${this.url}/${route}?page=${page}`
+    if(params.length > 0) params.forEach(param => {
+      url += `&${param}`
+    });
+    const res = await this.fetchWithAuth(url, {
       method: "GET",
       credentials: 'include',
       mode: 'cors',
@@ -43,22 +47,10 @@ export default class Api {
     return Api.getResponse(res)
   }
 
-  private static fetchWithAuth(url: string, options: RequestInit): Promise<Response>{
-
-    const isPublicRoute = () => [
-      "/login",
-      "/register"
-    ].some(route => this.url + route == url);
-
-    let token = sessionStorage.getItem('token')
-    
+  private static fetchWithAuth(url: string, options: RequestInit): Promise<Response>{    
     let headers: HeadersInit = {
       'Content-Type': 'application/json',
       'Accept': '*/*'
-    }
-
-    if (!isPublicRoute() && token) {
-      headers.Authorization = `Bearer ${token}`;
     }
     
     options.headers = headers

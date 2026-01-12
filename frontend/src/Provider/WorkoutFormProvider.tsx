@@ -13,6 +13,7 @@ type WorkoutContextType = {
     setDate: (date: string) => void;
     addExerciseBloc: () => void;
     updateExerciseBloc: (blocIndex: number, newBloc: ExerciseBloc) => void;
+    removeExerciseBloc: (blocIndex: number) => void;
     addSet: (blocIndex: number) => void;
     duplicateSet: (blocIndex: number, setIndex: number) => void;
     removeSet: (blocIndex: number, setIndex: number) => void;
@@ -48,6 +49,11 @@ export const WorkoutFormProvider = ({ children, exercises }: PropsWithChildren<P
         const exerciseBlocs = workout.exerciseBlocs.map((bloc, i) =>
             i === blocIndex ? newBloc : bloc
         )
+        setWorkout( createWorkoutInstance(undefined, exerciseBlocs) )
+    }
+
+    const removeExerciseBloc = (blocIndex: number) => {
+        const exerciseBlocs = workout.exerciseBlocs.filter((_, i) => i !== blocIndex)
         setWorkout( createWorkoutInstance(undefined, exerciseBlocs) )
     }
 
@@ -93,7 +99,7 @@ export const WorkoutFormProvider = ({ children, exercises }: PropsWithChildren<P
         <WorkoutContext.Provider value={{ 
             workout, exercises: exercises, 
             setWorkout, setDate, 
-            addExerciseBloc, updateExerciseBloc,
+            addExerciseBloc, updateExerciseBloc, removeExerciseBloc,
             addSet, duplicateSet, removeSet, updateSet, 
             submit 
         }}>

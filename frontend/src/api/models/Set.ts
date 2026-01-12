@@ -8,6 +8,7 @@ export default class Set {
     public exercise: Exercise
     public comment: string
     public restTime: number
+    public multiply: number
 
 
     public constructor(
@@ -17,7 +18,8 @@ export default class Set {
         tempo: string = "",
         comment: string = "",
         restTime: number = 120,
-        id?: number
+        id?: number,
+        multiply: number = 1
     ){
         this.id = id
         this.reps = reps
@@ -26,6 +28,7 @@ export default class Set {
         this.exercise = exercise
         this.comment = comment
         this.restTime = restTime
+        this.multiply = multiply
     }
 
     public toJSON(): SetJSON {
@@ -68,6 +71,15 @@ export default class Set {
 
     clone(): Set {
         return new Set(this.exercise, this.reps, this.weight, this.tempo, this.comment, this.restTime)
+    }
+
+    equals(set: Set): boolean {
+        return this.exercise.name == set.exercise.name && 
+        this.reps == set.reps && 
+        this.weight == set.weight && 
+        this.tempo == set.tempo && 
+        this.comment == set.comment && 
+        this.restTime == set.restTime;
     }
 }
 

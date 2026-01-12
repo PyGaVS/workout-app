@@ -42,6 +42,24 @@ export default class ExerciseBloc {
         this.title = title
         return this
     }
+
+    public getSetsWithMultiplier(): Set[] {
+        let prevSet: Set | null = null;
+        let sets: Set[] = [];
+        let current: Set | null = null;
+
+        for (const set of this.sets) {
+            current = set.clone();
+            if ((prevSet ? current.equals(prevSet) : false) && prevSet) {
+                current.multiply = prevSet.multiply + 1;
+            } else {
+                sets.push(prevSet as Set);
+            }
+            prevSet = current;
+        }
+        if(current) sets.push(current);
+        return sets.filter(set => set !== null);
+    }
 }
 
 export interface ExerciseBlocJSON {
