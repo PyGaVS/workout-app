@@ -45,7 +45,7 @@ export default function WorkoutCard(props: PropsWithChildren<Props>){
               <div key={bloc.id} className="group">
                 <h3 className="text-secondary font-bold text-md mb-3">{bloc.title}</h3>
                   <div className="space-y-2">
-                    {bloc.sets.map((set) => (
+                    {bloc.getSetsWithMultiplier().map((set) => (
                       <SetItem set={set} />
                     ))}
                   </div>
