@@ -2,7 +2,7 @@ import AccessCode from "#commons/models/access_code";
 
 export class AccessCodeService {
   async getAccessCodes(): Promise<AccessCode[]> {
-    return AccessCode.query().preload('user');
+    return AccessCode.query().preload('user').limit(200);
   }
 
   async createAccessCode(memberFirstName: string, memberLastName: string): Promise<AccessCode> {
