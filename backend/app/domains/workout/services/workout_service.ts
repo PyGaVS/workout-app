@@ -5,17 +5,23 @@ import {
 } from '#domains/workout/validators/workouts_validator'
 
 export default class WorkoutService {
-  async getWorkouts(userId: number) {
-    return Workout.query()
+  async getWorkouts(userId: number, date?: string) {
+    let query = Workout.query()
       .where('user_id', userId)
-      .preload('exerciseBlocs', (blocQuery) => {
+
+    if (date) {
+      const dateSql = new Date(date)
+      if (!isNaN(dateSql.getDate())) query = query.where('date', '<=', dateSql)
+    }
+
+    return query.preload('exerciseBlocs', (blocQuery) => {
         blocQuery.preload('sets', (setQuery) => {
           setQuery.preload('exercise', (muscleQuery) => {
             muscleQuery.preload('muscles')
           })
         })
       })
-      .orderBy('date', 'desc')
+      .orderBy('date', 'desc').limit(9)
   }
 
   async findByIdWithRelations(workoutId: string | number) {

@@ -1,8 +1,12 @@
 export default class Api {
   public static url = "http://localhost:3333"
 
-  public static async get<Obj>(route: string, page: number = 1): Promise<ApiResponse<Obj>> {
-    const res = await this.fetchWithAuth(`${this.url}/${route}`, {
+  public static async get<Obj>(route: string, params: string[] = [], page: number = 1): Promise<ApiResponse<Obj>> {
+    let url = `${this.url}/${route}?page=${page}`
+    if(params.length > 0) params.forEach(param => {
+      url += `&${param}`
+    });
+    const res = await this.fetchWithAuth(url, {
       method: "GET",
       credentials: 'include',
       mode: 'cors',

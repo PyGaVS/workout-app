@@ -12,10 +12,11 @@ import Workout from '#commons/models/workout'
 export default class WorkoutsController {
   constructor(protected workoutService: WorkoutService) {}
 
-  async index({ auth, bouncer }: HttpContext) {
+  async index({ auth, bouncer, request }: HttpContext) {
     console.log('Indexing workouts')
     await bouncer.with(WorkoutPolicy).authorize('browse')
-    return this.workoutService.getWorkouts(auth.user!.id)
+    const date = request.qs().date
+    return this.workoutService.getWorkouts(auth.user!.id, date)
   }
 
   async update({ bouncer, request }: HttpContext) {
