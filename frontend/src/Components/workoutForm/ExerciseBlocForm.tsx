@@ -26,8 +26,11 @@ export default function ExerciseBlocForm({ exerciseBloc, exercises, index } : Pr
           <Input type="text"
             onChange={(e) => form.updateExerciseBloc(index, exerciseBloc.setTitle(e.target.value))}
             value={exerciseBloc.title} />
-            <Button type="button" onClick={() => setOpen(!open)} className={open ? "bg-primary text-surface hover:bg-text" : "bg-text text-surface"}>
+            <Button type="button" onClick={() => setOpen(!open)} className={open ? "bg-accent text-surface hover:bg-text" : "bg-text text-surface hover:bg-accent"}>
               {open ? ( <i className="fa-solid fa-plus"></i> ) : ( <i className="fa-solid fa-minus"></i> )}
+            </Button>
+            <Button type="button" onClick={() => form.removeExerciseBloc(index)} className="bg-error text-surface">
+              <i className="fa-solid fa-trash"></i>
             </Button>
         </div>
         <div className={open ? "" : "hidden"}>

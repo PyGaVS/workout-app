@@ -14,6 +14,7 @@ export default class ExerciseService {
 
     return Exercise.query()
       .withScopes((scopes) => scopes.search(rawSearch))
+      .orderBy('name')
       .paginate(payload.page ?? 1, payload.limit ?? 25)
   }
 }
