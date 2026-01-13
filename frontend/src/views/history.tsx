@@ -22,7 +22,6 @@ export default function History() {
   }, [])
 
   useEffect(() => {
-    console.log("allo")
     WorkoutService.browse(dateFilter).then((workouts) => setWorkouts(workouts))
   }, [dateFilter])
 

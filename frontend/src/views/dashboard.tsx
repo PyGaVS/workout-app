@@ -49,9 +49,8 @@ export default function Dashboard() {
             setLastWorkoutData(lastWorkoutData);
         }
 
-        if (lastWorkoutData.daysBetween) {
+        if (lastWorkoutData.daysBetween || lastWorkoutData.daysBetween == 0) {
             const d = lastWorkoutData.daysBetween
-
             if (d < 3) {
                 setLastWorkoutDataText("Tu t’es entraîné récemment🔥")
             } else if (d < 7) {
