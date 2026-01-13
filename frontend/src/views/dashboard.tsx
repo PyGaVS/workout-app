@@ -49,7 +49,7 @@ export default function Dashboard() {
             setLastWorkoutData(lastWorkoutData);
         }
 
-        if (lastWorkoutData.daysBetween) {
+        if (lastWorkoutData.daysBetween || lastWorkoutData.daysBetween == 0) {
             const d = lastWorkoutData.daysBetween
 
             if (d < 5) {
