@@ -57,10 +57,12 @@ export class StatsService {
 
   async lastWorkoutData(userId: number) {
     const todayDate = DateTime.local()
+    const date = new Date().toISOString().split('T')[0]
 
     const data = await db
       .from('workouts')
       .where('user_id', userId)
+      .where('date', '<=', date)
       .select('date')
       .orderBy('date', 'desc')
       .first()
