@@ -41,10 +41,10 @@ export default function History() {
           <WorkoutModal>
             <button className="bg-text text-surface w-min text-nowrap inline-flex px-2 py-3 rounded-radius border-none
             shadow-md transition-all duration-300 hover:bg-accent hover:shadow-lg hover:scale-105">
-              <Dumbbell className="mx-1"/> Save workout
+              <Dumbbell className="mx-1"/> Ajouter une séance
             </button> 
           </WorkoutModal>
-          <Input className="max-w-100" id="dateFilter" type="date" 
+          <Input className="max-w-100" id="dateFilter" type="date"
               onChange={(e) => onDateFilterChange(e.target.value)} 
               value={dateFilter ? dateFilter.toLocaleDateString('en-CA') : ""} />
         </div>

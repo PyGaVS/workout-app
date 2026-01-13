@@ -1,13 +1,13 @@
 import Workout from "@/api/models/Workout";
 import ExerciseBlocForm from "@/Components/workoutForm/ExerciseBlocForm";
 import { Button } from "@/Components/ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "@/Components/ui/dialog";
+import { DialogContent, DialogFooter, DialogHeader } from "@/Components/ui/dialog";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { useWorkoutForm } from "@/Provider/WorkoutFormProvider";
 import { buttonClasses } from "@/utils/styles";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { useEffect, useState, type PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react";
 
 interface Props {
   workout?: Workout
@@ -19,8 +19,7 @@ export default function WorkoutFormContent(props: PropsWithChildren<Props>){
 
   const form = useWorkoutForm();
 
-  function handleSubmit(e: React.FormEvent){
-    //e.preventDefault();
+  function handleSubmit(){
     form.submit(props.edit);
     props.setOpen(false)
   }
@@ -47,7 +46,7 @@ export default function WorkoutFormContent(props: PropsWithChildren<Props>){
           onClick={() => form.addExerciseBloc()}>Ajouter des exercices</button>
         </div>
         <DialogFooter>
-          <Button type="submit" className="hover:bg-accent bg-text text-surface hover:rotate-2">Save workout</Button>
+          <Button type="submit" className="hover:bg-accent bg-text text-surface hover:rotate-2">Ajouter une séance</Button>
         </DialogFooter>
       </form>
     </DialogContent>
