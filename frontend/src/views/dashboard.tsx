@@ -51,12 +51,13 @@ export default function Dashboard() {
 
         if (lastWorkoutData.daysBetween || lastWorkoutData.daysBetween == 0) {
             const d = lastWorkoutData.daysBetween
-            if (d < 3) {
+
+            if (d < 5) {
                 setLastWorkoutDataText("Tu t’es entraîné récemment🔥")
-            } else if (d < 7) {
+            } else if (d < 9) {
                 setLastWorkoutDataText("Ça fait quelques jours💪")
             } else {
-                setLastWorkoutDataText("Ça fait longtemps…⏳")
+                setLastWorkoutDataText("Pitié reviens…🥀")
             }
         }
     }
@@ -76,12 +77,12 @@ export default function Dashboard() {
         <AuthView title="Tableau de bord">
             <div className="p-5 flex flex-col gap-8">
                 <div>
-                    <p className="text-3xl">Bonjour <span className="font-bold">{user.fullName}</span> 👋, visualisez
+                    <p className="text-xl sm:text-2xl text-3xl">Bonjour <span className="font-bold">{user.fullName}</span> 👋, visualisez
                         vos <span
                             className="italic">statistiques</span>.</p>
                 </div>
                 {stats && Object.keys(stats ? stats : {}).length > 0 ?
-                    <div className="w-full flex gap-4">
+                    <div className="w-full grid grid-cols-2 xl:grid-cols-4 gap-4">
                         <StatCard statBadge={stats.favouriteExercise ? stats.favouriteExercise.total + " fois" : "0 fois"}
                                   statLabel="Exercice favoris"
                                   stat={stats.favouriteExercise ? stats.favouriteExercise.name : "Aucun"}
@@ -106,7 +107,7 @@ export default function Dashboard() {
                                   statDescription="Le muscle que vous travaillez le plus"/>
                     </div>
                     :
-                    <div className="w-full flex gap-4">
+                    <div className="w-full grid grid-cols-2 xl:grid-cols-4 gap-4">
                         <StatCard skeleton={true}/>
                         <StatCard skeleton={true}/>
                         <StatCard skeleton={true}/>
@@ -114,17 +115,18 @@ export default function Dashboard() {
                     </div>
                 }
 
-                <div className="flex justify-between">
+                <div className="grid grid-cols-1 xl:grid-cols-[60%_40%] lg:gird-cols-[50%-50%] gap-4 w-full">
                     {workoutsByMonth.length > 0 ?
-                        <div className="flex flex-col border-(--stats-border) border rounded-xl w-42/60 h-full">
-                            {workoutsByMonth && <ChartAreaInteractive data={workoutsByMonth}/>}
+                        <div className="flex flex-col border-(--stats-border) border rounded-xl h-full w-[42/60]">
+                            {workoutsByMonth && <ChartAreaInteractive data={workoutsByMonth}/>
+                            }
                         </div>
                         :
                         <Skeleton className="flex flex-col border-gray-300 border rounded-xl w-42/60 h-80">
                         </Skeleton>
                     }
                     {topExercises ?
-                        <div className="border-(--stats-border) border rounded-xl w-17/60 p-3">
+                        <div className="border-(--stats-border) border rounded-xl p-3 w-[18/60]">
                             <ChartPieDonut data={topExercises}/>
                         </div>
                         :

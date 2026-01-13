@@ -51,7 +51,7 @@ export default function AuthView(props: PropsWithChildren<Props>){
         <div className='w-full flex flex-col items-center pointer-events-auto'>
             <div className="flex items-center pointer-events-auto w-full justify-between px-10 pt-5">
                 <SidebarTrigger size='lg'/>
-                <h1 className='text-5xl font-extrabold pb-1.5 text-transparent bg-clip-text bg-linear-to-r from-primary to-accent'>{props.title}</h1>
+                <h1 className='!text-4xl xl:!text-6xl font-extrabold pb-1.5 text-transparent bg-clip-text bg-linear-to-r from-primary to-accent'>{props.title}</h1>
                 <AnimatedThemeToggler/>
             </div>
             <div className='flex-1 w-full m-5 px-5 py-2'>
