@@ -9,7 +9,6 @@ import WorkoutService from "@/api/services/WorkoutService";
 import ExerciseService from "@/api/services/ExerciseService";
 import { Dumbbell } from "lucide-react";
 import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label";
 
 export default function History() {
 
@@ -22,6 +21,11 @@ export default function History() {
     ExerciseService.browse().then((exercises) => setExercises(exercises))
   }, [])
 
+  useEffect(() => {
+    console.log("allo")
+    WorkoutService.browse(dateFilter).then((workouts) => setWorkouts(workouts))
+  }, [dateFilter])
+
 
   const refresh = () => {
     WorkoutService.browse().then((workouts) => setWorkouts(workouts))
@@ -29,7 +33,6 @@ export default function History() {
   
   const onDateFilterChange = (value: string) => {
     setDateFilter(new Date(value))
-    WorkoutService.browse(dateFilter).then((workouts) => setWorkouts(workouts))
   }
 
   return (
