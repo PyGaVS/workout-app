@@ -24,7 +24,7 @@ export default class User {
         }
     }
 
-    public static async register(data: {fullName: string, email: string, password: string, accessCode: string}): Promise<{user: User, error: string}> {
+    public static async register(data: {fullName: string, email: string, password: string, accessCode: string}): Promise<{user: User, error: string, success: boolean}> {
         const res = await Api.post<
             {fullName: string, email: string, password: string, accessCode: string}, {fullName?: string, email?: string}
         >(data, "auth/register")
@@ -33,7 +33,8 @@ export default class User {
 
         return {
             user: user,
-            error: !res.success ? res.error : ""
+            error: !res.success ? res.error : "",
+            success: res.success
         }
     }
 

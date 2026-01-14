@@ -33,10 +33,11 @@ export const AuthProvider = (props: PropsWithChildren<Props>) => {
         }
 
         User.register({email, password, fullName, accessCode}).then((r) => {
-            if (r.error) {
+            if (!r.success) {
                 setErrorMessage(r.error ?? "Une erreur est survenue.")
+            } else {
+                setUser(r.user)
             }
-            setUser(r.user)
         })
     }
 
