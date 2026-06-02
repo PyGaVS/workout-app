@@ -1,0 +1,89 @@
+# ============================================================
+# Workout App — stack de développement
+# Services : postgres, backend (AdonisJS), frontend (Vite)
+# Lance tout : docker compose up
+# ============================================================
+
+services:
+  # ---------------- Base de données ----------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: workout_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-root}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-root}
+      POSTGRES_DB: ${DB_DATABASE:-app}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-root} -d ${DB_DATABASE:-app}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - workout_net
+
+  # ---------------- Backend AdonisJS ----------------
+  backend:
+    build:
+      context: ./backend
+      target: dev
+    container_name: workout_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - ./backend/.env
+    environment:
+      # Override : on force le host de la DB sur le nom du service compose
+      DB_HOST: postgres
+      HOST: 0.0.0.0
+      NODE_ENV: development
+      # Polling utile sur Windows pour que hot-hook détecte les changements
+      CHOKIDAR_USEPOLLING: "true"
+    ports:
+      - "3333:3333"
+    volumes:
+      # Code source monté en live (hot-reload)
+      - ./backend:/app
+      # node_modules dans un volume nommé pour ne pas être écrasé par le mount
+      - backend_node_modules:/app/node_modules
+    entrypoint: ["/bin/sh", "/app/docker-entrypoint.sh"]
+    command: ["node", "ace", "serve", "--hmr"]
+    networks:
+      - workout_net
+
+  # ---------------- Frontend React/Vite ----------------
+  frontend:
+    build:
+      context: ./frontend
+      target: dev
+    container_name: workout_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      # Polling pour Vite sur Windows / WSL
+      CHOKIDAR_USEPOLLING: "true"
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+    networks:
+      - workout_net
+
+# ---------------- Volumes ----------------
+volumes:
+  postgres_data:
+  backend_node_modules:
+  frontend_node_modules:
+
+# ---------------- Réseau ----------------
+networks:
+  workout_net:
+    driver: bridge

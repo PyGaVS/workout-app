@@ -16,7 +16,7 @@ export default class User {
 
     public static async login(credentials: {email: string, password: string}): Promise<{user: User, error: string}> {
         const res = await Api.post<{email: string, password: string}, {fullName?: string, email?: string, isAdmin?: boolean}>(credentials, "auth/login")
-        const user = new User(res.body.fullName, res.body.email, true, res.body.isAdmin)
+        const user = new User(res.body.fullName, res.body.email, res.success, res.body.isAdmin)
 
         return {
             user: user,
@@ -29,7 +29,7 @@ export default class User {
             {fullName: string, email: string, password: string, accessCode: string}, {fullName?: string, email?: string}
         >(data, "auth/register")
 
-        const user = new User(res.body.fullName, res.body.email, true)
+        const user = new User(res.body.fullName, res.body.email, res.success)
 
         return {
             user: user,

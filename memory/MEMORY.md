@@ -1,0 +1,1 @@
+- [Docker root .env DB creds](docker-root-env-db-creds.md) — dev compose needs root .env matching backend/.env or Postgres 500s everywhere

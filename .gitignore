@@ -1,0 +1,7 @@
+# Fichiers d'environnement (jamais committés)
+.env
+.env.*
+!.env.example
+
+# Test compose prod en local
+.env.prod.local

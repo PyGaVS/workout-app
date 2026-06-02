@@ -1,0 +1,15 @@
+node_modules
+build
+.env
+.env.local
+.env.*.local
+.git
+.gitignore
+.vscode
+.idea
+*.log
+tests/output
+tmp
+coverage
+Dockerfile
+.dockerignore

@@ -1,0 +1,80 @@
+# ============================================================
+# Workout App — stack de PRODUCTION
+# Usage serveur :
+#   docker compose -f docker-compose.prod.yaml pull
+#   docker compose -f docker-compose.prod.yaml up -d
+#
+# Le serveur doit avoir un .env à côté de ce fichier (jamais committé).
+# Variables attendues : TAG, APP_KEY, DB_USER, DB_PASSWORD, DB_DATABASE
+# ============================================================
+
+services:
+  # ---------------- Base de données ----------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: workout_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_DATABASE}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - workout_net
+    # ⚠ Pas de "ports:" — Postgres reste accessible uniquement au backend.
+
+  # ---------------- Backend AdonisJS ----------------
+  backend:
+    image: pygavs/workout-backend:${TAG:-latest}
+    container_name: workout_backend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3333
+      LOG_LEVEL: info
+      APP_KEY: ${APP_KEY}
+      DB_CONNECTION: postgres
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      SESSION_DRIVER: cookie
+      # Admin seeder (optionnel — laisser vide pour skip)
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      ADMIN_NAME: ${ADMIN_NAME:-Admin}
+    networks:
+      - workout_net
+    # ⚠ Pas de "ports:" — nginx proxy /api/ en interne via le réseau Docker.
+
+  # ---------------- Frontend Nginx ----------------
+  frontend:
+    image: pygavs/workout-frontend:${TAG:-latest}
+    container_name: workout_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks:
+      - workout_net
+
+# ---------------- Volumes ----------------
+volumes:
+  postgres_data:
+
+# ---------------- Réseau ----------------
+networks:
+  workout_net:
+    driver: bridge

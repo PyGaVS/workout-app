@@ -1,0 +1,252 @@
+# ============================================================
+# Workout App — Pipeline GitLab CI/CD
+# Stages : install → lint → test → build → deploy
+#
+# Règles :
+#   • lint + test       → sur chaque MR et chaque push
+#   • build + deploy    → uniquement sur la branche par défaut (main/master)
+#   • Tags d'image      : $CI_COMMIT_SHORT_SHA + latest
+#
+# Variables CI/CD à définir dans GitLab (Settings → CI/CD → Variables) :
+#   DOCKERHUB_USER     pygavs
+#   DOCKERHUB_TOKEN    token Dockerhub (masked, protected)
+#   SSH_PRIVATE_KEY    clé privée du serveur (file type, protected)
+#   DEPLOY_HOST        IP / hostname du serveur
+#   DEPLOY_USER        user SSH sur le serveur (ex: deploy)
+#   DEPLOY_PATH        chemin du compose.prod sur le serveur (ex: /opt/workout)
+# ============================================================
+
+stages:
+  - install
+  - lint
+  - test
+  - build
+  - deploy
+
+variables:
+  # Versions épinglées pour la reproductibilité
+  NODE_IMAGE: "node:20-alpine"
+  DOCKER_IMAGE: "docker:24"
+  POSTGRES_IMAGE: "postgres:16-alpine"
+  # Docker-in-Docker
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+
+# ============================================================
+# Templates réutilisables (préfixe "." = job non exécuté tel quel)
+# ============================================================
+
+# Cache des node_modules backend (clé liée au lockfile)
+.cache_backend: &cache_backend
+  cache:
+    key:
+      files:
+        - backend/package-lock.json
+    paths:
+      - backend/node_modules/
+    policy: pull
+
+# Cache des node_modules frontend (clé liée au lockfile)
+.cache_frontend: &cache_frontend
+  cache:
+    key:
+      files:
+        - frontend/package-lock.json
+    paths:
+      - frontend/node_modules/
+    policy: pull
+
+# Rule : run sur MR + push sur n'importe quelle branche
+.run_on_mr_and_push: &run_on_mr_and_push
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH
+
+# Rule : run uniquement sur la branche par défaut (main/master)
+.run_on_default_branch: &run_on_default_branch
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# ============================================================
+# Stage : install — primer le cache node_modules
+# ============================================================
+
+install:backend:
+  stage: install
+  image: $NODE_IMAGE
+  script:
+    - cd backend
+    - npm ci
+  cache:
+    key:
+      files:
+        - backend/package-lock.json
+    paths:
+      - backend/node_modules/
+    policy: pull-push
+  <<: *run_on_mr_and_push
+
+install:frontend:
+  stage: install
+  image: $NODE_IMAGE
+  script:
+    - cd frontend
+    - npm ci
+  cache:
+    key:
+      files:
+        - frontend/package-lock.json
+    paths:
+      - frontend/node_modules/
+    policy: pull-push
+  <<: *run_on_mr_and_push
+
+# ============================================================
+# Stage : lint
+# ============================================================
+
+lint:backend:
+  stage: lint
+  image: $NODE_IMAGE
+  <<: *cache_backend
+  needs: ["install:backend"]
+  script:
+    - cd backend
+    - npm run lint
+  <<: *run_on_mr_and_push
+
+lint:frontend:
+  stage: lint
+  image: $NODE_IMAGE
+  <<: *cache_frontend
+  needs: ["install:frontend"]
+  script:
+    - cd frontend
+    - npm run lint
+  <<: *run_on_mr_and_push
+
+# ============================================================
+# Stage : test
+# ============================================================
+
+test:backend:
+  stage: test
+  image: $NODE_IMAGE
+  <<: *cache_backend
+  needs: ["install:backend"]
+  services:
+    - name: $POSTGRES_IMAGE
+      alias: postgres
+  variables:
+    # Service Postgres
+    POSTGRES_USER: testuser
+    POSTGRES_PASSWORD: testpass
+    POSTGRES_DB: testdb
+    # Adonis : pointe vers le service postgres
+    NODE_ENV: test
+    TZ: UTC
+    HOST: 0.0.0.0
+    PORT: "3333"
+    LOG_LEVEL: warn
+    APP_KEY: "ci-test-key-32-chars-min-required-aaa"
+    DB_CONNECTION: postgres
+    DB_HOST: postgres
+    DB_PORT: "5432"
+    DB_USER: testuser
+    DB_PASSWORD: testpass
+    DB_DATABASE: testdb
+  script:
+    - cd backend
+    - node ace migration:run --force
+    - npm test
+  <<: *run_on_mr_and_push
+
+test:frontend:
+  stage: test
+  image: $NODE_IMAGE
+  <<: *cache_frontend
+  needs: ["install:frontend"]
+  script:
+    - cd frontend
+    # ⚠ vitest pas encore installé — ce job est tolérant aux échecs
+    # Quand tu auras ajouté vitest, retire le "|| true" et "allow_failure".
+    - npm test 2>/dev/null || echo "⚠ Aucun script 'test' dans frontend/package.json"
+  allow_failure: true
+  <<: *run_on_mr_and_push
+
+# ============================================================
+# Stage : build — build & push des images Docker (Dockerhub)
+# ============================================================
+
+.build_template: &build_template
+  stage: build
+  image: $DOCKER_IMAGE
+  services:
+    - docker:24-dind
+  before_script:
+    - echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USER" --password-stdin
+
+build:backend:
+  <<: *build_template
+  needs: ["lint:backend", "test:backend"]
+  script:
+    - IMAGE="$DOCKERHUB_USER/workout-backend"
+    - docker build
+        --target prod
+        --tag "$IMAGE:$CI_COMMIT_SHORT_SHA"
+        --tag "$IMAGE:latest"
+        ./backend
+    - docker push "$IMAGE:$CI_COMMIT_SHORT_SHA"
+    - docker push "$IMAGE:latest"
+  <<: *run_on_default_branch
+
+build:frontend:
+  <<: *build_template
+  needs: ["lint:frontend"]
+  script:
+    - IMAGE="$DOCKERHUB_USER/workout-frontend"
+    - docker build
+        --target prod
+        --tag "$IMAGE:$CI_COMMIT_SHORT_SHA"
+        --tag "$IMAGE:latest"
+        ./frontend
+    - docker push "$IMAGE:$CI_COMMIT_SHORT_SHA"
+    - docker push "$IMAGE:latest"
+  <<: *run_on_default_branch
+
+# ============================================================
+# Stage : deploy — SSH au serveur, pull & up
+# ============================================================
+
+deploy:production:
+  stage: deploy
+  image: alpine:3.19
+  needs: ["build:backend", "build:frontend"]
+  environment:
+    name: production
+    url: http://$DEPLOY_HOST
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - cp "$SSH_PRIVATE_KEY" ~/.ssh/id_ed25519
+    - chmod 600 ~/.ssh/id_ed25519
+    - ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+  script:
+    - |
+      ssh "$DEPLOY_USER@$DEPLOY_HOST" bash -s << EOF
+        set -e
+        cd "$DEPLOY_PATH"
+        # Pin le tag sur le commit qu'on vient de build (rollback facile)
+        export TAG=$CI_COMMIT_SHORT_SHA
+        echo "▶ Déploiement du tag \$TAG"
+        docker compose -f docker-compose.prod.yaml pull
+        docker compose -f docker-compose.prod.yaml up -d --remove-orphans
+        docker image prune -f
+      EOF
+  # Pas de serveur pour l'instant : job déclenché à la main, et son échec
+  # ne fait pas planter le pipeline. Retire when:manual + allow_failure
+  # quand tu auras un serveur + les variables DEPLOY_* configurées.
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+      allow_failure: true
